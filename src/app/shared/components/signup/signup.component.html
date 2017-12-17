@@ -1,0 +1,101 @@
+<ng-container *ngIf="(auth.user | async) || {} as user">
+<header class="header-01">
+    <div class="header-2" [ngClass]="{'header-2-hd': changeHeader }">
+        <div class="container">
+            <div class="row text-smo-center intro">
+                <div class="col-md-7">
+                    <h1 class="title">{{heading}}</h1>
+                    <p>Building bridges, unifying the one people motherland. People, places, business networks all in shakedown.</p>
+                </div>
+                <div class="col-md-5 text-center">
+                  <div class="container signup">
+                      <mat-tab-group class="tab-group">
+                          <mat-tab label="Log In">
+                            <h3>Have an Account? log in.</h3>
+                              <form >
+                                  <div class="row">
+                                    <div class="col-md-12">
+                                        <input type="email" class="form-control form-control-md" id="lgFormGroupInput" placeholder="Your Email">
+                                    </div>
+                                  </div>
+                                  <div class="row">
+                                      <div class="col-md-12">
+                                          <input type="password" class="form-control form-control-md" id="lgFormGroupInput" placeholder="New Password">
+                                      </div>
+                                  </div>
+                                  <div class="row">
+                                      <div class="col-md-12">
+                                          <button mat-raised-button color="primary" class="btn-100">Log In Now!</button>
+                                      </div>
+                                  </div>
+                              </form>
+                          </mat-tab>
+                          <mat-tab label="Sign Up">
+                              <form [formGroup]="signupForm" *ngIf="!user.uid" (ngSubmit)="signup()">
+                                  <div class="row">
+                                    <div class="col-md-12">
+                                        <input type="email" class="form-control form-control-md"
+                                         id="email" placeholder="Your Email"
+                                         [class.is-danger]="email.invalid && email.dirty"
+                                         formControlName="email" required autocomplete="off"
+                                         >
+                                         <div *ngIf="email.invalid && email.dirty" class="notification is-danger">
+                                            Your email doesn't look quite right...
+                                        </div>
+                                    </div>
+                                  </div>
+                                  <div class="row">
+                                      <div class="col-md-12">
+                                          <input type="password" class="form-control
+                                           form-control-md" id="password" placeholder="New Password" 
+                                           [class.is-danger]="password.invalid && password.touched"
+                                          formControlName="password" required>
+
+                                          <div *ngIf="password.invalid && password.touched" class="notification is-danger">
+                                            Password must be between 6 and 24 chars and have at least one number 
+                                          </div>
+                                      </div>
+                                  </div>
+                                  <div class="row">
+                                      <div class="col-md-12">
+                                          <button mat-raised-button color="primary" class="btn-100" type="submit" [disabled]="!signupForm.valid">Sign Up Now!</button>
+                                      </div>
+                                  </div>
+                              </form>
+                              <form [formGroup]="detailForm" *ngIf="user.uid && !user.catchPhrase" (ngSubmit)="setCatchPhrase(user)">
+                                <div class="row">
+                                  <div class="col-md-6">
+                                      <input type="text" class="form-control form-control-md" id="f-name" 
+                                      placeholder="First Name" 
+                                      formControlName="catchPhrase"
+                                       required autocomplete="off">
+                                  </div>
+                                  <div class="col-md-6">
+                                      <input type="text" class="form-control form-control-md" id="lgFormGroupInput" placeholder="First Name">
+                                  </div>
+                                </div>
+                              </form>
+                              <p *ngIf="user.catchPhrase" class="text-success">
+                                You have completed the form!
+                            </p>
+                          </mat-tab>
+                      </mat-tab-group>
+                      <div class="or-cl"><span>Alternatively</span></div>
+                      <div class="container signupbuttons">
+                        <div class="row">
+                          <div class="col-md-6">
+                            <button mat-raised-button class="facebook" (click)="auth.facebookLogin()"><mat-icon>home</mat-icon> facebook</button>
+                          </div>
+                          <div class="col-md-6">
+                              <button mat-raised-button class="google" (click)="auth.googleLogin()">Google</button>
+                          </div>
+                        </div>
+                      </div>
+                  </div>
+                 
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+</ng-container>

@@ -1,0 +1,379 @@
+<ng-container>
+  <main class="main">
+    <div class="header-1" @shrinkOut>
+      <div class="header-1-0">
+        <div class="container">
+          <h2>
+              Send money to your love ones back home. No more Huge bank charges.<br>
+              Deal directly with the your own people, the people you trusth.<br> #TODO : Table with dollar sells in countries.
+          </h2>
+        <div class="alert alert-warning alert-dismissible fade show mar-30" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+            <strong>Holy guacamole!</strong> Are you sending today from <strong class="primary-text">Australia</strong>
+          </div>
+          <div class="alert alert-info">
+          <form>
+            <div class="row mar-30">
+              <div class="col-md-3">
+                <mat-card>
+                    <div class="form-group">
+                        <label for="exampleSelect1">Sender Country</label>
+                        <select class="form-control form-control-lg" id="exampleSelect1">
+                          <option>1</option>
+                          <option>2</option>
+                          <option>3</option>
+                          <option>4</option>
+                          <option>5</option>
+                        </select>
+                      </div>
+                </mat-card>
+              </div>
+              <div class="col-md-3">
+                <mat-card>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Amount to send</label>
+                    
+                    <div class="input-group">
+                        <span class="input-group-addon">$</span>
+                        <input type="text" class="form-control form-control-lg" aria-label="Amount (to the nearest dollar)" value="10">
+                        <span class="input-group-addon">.00</span>
+                      </div>
+                    </div>
+                </mat-card>
+              </div>
+              <div class="col-md-3">
+                <mat-card>
+                    <div class="form-group">
+                        <label for="exampleSelect1">Receiver Country</label>
+                        <select class="form-control form-control-lg" id="exampleSelect1">
+                          <option>1</option>
+                          <option>2</option>
+                          <option>3</option>
+                          <option>4</option>
+                          <option>5</option>
+                        </select>
+                      </div>
+                </mat-card>
+                </div>
+              
+              <div class="col-md-3">
+                <mat-card>
+                    <div class="form-group">
+                        <label for="exampleSelect1">Receiver currency</label>
+                        <select class="form-control form-control-lg" id="exampleSelect1">
+                          <option>1</option>
+                          <option>2</option>
+                          <option>3</option>
+                          <option>4</option>
+                          <option>5</option>
+                        </select>
+                      </div>
+                </mat-card>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                  <div class="alert alert-success" role="alert">
+                      <p>
+                          <strong class="alert-heading">Sender!</strong>
+                        As of today <strong>$10</strong> sells for <strong>3849 frs </strong> in Cameroon.
+                      </p>
+                      <p class="mb-0">Find the dealers with the best terms. Dealers decide what percentage they take.</p>
+                   </div>
+              </div>
+              <div class="col-md-6">
+                  <button mat-raised-button color="primary" class="btn-100 padding-30"><mat-icon>search</mat-icon> Find Dealers</button>
+              </div>
+            </div>
+      </form>
+    </div>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+       
+    </div>
+
+    <div class="container">
+       <div class="row mar-30">
+         <div class="col-md-3 bacground-light">
+           <h4 class="title mar-30">Send Money</h4>
+           <div class="dealers mar-30 ">
+             Dealers in <strong>Cameroon</strong>
+           </div>
+           <span class="d-block"><span class="online-now primary-bg blink"></span> 20 Online</span>
+           <span class="d-block"><span class="online-now bg-warning"></span> 10 Idle Active</span>
+           <span class="d-block"><span class="online-now bg-danger"></span>  5 Not Active</span>
+         </div>
+         <div class="col-md-9 bacground-light-01">
+           <div class="row">
+             <div class="col-md-6">
+              <h4 class="title">Select a dealer below to send money.</h4>
+             </div>
+             <div class="col-md-6 text-md-right">
+                <h4 class="title">Dealers Offers online</h4>
+          </div>
+          </div>
+          <table class="table table-hover table-striped table-responsive table-bordered">
+              <thead class="thead-primary thead-dark">
+                <tr>
+                  <th scope="col">Dealer</th>
+                  <th scope="col">Pay To</th>
+                  <th scope="col">Min-Max Amount</th>
+                  <th scope="col">Pay Out</th>
+                  <th scope="col">Seller Address</th>
+                  <th scope="col">Deal Now</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row" colspan="1">
+                      <span class="primary-text font-weight-bold"> Oj Obasi</span>
+                      <div class="online font-weight-normal gray-color"><span class="online-now primary-bg blink"></span> Seen just now </div>
+                      <span class="icon-s font-weight-normal d-inline"><mat-icon class="green-color d-inline">keyboard_arrow_up</mat-icon>748 | <mat-icon class="red-color d-inline">keyboard_arrow_down</mat-icon>748</span>
+                      <div class="d-inline bg-default">Votes </div>
+                      <div class="d-inline text-info">Verified Dealer </div>
+                  </th>
+                  <td>
+                      <span class="badge badge-info">Woori</span>
+                      <span class="badge badge-primary">Zinke Bank</span>
+                      <span class="badge badge-success">In Person</span>
+                  </td>
+                  <td class="font-weight-normal">
+                    Between 100 - 1,000
+                  </td>
+                  <td class="font-weight-bold">
+                    N1020
+                  </td>
+                  <td class="font-weight-normal">
+                      123,Lagos Nigeria
+                    </td>
+                  <td>
+                    <button mat-raised-button color="accent" (click)="send($event)">Send Now <!--TODO: Onclick Add create transaction store, get dealer ID too--></button>
+                  </td>
+                </tr>
+
+                <tr>
+                  <th scope="row" colspan="1">
+                      <span class="primary-text font-weight-bold"> Oj Obasi</span>
+                      <div class="online font-weight-normal gray-color"><span class="online-now bg-warning blink"></span> Seen a moment ago </div>
+                      <span class="icon-s font-weight-normal d-inline"><mat-icon class="green-color d-inline">keyboard_arrow_up</mat-icon>748 | <mat-icon class="red-color d-inline">keyboard_arrow_down</mat-icon>748</span>
+                      <div class="d-inline bg-default">Votes </div>
+                      <div class="d-inline text-info">Verified Dealer </div>
+                  </th>
+                  <td>
+                      <span class="badge badge-info">Woori</span>
+                      <span class="badge badge-primary">Zinke Bank</span>
+                      <span class="badge badge-success">In Person</span>
+                  </td>
+                  <td class="font-weight-normal">
+                    Between 100 - 1,000
+                  </td>
+                  <td class="font-weight-bold">
+                    N1020
+                  </td>
+                  <td class="font-weight-normal">
+                      123,Lagos Nigeria
+                    </td>
+                  <td>
+                    <button mat-raised-button color="accent">Send Now</button>
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row" colspan="1">
+                      <span class="primary-text font-weight-bold"> Oj Obasi</span>
+                      <div class="online font-weight-normal gray-color"><span class="online-now bg-danger blink"></span> Not Active for weeks </div>
+                      <span class="icon-s font-weight-normal d-inline"><mat-icon class="green-color d-inline">keyboard_arrow_up</mat-icon>748 | <mat-icon class="red-color d-inline">keyboard_arrow_down</mat-icon>748</span>
+                      <div class="d-inline bg-default">Votes </div>
+                      <div class="d-inline text-info">Verified Dealer </div>
+                  </th>
+                  <td>
+                      <span class="badge badge-info">Woori</span>
+                      <span class="badge badge-primary">Zinke Bank</span>
+                      <span class="badge badge-success">In Person</span>
+                  </td>
+                  <td class="font-weight-normal">
+                    Between 100 - 1,000
+                  </td>
+                  <td class="font-weight-bold">
+                    N1020
+                  </td>
+                  <td class="font-weight-normal">
+                      123,Lagos Nigeria
+                    </td>
+                  <td>
+                    <button mat-raised-button color="accent">Send Now</button>
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row" colspan="1">
+                      <span class="primary-text font-weight-bold"> Oj Obasi</span>
+                      <div class="online font-weight-normal gray-color"><span class="online-now primary-bg blink"></span> Seen just now </div>
+                      <span class="icon-s font-weight-normal d-inline"><mat-icon class="green-color d-inline">keyboard_arrow_up</mat-icon>748 | <mat-icon class="red-color d-inline">keyboard_arrow_down</mat-icon>748</span>
+                      <div class="d-inline bg-default">Votes </div>
+                      <div class="d-inline text-info">Verified Dealer </div>
+                  </th>
+                  <td>
+                      <span class="badge badge-info">Woori</span>
+                      <span class="badge badge-primary">Zinke Bank</span>
+                      <span class="badge badge-success">In Person</span>
+                  </td>
+                  <td class="font-weight-normal">
+                    Between 100 - 1,000
+                  </td>
+                  <td class="font-weight-bold">
+                    N1020
+                  </td>
+                  <td class="font-weight-normal">
+                      123,Lagos Nigeria
+                    </td>
+                  <td>
+                    <button mat-raised-button color="accent">Send Now</button>
+                  </td>
+                </tr>
+
+                <tr>
+                  <th scope="row" colspan="1">
+                      <span class="primary-text font-weight-bold"> Oj Obasi</span>
+                      <div class="online font-weight-normal gray-color"><span class="online-now bg-warning blink"></span> Seen a moment ago </div>
+                      <span class="icon-s font-weight-normal d-inline"><mat-icon class="green-color d-inline">keyboard_arrow_up</mat-icon>748 | <mat-icon class="red-color d-inline">keyboard_arrow_down</mat-icon>748</span>
+                      <div class="d-inline bg-default">Votes </div>
+                      <div class="d-inline text-info">Verified Dealer </div>
+                  </th>
+                  <td>
+                      <span class="badge badge-info">Woori</span>
+                      <span class="badge badge-primary">Zinke Bank</span>
+                      <span class="badge badge-success">In Person</span>
+                  </td>
+                  <td class="font-weight-normal">
+                    Between 100 - 1,000
+                  </td>
+                  <td class="font-weight-bold">
+                    N1020
+                  </td>
+                  <td class="font-weight-normal">
+                      123,Lagos Nigeria
+                    </td>
+                  <td>
+                    <button mat-raised-button color="accent">Send Now</button>
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row" colspan="1">
+                      <span class="primary-text font-weight-bold"> Oj Obasi</span>
+                      <div class="online font-weight-normal gray-color"><span class="online-now bg-danger blink"></span> Not Active for weeks </div>
+                      <span class="icon-s font-weight-normal d-inline"><mat-icon class="green-color d-inline">keyboard_arrow_up</mat-icon>748 | <mat-icon class="red-color d-inline">keyboard_arrow_down</mat-icon>748</span>
+                      <div class="d-inline bg-default">Votes </div>
+                      <div class="d-inline text-info">Verified Dealer </div>
+                  </th>
+                  <td>
+                      <span class="badge badge-info">Woori</span>
+                      <span class="badge badge-primary">Zinke Bank</span>
+                      <span class="badge badge-success">In Person</span>
+                  </td>
+                  <td class="font-weight-normal">
+                    Between 100 - 1,000
+                  </td>
+                  <td class="font-weight-bold">
+                    N1020
+                  </td>
+                  <td class="font-weight-normal">
+                      123,Lagos Nigeria
+                    </td>
+                  <td>
+                    <button mat-raised-button color="accent">Send Now</button>
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row" colspan="1">
+                      <span class="primary-text font-weight-bold"> Oj Obasi</span>
+                      <div class="online font-weight-normal gray-color"><span class="online-now primary-bg blink"></span> Seen just now </div>
+                      <span class="icon-s font-weight-normal d-inline"><mat-icon class="green-color d-inline">keyboard_arrow_up</mat-icon>748 | <mat-icon class="red-color d-inline">keyboard_arrow_down</mat-icon>748</span>
+                      <div class="d-inline bg-default">Votes </div>
+                      <div class="d-inline text-info">Verified Dealer </div>
+                  </th>
+                  <td>
+                      <span class="badge badge-info">Woori</span>
+                      <span class="badge badge-primary">Zinke Bank</span>
+                      <span class="badge badge-success">In Person</span>
+                  </td>
+                  <td class="font-weight-normal">
+                    Between 100 - 1,000
+                  </td>
+                  <td class="font-weight-bold">
+                    N1020
+                  </td>
+                  <td class="font-weight-normal">
+                      123,Lagos Nigeria
+                    </td>
+                  <td>
+                    <button mat-raised-button color="accent">Send Now</button>
+                  </td>
+                </tr>
+
+                <tr>
+                  <th scope="row" colspan="1">
+                      <span class="primary-text font-weight-bold"> Oj Obasi</span>
+                      <div class="online font-weight-normal gray-color"><span class="online-now bg-warning blink"></span> Seen a moment ago </div>
+                      <span class="icon-s font-weight-normal d-inline"><mat-icon class="green-color d-inline">keyboard_arrow_up</mat-icon>748 | <mat-icon class="red-color d-inline">keyboard_arrow_down</mat-icon>748</span>
+                      <div class="d-inline bg-default">Votes </div>
+                      <div class="d-inline text-info">Verified Dealer </div>
+                  </th>
+                  <td>
+                      <span class="badge badge-info">Woori</span>
+                      <span class="badge badge-primary">Zinke Bank</span>
+                      <span class="badge badge-success">In Person</span>
+                  </td>
+                  <td class="font-weight-normal">
+                    Between 100 - 1,000
+                  </td>
+                  <td class="font-weight-bold">
+                    N1020
+                  </td>
+                  <td class="font-weight-normal">
+                      123,Lagos Nigeria
+                    </td>
+                  <td>
+                    <button mat-raised-button color="accent">Send Now</button>
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row" colspan="1">
+                      <span class="primary-text font-weight-bold"> Oj Obasi</span>
+                      <div class="online font-weight-normal gray-color"><span class="online-now bg-danger blink"></span> Not Active for weeks </div>
+                      <span class="icon-s font-weight-normal d-inline"><mat-icon class="green-color d-inline">keyboard_arrow_up</mat-icon>748 | <mat-icon class="red-color d-inline">keyboard_arrow_down</mat-icon>748</span>
+                      <div class="d-inline bg-default">Votes </div>
+                      <div class="d-inline text-info">Verified Dealer </div>
+                  </th>
+                  <td>
+                      <span class="badge badge-info">Woori</span>
+                      <span class="badge badge-primary">Zinke Bank</span>
+                      <span class="badge badge-success">In Person</span>
+                  </td>
+                  <td class="font-weight-normal">
+                    Between 100 - 1,000
+                  </td>
+                  <td class="font-weight-bold">
+                    N1020
+                  </td>
+                  <td class="font-weight-normal">
+                      123,Lagos Nigeria
+                    </td>
+                  <td>
+                    <button mat-raised-button color="accent">Send Now</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+         </div>
+       </div>
+       <div class="row">
+         <div class="col">
+            
+         </div>
+       </div>
+    </div>
+  </main>
+</ng-container>

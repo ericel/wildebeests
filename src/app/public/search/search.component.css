@@ -1,0 +1,131 @@
+.container-m-search{
+    position: fixed;
+    top: 0px;
+    width: 100%;
+    background: #fff;
+    left: 0px;
+    right: 0px;
+    z-index: 9999;
+    height: auto;
+    box-shadow: 0 0 4px rgba(0,0,0,.14), 0 4px 8px rgba(0,0,0,.28);
+}
+
+.container-m-search .form-control + .input-group-addon:not(:first-child) {
+    border-left: 0px;
+    border-right: 0px;
+}
+.container-m-search .input-group-addon {
+    border:0px;
+}
+.container-m-search .stylish-input-group .form-control {
+    border: 0;
+}
+.stylish-input-group .input-group-addon{
+    background: white !important; 
+}
+.stylish-input-group .form-control{
+	border-right:0; 
+	box-shadow:0 0 0; 
+    border-color:#ccc;
+  
+}
+.stylish-input-group button{
+    border:0;
+    background:transparent;
+}
+
+.searchbox {
+    box-shadow: 0 0 4px rgba(0,0,0,.14), 0 4px 8px rgba(0,0,0,.28);
+}
+.search-box:hover {
+    background: rgb(128, 89, 89);
+    box-shadow: 0 0 4px rgba(0,0,0,.14), 0 4px 8px rgba(0,0,0,.28);
+}
+.effect8
+{
+    position:relative;
+    -webkit-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+       -moz-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+            box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+}
+.effect8:before, .effect8:after
+{
+    content:"";
+    position:absolute;
+    z-index:-1;
+    -webkit-box-shadow:0 0 20px rgba(0,0,0,0.8);
+    -moz-box-shadow:0 0 20px rgba(0,0,0,0.8);
+    box-shadow:0 0 20px rgba(0,0,0,0.8);
+    top:10px;
+    bottom:10px;
+    left:0;
+    right:0;
+    -moz-border-radius:100px / 10px;
+    border-radius:100px / 10px;
+}
+.effect8:after
+{
+    right:10px;
+    left:auto;
+    -webkit-transform:skew(8deg) rotate(3deg);
+       -moz-transform:skew(8deg) rotate(3deg);
+        -ms-transform:skew(8deg) rotate(3deg);
+         -o-transform:skew(8deg) rotate(3deg);
+            transform:skew(8deg) rotate(3deg);
+}
+.search-container-2 .tab-nav{
+
+    background: transparent;
+}
+.indicator {
+    display: flex;
+    position: inherit;
+    margin: 30px auto;
+}
+.container-m-search .mat-fab:not([class*=mat-elevation-z]) {
+   box-shadow: none !important;
+}
+
+
+ul.search-results {
+ list-style: none;
+ width: 100%;   
+ padding: 0;
+ margin: 0;
+}
+.search-results li {
+    border-top: 2px solid #eee;
+    padding: 10px 0;
+}
+.search-results a {
+    color: #000000;
+}
+.search-body{
+    background: #fff !important;
+    padding-top: 50px;
+}
+.hd-s-1 {
+    width: 100%;
+    text-align: center;
+}
+.menu-tabs-mobile {
+    background: #eee;
+}
+
+
+/* Desktop */
+.nav-tabs .nav-link.active {
+    background: #eee;
+    border-color: #ddd #ddd #eeeeff;
+}
+ul.search-results-s{
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+ul.search-results-s li{
+    margin: 30px 0;
+}
+.reactions {
+    padding: 10px;
+}

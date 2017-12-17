@@ -1,0 +1,64 @@
+.header-1 {
+    background:url('./../../../../assets/img/business-lising.jpg') repeat; background-attachment:fixed;
+}
+.header-1-0{
+    padding: 40px 0;
+    width: 100%;
+    background: rgba(7, 7, 7, 0.788) !important;
+    color: #fff;
+  
+}
+
+.header-1-1 {
+    background: #ddd;
+}
+.header-1-0-1{
+    padding: 40px 0;
+    width: 100%;
+    background: #ccd;
+    color: #fff;
+    font-family: 'Lora', serif;
+    font-weight: bold;
+    line-height: 50px;
+    font-size: 1.8em;
+}
+@media screen and (max-width: 992px){
+    .header-1-0{
+        padding: 10px 0;
+        line-height: 30px;
+        font-size: 1em;
+    }
+}
+.bacground-light{
+    background-color: #d6d4d4;
+  
+}
+.bacground-light-01{
+    background-color: #eeeeee;
+}
+.pay-list {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+.gray-color {
+    color: rgb(145, 145, 146);
+}
+.green-color {
+    color: green;
+}
+.red-color {
+    color: red;
+}
+.icon-s .mat-icon{
+    width: 4px;
+    height: 4px;
+    font-weight: bold;
+    font-size: 12px;
+}
+.dealers {
+    padding: 10px;
+    border-radius: 4px;
+    background: #00897b;
+    color: #fff;
+}

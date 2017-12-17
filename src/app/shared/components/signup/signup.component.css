@@ -1,0 +1,133 @@
+.header-01 {
+    background:url('./../../../../assets/img/business-lising.jpg') repeat; background-attachment:fixed;
+}
+.header-2 {
+    padding: 40px 0;
+    margin-top: 60px;
+    width: 100%;
+    background: rgba(7, 7, 7, 0.788) !important;
+    color: #fff;
+}
+.header-2-hd {
+    border-bottom: solid 5px #00897b;
+    box-shadow: 0 0 0 4px rgba(45, 153, 97, 0), 0 4px 8px #07210d4f;
+}
+@media screen and (max-width: 991px){
+    .header-2 {
+        margin-top: 0px;
+    }
+}
+.header-2 h1 {
+    font-family: 'Lora', serif;
+    font-weight: bold;
+    line-height: 50px;
+}
+.header-2 p {
+    color: rgb(230, 230, 230);
+    line-height: 20px;
+    font-family: 'Pacifico', cursive;
+}
+.signup {
+    background: rgba(199, 199, 199, 0.247);
+    border-radius: 4px;
+}
+.signupbuttons {
+    padding-bottom: 20px;
+}
+.signupbuttons button{
+  width: 100%;
+  padding: 5px 0;
+  margin: 10px 0;
+}
+
+.signup .row{
+    margin:10px 0;
+}
+
+.or-cl {
+    position: relative;
+    right:0px;
+    left: 0px;
+    width:80%; text-align:center; border-bottom: 1px solid #eee; line-height:0.1em; margin:20px auto;
+    
+}
+.or-cl span {
+   background:rgb(216, 214, 214); 
+   padding:0 10px;
+   color: #00897b;
+   border-radius: 4px;
+}
+
+.intro {
+    display: flex;
+    justify-content: center; /* align horizontal */
+    align-items: center; /* align vertical */
+}
+
+
+/* CSS FOR MAININTRO COMPONENT */
+
+.home-1, .home-2 {
+    padding: 20px 0;
+}
+.home-2 {
+    background: #e8e9e9;
+    padding: 45px 0;
+    font-size: 2em;
+}
+.home-2 a {
+    font-size: 1.4em;
+    color: #00897b;
+}
+.img-src {
+    width: 100px;
+}
+
+.detail mat-icon {
+    font-size: 2em;
+    text-align: center;
+    border: 1px solid #3ac67d;
+    padding: 10px;
+    background: #00897b;
+    border-radius: 100%;
+}
+.listing-img {
+    width: 100%;
+    height: 100%;
+}
+.number-count {
+    font-size: 2em;
+    color: #00897b;
+    line-height: 30px;
+    font-family: 'Lora', serif;
+    line-height: 1.5;
+}
+.listing-name {
+    line-height: 40px;
+    font-family: 'Pacifico', cursive;
+}
+.home-02 {
+    
+    background:url('./../../../../assets/img/business-lising.jpg') no-repeat;
+    background-size: cover;
+     background-attachment:fixed;
+}
+.cover-home-02 {
+    background: rgba(10, 10, 10, 0.73);
+    padding: 50px;
+    color: #fff;
+    font-size: 2em;
+}
+
+.more-info {
+    padding: 40px 0;
+}
+.y-ul-1 {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+.y-ul-1 li {
+    font-size: 1.5em;
+    padding: 5px 0;
+}

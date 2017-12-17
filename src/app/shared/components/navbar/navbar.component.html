@@ -1,0 +1,69 @@
+<header class="desktop header">
+    <mat-toolbar *ngIf="nav.visible && desktop"  class="fixed navbar-light border-top" 
+    [ngClass]="{'isheaderUp animated finite slideInDown': isHeaderUp }" color="primary" >
+    <div class=" container">
+    <a class="navbar-brand" routerLink="/"><img src="./assets/{{logo}}" alt="Wildebeests"></a>
+    <nav mat-tab-nav-bar>
+        <a mat-tab-link routerLink="money">Send money</a>
+        <a mat-tab-link routerLink="blogs/editor">List a business </a>
+        <a mat-tab-link routerLink="businesspartner">Find a partner</a>
+    </nav>
+        <span class="app-toolbar-filler-1"></span>
+        <form class="Search">  
+            
+            <input type="text" class="Search-box" name="Search-box" id="Search-box" placeholder="Search this site...">  <label for="Search-box" class="Search-box-label">    
+                <span class="Search-icon">Search</span>  </label>  
+            <span class="Search-close"> <button type="submit" value="search" class="submit-button"><span class="Search-icon">Search</span></button> <!--<i class="Search-close-icon">Close</i>-->  </span></form>
+          
+
+          <span class="app-toolbar-filler"></span>
+          <div *ngIf="auth.user | async; then authenticated else guest">
+              <!-- template will replace this div -->
+          </div>
+        </div>
+  </mat-toolbar>
+  <mat-menu class="drop-1" #menuGuest="matMenu">
+    <h3>Howdy, GUEST</h3>
+    <p>Login to get started...</p>
+    
+    <a routerLink="/login" mat-raised-button color="primary">
+        Login now
+    </a>
+  </mat-menu>
+  <mat-menu class="drop-1" #menuUser="matMenu">
+      <div *ngIf="auth.user | async as user">
+          <mat-list>
+              <mat-list-item>
+                <img class="user-image"  [src]="user.photoURL" alt="{{user.displayName"> 
+                <h4 mat-line class="font-weight-bold primary-text"> {{ user.displayName }}</h4>
+                <p mat-line>Online: 1923 /38/02 </p>
+                <a mat-line mat-raised-button color="primary">My Account</a>
+              </mat-list-item>
+              <mat-list-item><mat-icon mat-list-icon>folder</mat-icon>  <a mat-line class="black" routerLink="/setting">Write a blog</a> </mat-list-item>
+              <mat-list-item><mat-icon mat-list-icon>place</mat-icon> <a  mat-line class="black" routerLink="/setting">List a place</a> </mat-list-item>
+              <mat-divider></mat-divider>
+              <mat-list-item><mat-icon mat-list-icon>settings</mat-icon> <a mat-line class="black" routerLink="/setting">Setting</a> </mat-list-item>
+              <mat-list-item class="text-center"><button (click)="auth.signOut()" mat-button color="warn">Logout</button></mat-list-item>
+          </mat-list>
+      </div>
+  </mat-menu>
+<!-- User NOT logged in -->
+<ng-template #guest>
+    <div class="navbar-text">
+        <div class="name-text">Howdy, GUEST 
+            <button mat-icon-button [matMenuTriggerFor]="menuGuest" class="c menu-lang"  xPosition="before"><img class="user-image"
+                 src="./assets/img/avatar.png" alt="Username" (contextmenu)="showmenu()">
+            </button>
+        </div> 
+    </div>
+</ng-template>
+<!-- User logged in -->
+<ng-template #authenticated>
+        <div class="navbar-text">
+            <div *ngIf="auth.user | async as user" class="name-text" >{{ user.displayName  | shorten: 8: '' }}
+                <button mat-icon-button [matMenuTriggerFor]="menuUser" class="c menu-lang" xPosition="before" (contextmenu)="showmenu()"> <img class="user-image" [src]="user.photoURL" alt="{{ user.displayName }}">
+                </button>
+            </div> 
+        </div>
+</ng-template>
+</header>

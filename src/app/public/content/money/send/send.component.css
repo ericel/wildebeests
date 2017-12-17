@@ -1,0 +1,72 @@
+:host {
+  
+}
+.btn-100-deal {
+    width: 48%;
+    height: 60px;
+}
+
+.chat-2,
+.chat-1 {
+    margin: 15px 0;
+}
+.chat-1-0 {
+
+}
+.user-img img {
+    width: 60px;
+    height: 60px;
+    border-radius: 100%;
+}
+
+.chat-box,
+.card {
+    min-height: 100%;
+
+}
+.card-block{
+    position: relative;
+    height: 65vh !important;
+    overflow-y: scroll;
+}
+.card-footer {
+    position: absolute;
+    bottom: 60px ;
+    right: 0;
+    left: 0;
+}
+@media screen and (min-width: 991px){
+
+ 
+}
+@media screen and (max-width: 991px){
+    .card-block{
+     
+    }
+    .card-footer {
+        position: absolute;
+        bottom: 50px ;
+        right: 0;
+        left: 0;
+    }
+}
+.nopadding {
+    padding: 0 !important;
+    margin: 0 !important;
+ }
+
+ .list-group .list-group-item {
+     border-right: none;
+ }
+
+ .container-fluid {
+     width: 100% !important;
+ }
+ .send-01 {
+     position: fixed;
+     top: 60px;
+     width: 100%;
+     min-height: 100vh;
+     background: red;
+     z-index: 999;
+ }

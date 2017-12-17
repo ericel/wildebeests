@@ -1,0 +1,55 @@
+
+
+<main class="main editor">
+    <div class="container">
+      <div class="card">
+          
+        <div class="make-header">
+        <form novalidate [formGroup]="editorForm">   
+          <div class="row">
+            <div class="col-md-4">
+            <mat-form-field class="make-full-width">
+                <mat-select  placeholder="Choose a catergory" disableRipple formControlName="section" value="{{blogSection}}">
+                  <mat-option>Choose a catergory</mat-option>
+                  <mat-option value="Tutorial">Tutorial</mat-option>
+                  <mat-option value="Blog">Blog</mat-option>
+                  <mat-option value="Business">Business</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="col-md-8">
+            <mat-form-field class="make-full-width">
+                <input matInput placeholder="Enter your blog title here!"  formControlName="title" value="{{blogTitle}}"    required>
+                <span *ngIf="!editorForm.controls['title'].valid && editorForm.controls['title'].touched"  matSuffix class="text-danger">X</span>
+              </mat-form-field>
+            </div>
+           </div>
+           <mat-form-field class="make-full-width text-area">
+            <div >
+              <textarea class=" make-full-height " matInput #textArea formControlName="textArea"></textarea>
+              </div>
+           </mat-form-field>
+          </form>   
+        </div>
+         <div class="card-header">
+            <button mat-icon-button (click)="iBold()"><mat-icon>format_bold</mat-icon></button>
+            <button mat-icon-button (click)="iItalic()"><mat-icon>format_italic</mat-icon></button>
+            <button mat-icon-button (click)="iUnderline()"><mat-icon>format_underlined</mat-icon></button>
+            <button mat-icon-button (click)="iForeColor()"><mat-icon>color_lens</mat-icon></button>
+            <button mat-icon-button (click)="iFontSize()"><mat-icon>format_size</mat-icon></button>
+            <button mat-icon-button (click)="iHorizontalRule()"><mat-icon>border_horizontal</mat-icon></button>
+            <button mat-icon-button (click)="iUnorderedList()"><mat-icon>format_list_numbered</mat-icon></button>
+            <button mat-icon-button (click)="iOrderedList()"><mat-icon>format_list_bulleted</mat-icon></button>
+            <button mat-icon-button (click)="iLink()"><mat-icon>insert_link</mat-icon></button>
+            <button mat-icon-button (click)="iUnLink()"><mat-icon>insert_link</mat-icon></button>
+            <button mat-icon-button (click)="iImage()"><mat-icon>photo</mat-icon></button>
+        </div>
+    
+        <div class="card-block">
+           
+                <iframe  class="richtextfield make-full-height" #richtextarea  (keyup)="supplyTextArea()"  (mouseout)="supplyTextArea()" ></iframe>
+    
+        </div>
+      </div>
+    </div>
+ </main>

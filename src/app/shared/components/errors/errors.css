@@ -1,0 +1,192 @@
+.bun-top {
+    height: 70px;
+    width: 60%;
+    background: #e5b05a;
+    border-radius: 100px 100px 20px 20px;
+    border-bottom: solid 10px rgba(0,0,0,.1);
+  }
+  
+  .cheese {
+    height: 15px;
+    width: 65%;
+    background: #f2c120;
+    border-bottom: solid 2px rgba(0,0,0,.1);
+  }
+  
+  .tomato {
+    height: 25px;
+    width: 50%;
+    background-color: #dd3710;
+    border-bottom: solid 2px rgba(0,0,0,.1);
+  }
+  
+  .meatball {
+    height: 60px;
+    width: 70px;
+    background: #74380d;
+    border-radius: 50px;
+    display: inline-block;
+    vertical-align: top;
+  }
+  
+  .patty {
+    height: 35px;
+    width: 65%;
+    background: #ad370b;
+    border-radius: 15px;
+    border-bottom: solid 2px rgba(0,0,0,.1);
+  }
+  
+  .pickle {
+    height: 30px;
+    width: 50%;
+    background: #3ac67d;
+    border-radius: 0 0 100px 100px;
+    border-bottom: solid 10px #2d9961;
+  }
+  
+  .onion {
+    width: 40%;
+    background-color: #a039bf;
+    border-top: dotted 20px rgba(255,255,255,.2);
+  }
+  
+  .bun-bottom {
+    height: 35px;
+    width: 60%;
+    background: #e5b05a;
+    border-radius: 20px 20px 40px 40px;
+    border-top: solid 8px rgba(0,0,0,.1)
+  }
+  
+  .plate {
+    height: 25px;
+    width: 80%;
+    background: #656565;
+    border-radius: 20px 20px 200px 200px;
+  }
+
+  /* Page error css */
+  body { background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABoAAAAaCAYAAACpSkzOAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAALEgAACxIB0t1+/AAAABZ0RVh0Q3JlYXRpb24gVGltZQAxMC8yOS8xMiKqq3kAAAAcdEVYdFNvZnR3YXJlAEFkb2JlIEZpcmV3b3JrcyBDUzVxteM2AAABHklEQVRIib2Vyw6EIAxFW5idr///Qx9sfG3pLEyJ3tAwi5EmBqRo7vHawiEEERHS6x7MTMxMVv6+z3tPMUYSkfTM/R0fEaG2bbMv+Gc4nZzn+dN4HAcREa3r+hi3bcuu68jLskhVIlW073tWaYlQ9+F9IpqmSfq+fwskhdO/AwmUTJXrOuaRQNeRkOd5lq7rXmS5InmERKoER/QMvUAPlZDHcZRhGN4CSeGY+aHMqgcks5RrHv/eeh455x5KrMq2yHQdibDO6ncG/KZWL7M8xDyS1/MIO0NJqdULLS81X6/X6aR0nqBSJcPeZnlZrzN477NKURn2Nus8sjzmEII0TfMiyxUuxphVWjpJkbx0btUnshRihVv70Bv8ItXq6Asoi/ZiCbU6YgAAAABJRU5ErkJggg==);}
+  .error-template {padding: 40px 0px;text-align: center; color: #d2d5d8;}
+  
+  .error-actions {margin-top:15px;margin-bottom:15px;}
+  .error-actions .btn { margin-right:10px; }
+  img.not-found-img { width: 100%;}
+  @media screen and (min-width: 600px){
+    img.not-found-img { height: 220px; width: 60%;}
+  }
+
+  /*Time line*/
+.loader {
+  width: 80%;
+  padding-top:60px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.timeline-item {
+  background: #fff;
+  padding: 12px;
+  margin: 0 auto;
+  max-width: 18vw;
+  min-height: 200px;
+}
+
+
+@media screen and (max-width: 700px){
+.timeline-item {
+
+    max-width: 300vw;
+
+}
+}
+@keyframes placeHolderShimmer{
+    0%{
+        background-position: -468px 0
+    }
+    100%{
+        background-position: 468px 0
+    }
+}
+
+.animated-background {
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
+    animation-iteration-count: infinite;
+    animation-name: placeHolderShimmer;
+    animation-timing-function: linear;
+    background: #f6f7f8;
+    background: linear-gradient(to right, #eeeeee 8%, #dddddd 18%, #eeeeee 33%);
+    background-size: 800px 104px;
+    height: 210px;
+    position: relative;
+}
+
+.background-masker {
+    background: #fff;
+    position: absolute;
+}
+
+/* Every thing below this is just positioning */
+
+.background-masker.image {
+  top: -10px;
+  left: -12px;
+  right: 0;
+  height: 157px;
+  background: none;
+  border: 23px solid white;
+  border-radius: 34px;
+  width: 18vw;
+}
+
+.background-masker.header-bottom {
+  top: 138px;
+  left: 0;
+  right: 0;
+  height: 10px;
+}
+
+.background-masker.paragraph1-bottom{
+  top: 148px;
+  right: 0;
+  height: 9px;
+  width: 60%;
+}
+
+.background-masker.paragraph2-bottom{
+  top: 157px;
+  left: 0;
+  right: 0;
+  height: 6px;
+}
+
+
+.background-masker.paragraph3-bottom{
+  top: 163px;
+  right: 0;
+  height: 9px;
+  width: 40%;
+}
+
+.background-masker.paragraph4-bottom{
+  top: 172px;
+  left: 0;
+  right: 0;
+  height: 6px;
+}
+
+.background-masker.paragraph5-bottom{
+  top: 178px;
+  right: 0;
+  height: 9px;
+  width: 47%;
+}
+
+.background-masker.paragraph6-bottom{
+  top: 187px;
+  left: 0;
+  right: 0;
+  height: 6px;
+}
