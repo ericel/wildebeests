@@ -151,10 +151,25 @@ export class WysiwygComponent implements OnInit, AfterViewInit, AfterContentInit
   iUnLink(){
     this.richtextarea.nativeElement.contentDocument.execCommand("Unlink", false, null);
   }
+  enableObjectResizing(){
+    this.richtextarea.nativeElement.contentDocument.execCommand("enableObjectResizing", false, null)
+  }
+  iheading(){
+
+   var headingT = prompt("Enter title tag :", "H1, H2"); 
+   this.richtextarea.nativeElement.contentDocument.execCommand("heading", false, headingT);
+  }
+  ijustifyCenter(){
+    this.richtextarea.nativeElement.contentDocument.execCommand("justifyCenter", false, null)
+  }
+  istrikeThrough(){
+    this.richtextarea.nativeElement.contentDocument.execCommand("strikeThrough", false, null)
+  }
   iImage(){
     var imgSrc = prompt('Enter image location', '');
       if(imgSrc != null){
         this.richtextarea.nativeElement.contentDocument.execCommand('insertimage', false, imgSrc); 
       }
   }
+
 }

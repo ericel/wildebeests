@@ -32,17 +32,25 @@
           </form>   
         </div>
          <div class="card-header">
+           <!--<button mat-icon-button (click)="iheading()"><mat-icon>home</mat-icon></button>-->
             <button mat-icon-button (click)="iBold()"><mat-icon>format_bold</mat-icon></button>
             <button mat-icon-button (click)="iItalic()"><mat-icon>format_italic</mat-icon></button>
             <button mat-icon-button (click)="iUnderline()"><mat-icon>format_underlined</mat-icon></button>
             <button mat-icon-button (click)="iForeColor()"><mat-icon>color_lens</mat-icon></button>
             <button mat-icon-button (click)="iFontSize()"><mat-icon>format_size</mat-icon></button>
+            <button mat-icon-button (click)="ijustifyCenter()"><mat-icon>format_align_center</mat-icon></button>
             <button mat-icon-button (click)="iHorizontalRule()"><mat-icon>border_horizontal</mat-icon></button>
             <button mat-icon-button (click)="iUnorderedList()"><mat-icon>format_list_numbered</mat-icon></button>
             <button mat-icon-button (click)="iOrderedList()"><mat-icon>format_list_bulleted</mat-icon></button>
+            <button mat-icon-button (click)=" istrikeThrough()"><mat-icon>format_strikethrough</mat-icon></button>
             <button mat-icon-button (click)="iLink()"><mat-icon>insert_link</mat-icon></button>
-            <button mat-icon-button (click)="iUnLink()"><mat-icon>insert_link</mat-icon></button>
-            <button mat-icon-button (click)="iImage()"><mat-icon>photo</mat-icon></button>
+            <button mat-icon-button (click)="iUnLink()" title="Remove a Link"><mat-icon>insert_link</mat-icon></button>
+            <button mat-icon-button (click)="iImage()" title="Insert a Photo"><mat-icon>photo</mat-icon></button>
+            <!--<button mat-icon-button (click)="enableObjectResizing()"><mat-icon>photo</mat-icon></button>-->
+            <span class="float-right">
+                <button mat-icon-button (click)="saveDraft()" title="Save Draft"><mat-icon color="warn">save</mat-icon></button>
+                <button mat-icon-button (click)="publish()" title="Publish Blog"><mat-icon color="primary">publish</mat-icon></button>
+            </span>
         </div>
     
         <div class="card-block">
