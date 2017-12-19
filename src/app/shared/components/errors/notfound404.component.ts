@@ -21,6 +21,7 @@ import { NavbarService } from './../../core/navbar/navbar.service';
   <div class="bun-bottom"></div>
   <div class="plate"></div>
 </div>-->
+<main class="main">
 <div class="container">
 <div class="row">
     <div class="col-md-12">
@@ -39,7 +40,7 @@ import { NavbarService } from './../../core/navbar/navbar.service';
     </div>
 </div>
 </div>
-
+</main>
   `,
   styleUrls: ['./errors.css']
 })
@@ -48,7 +49,7 @@ export class Notfound404Component implements OnInit {
   constructor(private title: Title, private meta: Meta, public nav: NavbarService ) { }
 
   ngOnInit() {
-    this.nav.hide();
+    this.nav.show();
     this.title.setTitle("Oops..page not found!");
     this.meta.addTags([
       {name: 'keywords', content: 'Shakedown 404 Error page.'},
