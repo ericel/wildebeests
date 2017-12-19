@@ -22,25 +22,7 @@ export class IndexComponent implements OnInit {
 
 @Component({
   selector: 'app-indexmain',
-  template: `
-  <main class="main">
-  <div class="container" *ngIf="!blogs">
-    <div  class="wait loader">
-    <app-LoadingWait></app-LoadingWait>
-  </div>
-  </div>
-
-    <div class="container">
-      <div class="row mar-30">
-         <app-blogcard class=" col-md-3" 
-         *ngFor="let blog of blogs | async"
-          (checked)="OnChecked($event)"
-          [blog]="blog"
-          ></app-blogcard>
-      </div>
-    </div>
-  </main>
-  `,
+  templateUrl: 'index.html',
   styleUrls: ['./index.component.css']
 })
 export class IndexMainComponent implements OnInit {
