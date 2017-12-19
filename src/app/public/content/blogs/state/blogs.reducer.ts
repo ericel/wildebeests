@@ -10,6 +10,9 @@ export interface Blog {
     blog: string;
     createddAt: string;
     updatedAt: string;
+    uid: string;
+    username: string;
+    blogImg: string;
     size: string;
     loading?:    boolean;
 }

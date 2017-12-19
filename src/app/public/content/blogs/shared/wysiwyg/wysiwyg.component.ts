@@ -21,8 +21,8 @@ export class WysiwygComponent implements OnInit, AfterViewInit, AfterContentInit
   @ViewChild('richtextarea') richtextarea: ElementRef;
   @ViewChild('textAreas') textAreas: ElementRef;
 
-
-  innerTxt = '<img src="https://s.yimg.com/ny/api/res/1.2/WWc5YlcsNY1UA5Od0FCSwg--/YXBwaWQ9aGlnaGxhbmRlcjtzbT0xO3c9NjE4O2g9NDEy/http://media.zenfs.com/en_US/News/TheWrap/Dustin_Hoffman_Accused_of_Sexual-dad38cb83c956ae428e897211327b22b"><b><font size="7">kkkkkkkkkkkkkkkkk</font>kkk</b><img src="https://s.yimg.com/ny/api/res/1.2/WWc5YlcsNY1UA5Od0FCSwg--/YXBwaWQ9aGlnaGxhbmRlcjtzbT0xO3c9NjE4O2g9NDEy/http://media.zenfs.com/en_US/News/TheWrap/Dustin_Hoffman_Accused_of_Sexual-dad38cb83c956ae428e897211327b22b"><b>yyyyyy</b>';
+  notifyText: string = '';
+  innerTxt = 'https://s.yimg.com/lo/api/res/1.2/Iy8lnFBmXWOR_6NZfppyKw--/YXBwaWQ9eW15O3c9NjQwO3E9NzU7c209MQ--/http://media.zenfs.com/en-US/homerun/the_huffington_post_584/dc1c69db813808c18ae9fb91daddceb5';
   constructor( public elementRef: ElementRef, public user:AuthService, private _renderer: Renderer,
     public fb: FormBuilder,
     private store: Store<fromBlog.State>) {
@@ -56,16 +56,7 @@ export class WysiwygComponent implements OnInit, AfterViewInit, AfterContentInit
 }
   ngAfterViewInit(){
     this.iFrameOn();
-    this.editorForm.valueChanges
-    .debounceTime(1000)
-    .subscribe(data => {
-     if((this.title.value).length >30 && (this.section.value).length > 2){
-       this.blogTitle = this.title.value;
-       this.blogSection = this.section.value;
-        if(this.blogID.length < 2)this.blogID = new Date().getUTCMilliseconds().toString();
-        this.createBlog();
-     }
-    })
+    this.blogCreation();
   }
   
   ngAfterContentInit(){
@@ -75,9 +66,40 @@ export class WysiwygComponent implements OnInit, AfterViewInit, AfterContentInit
       if(this.blogID.length < 2){
         this.blogID = new Date().getUTCMilliseconds().toString();
         this.createBlog()
+        setTimeout(()=>{ 
+         this.notifyText = '<span>Draft Saved!</span>';
+        }, 500);
       };
       this.updateBlogBody(this.blogID, this.textarea) 
+  } else {
+    this.notifyText = '<span class="text-danger">Blog needs more content!</span>';
   }
+  }
+blogCreation(){
+    this.editorForm.valueChanges
+    .debounceTime(1000)
+    .subscribe(data => {
+     if((this.title.value).length >30 && (this.section.value).length > 2){
+       this.blogTitle = this.title.value;
+       this.blogSection = this.section.value;
+        if(this.blogID.length < 2){this.blogID = new Date().getUTCMilliseconds().toString()};
+        this.createBlog();
+        this.notifyText = '<span>Draft Saved!</span>';
+     } else {
+       this.notifyText = '<span class="text-danger">Choose a section and Enter a Blog Title</span>';
+     }
+    })
+  }
+  publish() {
+    if((this.title.value).length >30 && (this.section.value).length > 2){
+      this.blogTitle = this.title.value;
+      this.blogSection = this.section.value;
+       if(this.blogID.length < 2){this.blogID = new Date().getUTCMilliseconds().toString()};
+       this.createBlog();
+       this.notifyText = '';
+    } else {
+      this.notifyText = '<span class="text-danger">Choose a section and Enter a Blog Title</span>';
+    }
   }
   createBlog() {
     const blog: fromBlog.Blog = {
@@ -85,12 +107,15 @@ export class WysiwygComponent implements OnInit, AfterViewInit, AfterContentInit
       title: this.blogTitle,
       section: this.blogSection,
       blog: this.textarea,
+      uid: 'auth.uid',
+      username: 'auth.username',
+      blogImg: this.innerTxt,
       createddAt: this.getCurrentTime(),
       updatedAt: this.getCurrentTime(),
       size: 'small'
     }
 
-    this.store.dispatch( new actions.Create(blog) )
+    this.store.dispatch( new actions.Create(blog))
   }
   
  getCurrentTime(){

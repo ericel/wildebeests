@@ -48,8 +48,8 @@
             <button mat-icon-button (click)="iImage()" title="Insert a Photo"><mat-icon>photo</mat-icon></button>
             <!--<button mat-icon-button (click)="enableObjectResizing()"><mat-icon>photo</mat-icon></button>-->
             <span class="float-right">
-                <button mat-icon-button (click)="saveDraft()" title="Save Draft"><mat-icon color="warn">save</mat-icon></button>
-                <button mat-icon-button (click)="publish()" title="Publish Blog"><mat-icon color="primary">publish</mat-icon></button>
+                <small class="text-muted"><em [innerHTML]="notifyText"></em></small>
+                <button mat-icon-button (click)="publish()" title="Publish Blog"><mat-icon color="primary">publish </mat-icon></button>
             </span>
         </div>
     
@@ -58,6 +58,9 @@
                 <iframe  class="richtextfield make-full-height" #richtextarea  (keyup)="supplyTextArea()"  (mouseout)="supplyTextArea()" ></iframe>
     
         </div>
+        <div class="card-footer">
+            <small class="text-muted">Editor by Oj Obasi</small>
+          </div>
       </div>
     </div>
  </main>

@@ -1,11 +1,20 @@
 
     <!-- /.card-columns -->
     <div class="card mat-elevation-z1">
-      <img class="card-img-top img-fluid" src="./assets/img/pizza.png" alt="Card image cap">
-      <div class="card-block">
-        <h4 class="card-title">{{blog.title}}</h4>
-        <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
-        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+      <div class="card-header clearfix">
+          Quote
+        <button class="pos-menu" mat-icon-button>
+          <mat-icon>more_vert</mat-icon>
+        </button>
       </div>
+      <img class="card-img-top img-fluid" src="{{blog.blogImg}}" alt="Card image cap">
+      <div class="card-block clearfix">
+        <h4 class="card-title clearfix h4"><a href="#">{{blog.title}}</a></h4>
+        <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
+        <!--<button class="button is-danger" (click)="deleteBlog(blog.id)">DELETE</button>-->
+      </div>
+      <div class="card-footer">
+          <small class="text-muted">Last updated 3 mins ago</small>
+        </div>
     </div>
     
