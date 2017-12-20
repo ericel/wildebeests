@@ -2,6 +2,7 @@ import { ModuleWithProviders }  from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { IndexComponent, IndexMainComponent } from './index.component';
 import { EditorComponent } from './editor/editor.component';
+import { BlogComponent } from './blog/blog.component';
 export const routes: Routes = [
    { 
     path: '', 
@@ -13,6 +14,9 @@ export const routes: Routes = [
       {
         path: 'editor', component: EditorComponent, pathMatch: 'full'
        // path: 'send/:id', component: SendComponent, pathMatch: 'full' 
+      },
+      {
+        path: ':string/:string', component: BlogComponent, pathMatch: 'full'
       }
     ] 
    }

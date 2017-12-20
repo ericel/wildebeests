@@ -9,7 +9,7 @@
       </div>
       <img class="card-img-top img-fluid" src="{{blog.blogImg}}" alt="Card image cap">
       <div class="card-block clearfix">
-        <h4 class="card-title clearfix h4"><a href="#">{{blog.title}}</a></h4>
+        <h4 class="card-title clearfix h4"><a routerLink="{{blog.section | slugify }}/{{blog.title | slugify}}-{{blog.id}}">{{blog.title}}</a></h4>
         <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
         <!--<button class="button is-danger" (click)="deleteBlog(blog.id)">DELETE</button>-->
       </div>

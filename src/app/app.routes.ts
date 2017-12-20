@@ -34,7 +34,7 @@ export const routes: Routes = [
    component: LoginComponent,
    pathMatch: 'full'
   },
-  { path: 'blogs', loadChildren: './public/content/blogs/blogs.module#BlogsModule'},
+  { path: 'content', loadChildren: './public/content/blogs/blogs.module#BlogsModule'},
   { path: 'money', loadChildren: './public/content/money/money.module#MoneyModule'},
   { path: 'error/403', loadChildren: './shared/components/errors/errors.module#ErrorsModule'},
   { path: 'error', loadChildren: './shared/components/errors/errors.module#ErrorsModule'},

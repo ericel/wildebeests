@@ -10,13 +10,12 @@ import { BlogsEffects } from './state/blogs.effects';
 import { blogReducer } from './state/blogs.reducer';
 import { SkinModule } from '../../../shared/core/skin/skin.module';
 import { BlogComponent } from './blog/blog.component';
-import { NgPipesModule } from 'ngx-pipes';
+
 @NgModule({
   imports: [
     CommonModule,
     routing,
     SkinModule,
-    NgPipesModule,
     SharedModule,
     StoreModule.forFeature('blog', blogReducer),
     EffectsModule.forFeature([BlogsEffects])

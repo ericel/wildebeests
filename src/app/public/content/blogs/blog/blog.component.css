@@ -1,0 +1,14 @@
+.blog {
+    padding-top: 20px;
+}
+.blog .display-4 {
+    font-size: 2.5rem;
+}
+.blog-share {
+    padding:0 0 10px 0;
+}
+@media screen and (max-width: 991px){
+    .blog .display-4 {
+        font-size: 1.5rem;
+    }
+}

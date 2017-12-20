@@ -7,6 +7,8 @@ import { WysiwygComponent } from '../public/content/blogs/shared/wysiwyg/wysiwyg
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BlogcardComponent } from '../public/content/blogs/shared/blogcard/blogcard.component';
 import { LoadingWait } from './components/errors/notfound404.component';
+import { NgPipesModule } from 'ngx-pipes';
+import { RouterModule, Routes } from '@angular/router';
 export const SHARED_COMPONENTS = [
   NavbarComponent,
   NavbarDownComponent,
@@ -19,8 +21,10 @@ export const SHARED_COMPONENTS = [
   imports: [
     CommonModule,
     FormsModule,
+    RouterModule,
     ReactiveFormsModule,
-    SkinModule
+    SkinModule,
+    NgPipesModule
   ],
   declarations: [
     WysiwygComponent,
