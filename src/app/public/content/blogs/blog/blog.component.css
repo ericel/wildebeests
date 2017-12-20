@@ -12,3 +12,16 @@
         font-size: 1.5rem;
     }
 }
+
+.share-top .mat-mini-fab:not([class*=mat-elevation-z]) {
+    box-shadow: none !important;
+}
+.share-top .mat-mini-fab {
+    background: none;
+}
+.share-top .mat-mini-fab span {
+        font-size: 2em !important;
+}
+.share-top .mat-mini-fab  .facebook {
+    color: blue !important;
+}
