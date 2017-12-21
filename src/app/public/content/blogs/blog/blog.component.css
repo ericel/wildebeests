@@ -5,13 +5,9 @@
     font-size: 2.5rem;
 }
 .blog-share {
-    padding:0 0 10px 0;
+    padding:10px 0 15px 0;
 }
-@media screen and (max-width: 991px){
-    .blog .display-4 {
-        font-size: 1.5rem;
-    }
-}
+
 
 .share-top .mat-mini-fab:not([class*=mat-elevation-z]) {
     box-shadow: none !important;
@@ -24,4 +20,37 @@
 }
 .share-top .mat-mini-fab  .facebook {
     color: blue !important;
+}
+
+.share-top .fa-2x {
+    font-size: 1.4em;
+}
+.share-top button:focus { outline: thin dotted; }
+img.user-img {
+    width: 35px;
+    height: 35px;
+}
+.u-corner span {
+    line-height: 2.4;
+    margin-left: 5px;
+}
+.share-top .count {
+    position: absolute;
+    top: -25px;
+    left: 0px;
+    right: 0px;
+    font-size: 0.8em;
+    font-weight: bold;
+}
+
+@media screen and (max-width: 991px){
+    .blog .display-4 {
+        font-size: 1.5rem;
+    }
+    .u-corner {
+        margin-bottom: 14px;
+    }
+    .blog-share {
+        text-align: center;
+    }
 }
