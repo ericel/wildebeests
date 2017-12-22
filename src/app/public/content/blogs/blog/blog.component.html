@@ -2,6 +2,7 @@
   <div class="container">
     <div class="row blog">
       <div class="col-md-8">
+       <div class="container-1">
         <h1 class="title display-4">
             Your Blog Needs A Title! Hello! Wildebeests. :) Start your Blog now!
         </h1>
@@ -12,12 +13,8 @@
                     <span class="font-weight-bold text-muted">Oj Obasi</span> <small class="text-muted">17 hours ago</small>
                   </a>
               </div>
-              <div class="col-md-6 text-md-right share-top text-sm-center">
-                  <button mat-icon-button><mat-icon  class="primary-text">comment</mat-icon><span class="count">2226</span></button>
-                  <button mat-icon-button><i class="fa fa-heart-o fa-2x text-warning" aria-hidden="true"></i><span class="count">2226</span></button>
-                  <button mat-icon-button ><i class="fa fa-facebook fa-2x text-primary" aria-hidden="true"></i><span class="count">2226</span></button>
-                  <button mat-icon-button><i class="fa fa-twitter fa-2x text-info" aria-hidden="true"></i><span class="count">2226</span></button>
-                  <button mat-icon-button><i class="fa fa-envelope-o fa-2x text-muted" aria-hidden="true"></i><span class="count">2226</span></button>
+              <div class="col-md-6 text-md-right text-sm-center">
+                    <app-shared></app-shared>
              </div>
             </div>
         <div class="display-6">
@@ -50,7 +47,7 @@
         <div class="divider"></div>
 
         <div class="reactions">
-            <a mat-button routerLink="">
+            <a mat-button data-toggle="collapse" href="#collapseComments" aria-expanded="false" aria-controls="collapseComments">
                 <mat-icon  class="primary-text">comment</mat-icon><span class="font-weight-bold">View Reactions (524)</span>
             </a>
         </div>
@@ -64,12 +61,141 @@
             </div>
             <div class="card-block">
                     <div class="form-group">
-                            <textarea class="form-control" id="exampleTextarea" rows="3" placeholder="Enter Your Comment here"></textarea>
+                            <textarea class="form-control" id="exampleTextarea" rows="3" placeholder="Enter Your Comment here">
+                                
+                            </textarea>
+                            <button class="float-right" mat-raised-button color="primary">Comment</button>
                    </div>
             </div>
             </div>
-            
         </div>
+        <div class="comments collapse" id="collapseComments">
+           <div class="row mar-30 no-gutter">
+               <div class="col-md-1">
+                    <a routerLink="" class="text-sm-center">
+                            <img  src="./assets/img/avatar.png" alt="username" class="img-thumbnail  user-img-c">
+                         
+                     </a>
+               </div>
+               <div class="col-md-11">
+                    <div class="font-weight-bold text-muted">Oj Obasi  <small class="text-muted">17 hours ago</small></div>
+                    Traditional heading elements are designed to work best in the meat of your page content. When you need a heading to stand out, consider using a display heading—a larger, slightly more opinionated heading style
+               </div>
+           </div>
+           <div class="row mar-30 no-gutter">
+                <div class="col-md-1">
+                     <a routerLink="" class="text-sm-center">
+                             <img  src="./assets/img/avatar.png" alt="username" class="img-thumbnail  user-img-c">
+                          
+                      </a>
+                </div>
+                <div class="col-md-11">
+                     <div class="font-weight-bold text-muted">Oj Obasi  <small class="text-muted">17 hours ago</small></div>
+                     Traditional heading elements are designed to work best in the meat of your page content. When you need a heading to stand out, consider using a display heading—a larger, slightly more opinionated heading style
+                </div>
+            </div>
+        </div>
+    </div> <!--End container 1-->
+    <div class="ads-w100 mar-30">
+            <div class="card">
+                hdhd
+            </div>
+            <div class="divider"></div>
+        </div>
+    <div class="container-1">
+            <h1 class="title display-4">
+                Your Blog Needs A Title! Hello! Wildebeests. :) Start your Blog now!
+            </h1>
+                <div class="row blog-share ">
+                  <div class="col-md-6 u-corner">
+                      <a routerLink="" class="text-sm-center">
+                        <img  src="./assets/img/avatar.png" alt="username" class="img-thumbnail  user-img">
+                        <span class="font-weight-bold text-muted">Oj Obasi</span> <small class="text-muted">17 hours ago</small>
+                      </a>
+                  </div>
+                  <div class="col-md-6 text-md-right  text-sm-center">
+                      <app-shared></app-shared>
+                 </div>
+                </div>
+            <div class="display-6">
+              <p>
+                  Traditional heading elements are designed to work best in the meat of your page content. When you need a heading to stand out, consider using a display heading—a larger, slightly more opinionated heading style.
+              </p>
+              <p>
+                  Traditional heading elements are designed to work best in the meat of your page content. When you need a heading to stand out, consider using a display heading—a larger, slightly more opinionated heading style.
+              </p>
+              <p>
+                  Traditional heading elements are designed to work best in the meat of your page content. When you need a heading to stand out, consider using a display heading—a larger, slightly more opinionated heading style.
+              </p>
+              <p>
+                  Traditional heading elements are designed to work best in the meat of your page content. When you need a heading to stand out, consider using a display heading—a larger, slightly more opinionated heading style.
+              </p>
+              <p>
+                  Traditional heading elements are designed to work best in the meat of your page content. When you need a heading to stand out, consider using a display heading—a larger, slightly more opinionated heading style.
+              </p>
+              <p>
+                  Traditional heading elements are designed to work best in the meat of your page content. When you need a heading to stand out, consider using a display heading—a larger, slightly more opinionated heading style.
+              </p>
+              <p>
+                  Traditional heading elements are designed to work best in the meat of your page content. When you need a heading to stand out, consider using a display heading—a larger, slightly more opinionated heading style.
+              </p>
+              <p>
+                  Traditional heading elements are designed to work best in the meat of your page content. When you need a heading to stand out, consider using a display heading—a larger, slightly more opinionated heading style.
+              </p>
+            </div>
+    
+            <div class="divider"></div>
+    
+            <div class="reactions">
+                <a mat-button data-toggle="collapse" href="#collapseComments" aria-expanded="false" aria-controls="collapseComments">
+                    <mat-icon  class="primary-text">comment</mat-icon><span class="font-weight-bold">View Reactions (524)</span>
+                </a>
+            </div>
+            <div class="comment-box">
+                <div class="card">
+                <div class="card-header">
+                        <a routerLink="" class="text-sm-center">
+                                <img  src="./assets/img/avatar.png" alt="username" class="img-thumbnail  user-img">
+                                <span class="font-weight-bold text-muted">Oj Obasi</span> <small class="text-muted">17 hours ago</small>
+                         </a>
+                </div>
+                <div class="card-block">
+                        <div class="form-group">
+                                <textarea class="form-control" id="exampleTextarea" rows="3" placeholder="Enter Your Comment here">
+                                    
+                                </textarea>
+                                <button class="float-right" mat-raised-button color="primary">Comment</button>
+                       </div>
+                </div>
+                </div>
+            </div>
+            <div class="comments collapse" id="collapseComments">
+               <div class="row mar-30 no-gutter">
+                   <div class="col-md-1">
+                        <a routerLink="" class="text-sm-center">
+                                <img  src="./assets/img/avatar.png" alt="username" class="img-thumbnail  user-img-c">
+                             
+                         </a>
+                   </div>
+                   <div class="col-md-11">
+                        <div class="font-weight-bold text-muted">Oj Obasi  <small class="text-muted">17 hours ago</small></div>
+                        Traditional heading elements are designed to work best in the meat of your page content. When you need a heading to stand out, consider using a display heading—a larger, slightly more opinionated heading style
+                   </div>
+               </div>
+               <div class="row mar-30 no-gutter">
+                    <div class="col-md-1">
+                         <a routerLink="" class="text-sm-center">
+                                 <img  src="./assets/img/avatar.png" alt="username" class="img-thumbnail  user-img-c">
+                              
+                          </a>
+                    </div>
+                    <div class="col-md-11">
+                         <div class="font-weight-bold text-muted">Oj Obasi  <small class="text-muted">17 hours ago</small></div>
+                         Traditional heading elements are designed to work best in the meat of your page content. When you need a heading to stand out, consider using a display heading—a larger, slightly more opinionated heading style
+                    </div>
+                </div>
+            </div>
+        </div> <!--End container 1-->
       </div>
       <div class="col-md-4">
         <div class="card ads">ads here</div>
@@ -78,12 +204,8 @@
             <div class="card-block">
                 <h1 class="display-1 card-title"><a routerLink="">Some quick example text to build on the card </a></h1>
             </div>
-            <div class="card-block share-top text-center">
-                <button mat-icon-button><mat-icon  class="primary-text">comment</mat-icon><span class="count">2226</span></button>
-                  <button mat-icon-button><i class="fa fa-heart-o fa-2x text-warning" aria-hidden="true"></i><span class="count">2226</span></button>
-                  <button mat-icon-button ><i class="fa fa-facebook fa-2x text-primary" aria-hidden="true"></i><span class="count">2226</span></button>
-                  <button mat-icon-button><i class="fa fa-twitter fa-2x text-info" aria-hidden="true"></i><span class="count">2226</span></button>
-                  <button mat-icon-button><i class="fa fa-envelope-o fa-2x text-muted" aria-hidden="true"></i><span class="count">2226</span></button>
+            <div class="card-block  text-center">
+                    <app-shared></app-shared>
             </div>
             
           </div>
@@ -92,12 +214,8 @@
             <div class="card-block">
                 <h1 class="display-1 card-title"><a routerLink="">Some quick example text to build on the card </a></h1>
             </div>
-            <div class="card-block share-top text-center">
-                <button mat-icon-button><mat-icon  class="primary-text">comment</mat-icon><span class="count">2226</span></button>
-                  <button mat-icon-button><i class="fa fa-heart-o fa-2x text-warning" aria-hidden="true"></i><span class="count">2226</span></button>
-                  <button mat-icon-button ><i class="fa fa-facebook fa-2x text-primary" aria-hidden="true"></i><span class="count">2226</span></button>
-                  <button mat-icon-button><i class="fa fa-twitter fa-2x text-info" aria-hidden="true"></i><span class="count">2226</span></button>
-                  <button mat-icon-button><i class="fa fa-envelope-o fa-2x text-muted" aria-hidden="true"></i><span class="count">2226</span></button>
+            <div class="card-block  text-center">
+                    <app-shared></app-shared>
             </div>
             
           </div>
@@ -107,12 +225,8 @@
             <div class="card-block">
                 <h1 class="display-1 card-title"><a routerLink="">Some quick example text to build on the card </a></h1>
             </div>
-            <div class="card-block share-top text-center">
-                <button mat-icon-button><mat-icon  class="primary-text">comment</mat-icon><span class="count">2226</span></button>
-                  <button mat-icon-button><i class="fa fa-heart-o fa-2x text-warning" aria-hidden="true"></i><span class="count">2226</span></button>
-                  <button mat-icon-button ><i class="fa fa-facebook fa-2x text-primary" aria-hidden="true"></i><span class="count">2226</span></button>
-                  <button mat-icon-button><i class="fa fa-twitter fa-2x text-info" aria-hidden="true"></i><span class="count">2226</span></button>
-                  <button mat-icon-button><i class="fa fa-envelope-o fa-2x text-muted" aria-hidden="true"></i><span class="count">2226</span></button>
+            <div class="card-block text-center">
+                    <app-shared></app-shared>
             </div>
             
           </div>
@@ -121,16 +235,13 @@
             <div class="card-block">
               <h1 class="card-title"><a routerLink="">Some quick example text to build on the card </a></h1>
             </div>
-            <div class="card-block share-top text-center">
-                <button mat-icon-button><mat-icon  class="primary-text">comment</mat-icon><span class="count">2226</span></button>
-                  <button mat-icon-button><i class="fa fa-heart-o fa-2x text-warning" aria-hidden="true"></i><span class="count">2226</span></button>
-                  <button mat-icon-button ><i class="fa fa-facebook fa-2x text-primary" aria-hidden="true"></i><span class="count">2226</span></button>
-                  <button mat-icon-button><i class="fa fa-twitter fa-2x text-info" aria-hidden="true"></i><span class="count">2226</span></button>
-                  <button mat-icon-button><i class="fa fa-envelope-o fa-2x text-muted" aria-hidden="true"></i><span class="count">2226</span></button>
+            <div class="card-block text-center">
+                    <app-shared></app-shared>
             </div>
           </div>
       </div>
       
     </div>
+ 
   </div>
 </main>

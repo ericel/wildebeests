@@ -9,6 +9,7 @@ import { BlogcardComponent } from '../public/content/blogs/shared/blogcard/blogc
 import { LoadingWait } from './components/errors/notfound404.component';
 import { NgPipesModule } from 'ngx-pipes';
 import { RouterModule, Routes } from '@angular/router';
+import { SharedComponent } from './components/shared/shared.component';
 export const SHARED_COMPONENTS = [
   NavbarComponent,
   NavbarDownComponent,
@@ -29,12 +30,14 @@ export const SHARED_COMPONENTS = [
   declarations: [
     WysiwygComponent,
     BlogcardComponent,
-    LoadingWait
+    LoadingWait,
+    SharedComponent
   ],
   exports: [
    WysiwygComponent,
    BlogcardComponent,
-   LoadingWait
+   LoadingWait,
+   SharedComponent
 ]
 })
 

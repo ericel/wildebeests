@@ -67,6 +67,30 @@ img.user-img {
 }
 .comment-box .card .card-block textarea{
     border: none !important;
+    height: auto;
+}
+.comment-box button {
+    position: relative;
+    top: -40px;
+    right: 20px;
+}
+img.user-img-c {
+ width: 60px;
+ height:60px;
+
+}
+.no-gutter > [class*='col-'] {
+    padding-right:5px;
+    padding-left:5px;
+}
+
+.ads-w100 {
+    height: 150px;
+    width:100%;
+}
+.ads-w100 .card {
+    height: 100%;
+    background: #707272;
 }
 @media screen and (max-width: 991px){
     .blog .display-4 {
