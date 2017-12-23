@@ -87,7 +87,7 @@
                             <button mat-raised-button class="facebook" (click)="auth.facebookLogin()"><mat-icon>home</mat-icon> facebook</button>
                           </div>
                           <div class="col-md-6">
-                              <button mat-raised-button class="google" (click)="auth.googleLogin()">Google</button>
+                              <button mat-raised-button class="google" (click)="auth.googleLogin()"><span [class.is-loading]="user.loading">fff</span>Google</button>
                           </div>
                         </div>
                       </div>

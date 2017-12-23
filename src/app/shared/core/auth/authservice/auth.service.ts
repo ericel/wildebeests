@@ -19,7 +19,8 @@ interface User {
 }
 @Injectable()
 export class AuthService {
-  user: Observable<User>;
+  user: Observable<User | null>;
+
   constructor(private afAuth: AngularFireAuth,
               private afs: AngularFirestore,
               private router: Router,
@@ -34,16 +35,7 @@ export class AuthService {
           }
         })
   }
-  //// Email/Password Auth ////
-  
-  emailSignUp(email: string, password: string) {
-    return this.afAuth.auth.createUserWithEmailAndPassword(email, password)
-      .then(user => {
-        return this.updateUserData(user)
-        //return this.setUserDoc(user) // create initial user document
-      })
-      .catch(error => this.handleError(error) );
-  }
+
 
   googleLogin() {
     const provider = new firebase.auth.GoogleAuthProvider()
@@ -57,12 +49,42 @@ export class AuthService {
   private oAuthLogin(provider) {
     return this.afAuth.auth.signInWithPopup(provider)
       .then((credential) => {
+        this.notify.update('Welcome to wildebeests!!!', 'success');
         this.updateUserData(credential.user)
       })
+      .catch((error) => this.handleError(error) );
   }
    // Update properties on the user document
-   updateUser(user: User, data: any) { 
+  updateUser(user: User, data: any) { 
     return this.afs.doc(`users/${user.uid}`).update(data)
+  }
+
+  //// Email/Password Auth ////
+   emailSignUp(email: string, password: string) {
+    return this.afAuth.auth.createUserWithEmailAndPassword(email, password)
+      .then((user) => {
+        this.notify.update('Welcome to Firestarter!!!', 'success');
+        return this.updateUserData(user); // if using firestore
+      })
+      .catch((error) => this.handleError(error) );
+  }
+
+  emailLogin(email: string, password: string) {
+    return this.afAuth.auth.signInWithEmailAndPassword(email, password)
+      .then((user) => {
+        this.notify.update('Welcome to Firestarter!!!', 'success')
+        return this.updateUserData(user); // if using firestore
+      })
+      .catch((error) => this.handleError(error) );
+  }
+
+  // Sends email allowing user to reset password
+  resetPassword(email: string) {
+    const fbAuth = firebase.auth();
+
+    return fbAuth.sendPasswordResetEmail(email)
+      .then(() => this.notify.update('Password update email sent', 'info'))
+      .catch((error) => this.handleError(error));
   }
   private updateUserData(user) {
     // Sets user data to firestore on login

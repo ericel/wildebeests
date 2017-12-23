@@ -25,8 +25,9 @@ body {
     line-height: 1.3em;
     color: #242729;
 }
-.footer {
-  
+.is-loading {
+    content: '33';
+    background: red;
 }
 .container-fluid {
     width: 70% !important;

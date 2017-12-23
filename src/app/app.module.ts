@@ -28,7 +28,7 @@ import { PizzaModule } from './pizza/pizza.module';
 import { reducers } from './reducers';
 
 import { SharedModule, SHARED_COMPONENTS } from './shared/shared.module';
-
+import { AuthModule } from './shared/core/auth/auth.module';
 
 
 
@@ -36,7 +36,7 @@ import { SharedModule, SHARED_COMPONENTS } from './shared/shared.module';
   declarations: [
     AppComponent,
     ...PUBLIC_COMPONENTS,
-    ...SHARED_COMPONENTS,
+    ...SHARED_COMPONENTS
   ],
   imports: [
     BrowserAnimationsModule,
@@ -57,9 +57,13 @@ import { SharedModule, SHARED_COMPONENTS } from './shared/shared.module';
     NgPipesModule,
     ReactiveFormsModule,
     FormsModule,
-    SharedModule
+    SharedModule,
+    AuthModule
   ],
   providers: [
+  ],
+  entryComponents: [
+   
   ],
   bootstrap: [AppComponent]
 })
