@@ -7,6 +7,8 @@ import * as moment from 'moment';
 import { AuthService } from '../../../../../shared/core/auth/authservice/auth.service';
 import { ReactiveFormsModule, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import 'rxjs/add/operator/debounceTime';
+import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
+import { firestore } from 'firebase/app';
 @Component({
   selector: 'app-wysiwyg',
   templateUrl: './wysiwyg.component.html',
@@ -25,7 +27,8 @@ export class WysiwygComponent implements OnInit, AfterViewInit, AfterContentInit
   innerTxt = 'https://s.yimg.com/lo/api/res/1.2/Iy8lnFBmXWOR_6NZfppyKw--/YXBwaWQ9eW15O3c9NjQwO3E9NzU7c209MQ--/http://media.zenfs.com/en-US/homerun/the_huffington_post_584/dc1c69db813808c18ae9fb91daddceb5';
   constructor( public elementRef: ElementRef, public user:AuthService, private _renderer: Renderer,
     public fb: FormBuilder,
-    private store: Store<fromBlog.State>) {
+    private store: Store<fromBlog.State>,
+  private afs: AngularFirestore) {
     
    }
 
@@ -64,7 +67,7 @@ export class WysiwygComponent implements OnInit, AfterViewInit, AfterContentInit
   supplyTextArea(){
     if(this.textarea.length > 70){
       if(this.blogID.length < 2){
-        this.blogID = new Date().getUTCMilliseconds().toString();
+        this.blogID = this.afs.createId();
         this.createBlog()
         setTimeout(()=>{ 
          this.notifyText = '<span>Draft Saved!</span>';
@@ -82,7 +85,7 @@ blogCreation(){
      if((this.title.value).length >30 && (this.section.value).length > 2){
        this.blogTitle = this.title.value;
        this.blogSection = this.section.value;
-        if(this.blogID.length < 2){this.blogID = new Date().getUTCMilliseconds().toString()};
+        if(this.blogID.length < 2){this.blogID = this.afs.createId()};
         this.createBlog();
         this.notifyText = '<span>Draft Saved!</span>';
      } else {
@@ -94,7 +97,7 @@ blogCreation(){
     if((this.title.value).length >30 && (this.section.value).length > 2){
       this.blogTitle = this.title.value;
       this.blogSection = this.section.value;
-       if(this.blogID.length < 2){this.blogID = new Date().getUTCMilliseconds().toString()};
+       if(this.blogID.length < 2){this.blogID = this.afs.createId()};
        this.createBlog();
        this.notifyText = '';
     } else {

@@ -10,6 +10,7 @@ import { LoadingWait } from './components/errors/notfound404.component';
 import { NgPipesModule } from 'ngx-pipes';
 import { RouterModule, Routes } from '@angular/router';
 import { SharedComponent } from './components/shared/shared.component';
+import { MomentModule } from 'angular2-moment';
 export const SHARED_COMPONENTS = [
   NavbarComponent,
   NavbarDownComponent,
@@ -25,7 +26,8 @@ export const SHARED_COMPONENTS = [
     RouterModule,
     ReactiveFormsModule,
     SkinModule,
-    NgPipesModule
+    NgPipesModule,
+    MomentModule
   ],
   declarations: [
     WysiwygComponent,

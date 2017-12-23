@@ -1,6 +1,7 @@
 :host .card {
     display: inline-block;
-    height: 365px;
+    height: 375px;
+    margin: 0 0 10px 0;
 }
 .card-header {
     
@@ -14,7 +15,7 @@
     font-size: 1em;
 }
 .card-block {
-    padding: 0 10px;
+    padding: 10px;
     word-break: break-all;
     overflow: hidden;
 }
@@ -34,5 +35,10 @@
   @media (min-width: 1200px) {  
      .card-columns {column-count: 5;} 
   }
-  
+
+.card-footer {
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+}
   

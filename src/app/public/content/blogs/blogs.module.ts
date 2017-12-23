@@ -10,13 +10,15 @@ import { BlogsEffects } from './state/blogs.effects';
 import { blogReducer } from './state/blogs.reducer';
 import { SkinModule } from '../../../shared/core/skin/skin.module';
 import { BlogComponent } from './blog/blog.component';
-
+import * as moment from 'moment';
+import { MomentModule } from 'angular2-moment';
 @NgModule({
   imports: [
     CommonModule,
     routing,
     SkinModule,
     SharedModule,
+    MomentModule,
     StoreModule.forFeature('blog', blogReducer),
     EffectsModule.forFeature([BlogsEffects])
   ],
