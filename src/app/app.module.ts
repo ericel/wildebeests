@@ -29,6 +29,8 @@ import { reducers } from './reducers';
 
 import { SharedModule, SHARED_COMPONENTS } from './shared/shared.module';
 import { AuthModule } from './shared/core/auth/auth.module';
+import { NotifyComponent, Dialog1, Dialog2 } from './shared/components/notify/notify.component';
+
 
 
 
@@ -36,7 +38,7 @@ import { AuthModule } from './shared/core/auth/auth.module';
   declarations: [
     AppComponent,
     ...PUBLIC_COMPONENTS,
-    ...SHARED_COMPONENTS
+    ...SHARED_COMPONENTS,
   ],
   imports: [
     BrowserAnimationsModule,
@@ -63,7 +65,8 @@ import { AuthModule } from './shared/core/auth/auth.module';
   providers: [
   ],
   entryComponents: [
-   
+   Dialog1,
+   Dialog2
   ],
   bootstrap: [AppComponent]
 })

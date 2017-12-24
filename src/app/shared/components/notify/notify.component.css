@@ -1,0 +1,9 @@
+.alert {
+    overflow: hidden;
+}
+.closeBTN {
+    position: absolute;
+    right: -30px;
+    top: -30px;
+    z-index: 9999;
+}
