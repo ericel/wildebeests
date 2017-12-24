@@ -2,6 +2,7 @@ import { Component, ViewEncapsulation, Inject, OnInit, Input, ViewContainerRef }
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import { NotifyService } from '../../core/notify/notify.service';
 import { AfterViewInit } from '@angular/core/src/metadata/lifecycle_hooks';
+import { Success } from '../../../public/content/blogs/state/blogs.actions';
 @Component({
   selector: 'error',
   template: `
@@ -13,8 +14,8 @@ import { AfterViewInit } from '@angular/core/src/metadata/lifecycle_hooks';
   </div>`,
   styleUrls: ['./notify.component.css']
 })
-export class Dialog1 {
-  param1: string;
+export class ErrorDialog {
+  msg: string;
   constructor(public dialogRef: MatDialogRef<any>) { }
 }
 
@@ -22,20 +23,19 @@ export class Dialog1 {
   selector: 'success',
   template: `
   <div class="alert alert-success">
-  <h2>Hi! I am the second dialog!</h2>
-  <p>Anular 2.0: https://github.com/angular/angular</p>
-  <p>Angular 2 Material: https://github.com/angular/material2</p>
-  <button mat-raised-button (click)="dialogRef.close()">Close dialog</button>
+  <h2>Hi! {{ msg }}!</h2>
+  <p>Make each day your masterpiece. --John Wooden</p>
+  <button mat-icon-button (click)="dialogRef.close()" class="closeBTN" color="warn"><mat-icon>close</mat-icon></button>
   </div>`,
   styleUrls: ['./notify.component.css']
 })
-export class Dialog2 {
-    param1: string;
+export class SuccessDialog {
+  msg: string;
   constructor(public dialogRef: MatDialogRef<any>) { }
 }
 
 @Component({
-  selector: 'info-dialog',
+  selector: 'info',
   template: `
   <div class="alert alert-info">
   <h2>Hi! I am the second dialog!</h2>
@@ -44,16 +44,16 @@ export class Dialog2 {
   <button mat-raised-button (click)="dialogRef.close()">Close dialog</button>
   </div>`
 })
-export class InfoDailog {
-    param1: string;
+export class InfoDialog {
+  msg: string;
   constructor(public dialogRef: MatDialogRef<any>) { }
 }
 
-const dialogs = [Dialog1, Dialog2];
+const dialogs = [ErrorDialog, SuccessDialog, InfoDialog ];
 const dialogsMap = {
-  'error': Dialog1,
-  'success': Dialog2,
-  'info-dialog': InfoDailog
+  'error': ErrorDialog,
+  'success': SuccessDialog,
+  'info': InfoDialog
 }
 
 @Component({
@@ -71,7 +71,6 @@ message: string;
    
     this.notify.msg.subscribe(data => {
       if(data){
-        console.log(data)
         this.message = data.content;
         this.open(data.style);
       }
@@ -85,7 +84,12 @@ message: string;
       this.dialogRef = null;
     });
   }
-  
 
   
 }
+
+export const Dialog_COMPONENTS = [
+  SuccessDialog,
+  ErrorDialog,
+  InfoDialog
+]

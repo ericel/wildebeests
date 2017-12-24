@@ -11,7 +11,7 @@ import { NgPipesModule } from 'ngx-pipes';
 import { RouterModule, Routes } from '@angular/router';
 import { SharedComponent } from './components/shared/shared.component';
 import { MomentModule } from 'angular2-moment';
-import { NotifyComponent, Dialog1, Dialog2  } from './components/notify/notify.component';
+import { NotifyComponent, Dialog_COMPONENTS } from './components/notify/notify.component';
 
 export const SHARED_COMPONENTS = [
   NavbarComponent,
@@ -38,7 +38,7 @@ export const SHARED_COMPONENTS = [
     LoadingWait,
     SharedComponent,
     NotifyComponent,
-    Dialog1, Dialog2
+    ...Dialog_COMPONENTS
   ],
   exports: [
    WysiwygComponent,
@@ -46,12 +46,10 @@ export const SHARED_COMPONENTS = [
    LoadingWait,
    SharedComponent,
    NotifyComponent,
-   Dialog1,
-   Dialog2
+   ...Dialog_COMPONENTS
 ],
 entryComponents: [
-  NotifyComponent,
-  Dialog1, Dialog2
+  ...Dialog_COMPONENTS
 ]
 })
 
