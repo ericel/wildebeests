@@ -7,19 +7,30 @@ import { CommonModule } from '@angular/common';
 import { SendComponent } from './send/send.component';
 import { IndexComponent } from './index.component';
 import { SharedModule } from '../../../shared/shared.module';
- 
-
+import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
+import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
+import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
+const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
+  suppressScrollX: true
+};
 @NgModule({
   imports: [
     CommonModule,
     SkinModule,
     routing,
-    SharedModule
+    SharedModule,
+    PerfectScrollbarModule
   ],
   declarations: [
     IndexComponent,
     MoneyComponent,
     SendComponent
+  ],
+  providers: [
+    {
+      provide: PERFECT_SCROLLBAR_CONFIG,
+      useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG
+    }
   ]
 })
 export class MoneyModule { }

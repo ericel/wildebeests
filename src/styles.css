@@ -25,6 +25,16 @@ body {
     line-height: 1.3em;
     color: #242729;
 }
+img {
+    max-width: 100%;
+    height: auto;
+}
+embed,
+iframe,
+object,
+video {
+    max-width: 100%;
+}
 .is-loading {
     content: '33';
     background: red;
@@ -172,4 +182,11 @@ ul.no-padding {
     padding:0;
     margin: 0;
     list-style: none;
+}
+.tab-group-s .mat-tab-body-content {
+    overflow: hidden !important;
+    padding-top: 10px;
+}
+.pad-10 {
+    padding: 10px 0;
 }
