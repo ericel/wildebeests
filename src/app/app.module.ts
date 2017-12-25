@@ -1,9 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { routing } from './app.routes';
-import { ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
-import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AngularFireModule } from 'angularfire2';
@@ -12,9 +10,8 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
 
 import { environment } from '../environments/environment';
 
-import { SkinModule } from './shared/core/skin/skin.module';
-import { CoreModule } from './shared/core/core.module';
-import {NgPipesModule} from 'ngx-pipes';
+
+
 
 import { AppComponent } from './app.component';
 import { PUBLIC_COMPONENTS } from './public';
@@ -29,6 +26,7 @@ import { reducers } from './reducers';
 
 import { SharedModule, SHARED_COMPONENTS } from './shared/shared.module';
 import { AuthModule } from './shared/core/auth/auth.module';
+import { CoreModule } from './shared/core/core.module';
 
 @NgModule({
   declarations: [
@@ -39,9 +37,9 @@ import { AuthModule } from './shared/core/auth/auth.module';
   imports: [
     BrowserAnimationsModule,
     BrowserModule.withServerTransition({appId: 'wildebeests' }),
+    CoreModule,
     routing,
     HttpModule,
-    SkinModule,
     StoreModule.forRoot(reducers),
     StoreDevtoolsModule.instrument({
       maxAge: 25
@@ -51,10 +49,6 @@ import { AuthModule } from './shared/core/auth/auth.module';
     AngularFirestoreModule, 
     AngularFireAuthModule,
     PizzaModule,
-    CoreModule,
-    NgPipesModule,
-    ReactiveFormsModule,
-    FormsModule,
     SharedModule,
     AuthModule
   ],

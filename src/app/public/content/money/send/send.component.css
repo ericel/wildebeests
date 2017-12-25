@@ -1,72 +1,88 @@
-:host {
-  
+.chat-page {
+    position: fixed;
+    height:100vh;
+    width: 100%;
+    background: #005048;
+    z-index: 99;
+    display: flex;
+    height: 100%;
+    bottom: 0px;
 }
-.btn-100-deal {
-    width: 48%;
-    height: 60px;
+.left-1, .middle-1, .right-1 {
+    height: 100vh;
 }
-
-.chat-2,
-.chat-1 {
-    margin: 15px 0;
+.left-1 {
+    width: 18%;
+    -webkit-box-shadow: 10px 0 5px -2px #888;
+          box-shadow: 10px 0 5px -2px #888;
+          border-right: 1px solid #ccd;
+          z-index: -1;
+          box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.75);
 }
-.chat-1-0 {
-
-}
-.user-img img {
-    width: 60px;
-    height: 60px;
-    border-radius: 100%;
-}
-
-.chat-box,
-.card {
-    min-height: 100%;
-
-}
-.card-block{
-    position: relative;
-    height: 65vh !important;
-    overflow-y: scroll;
-}
-.card-footer {
+.text-right-btn {
     position: absolute;
-    bottom: 60px ;
-    right: 0;
-    left: 0;
+    right: 5px;
+    top: 3px;
 }
-@media screen and (min-width: 991px){
+.middle-1 {
+    width: 52%;
+    background: #eee;
+    border-right: 1px solid #ccd;
 
- 
 }
-@media screen and (max-width: 991px){
-    .card-block{
-     
-    }
-    .card-footer {
-        position: absolute;
-        bottom: 50px ;
-        right: 0;
-        left: 0;
-    }
+.right-1 {
+    width: 30%;
+    background: #eee;
+    -webkit-box-shadow: 10px 0 5px -2px #888;
+    box-shadow: 10px 0 5px -2px #888;
+    border-right: 1px solid #ccd;
+    z-index: -1;
+    box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.75);
 }
-.nopadding {
-    padding: 0 !important;
-    margin: 0 !important;
- }
+ul.items-dealer {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+ul.items-dealer li{
+    display: inline-block;
+    padding: 0 10px;
+}
 
- .list-group .list-group-item {
-     border-right: none;
- }
+.fa-slash:after {
+    content: ' ';
+    display: block;
+    position: absolute;
+    top: -0.2em;
+    left: .9em;
+    border-radius: 2em;
+    width: .2em;
+    height: 2.3em;
+    background-color: red;
+    transform: rotateZ(-35deg);
+}
 
- .container-fluid {
-     width: 100% !important;
- }
- .send-01 {
-     position: fixed;
-     top: 60px;
-     width: 100%;
-     min-height: 100vh;
-     background: red;
-     z-index: 999;
- }
+.verify .fa-slash2:after {
+    content: ' ';
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 1em;
+    border-radius: 2em;
+    width: .2em;
+    height: 2em;
+    background-color: white;
+    box-shadow: -0.1em 0 .1em gray;
+    transform: rotateZ(-35deg);
+}
+img.dealer-img {
+    width: 150px;
+    height: 150px;
+    -webkit-box-shadow: 0px 0px 3px 0px rgba(0,0,0,0.41);
+    -moz-box-shadow: 0px 0px 3px 0px rgba(0,0,0,0.41);
+    box-shadow: 0px 0px 3px 0px rgba(0,0,0,0.41);
+}
+
+.dealer-details li {
+    padding: 5px 0;
+}

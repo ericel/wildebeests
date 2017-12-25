@@ -25,6 +25,7 @@ export const SHARED_COMPONENTS = [
 @NgModule({
   imports: [
     CommonModule,
+    ReactiveFormsModule,
     FormsModule,
     RouterModule,
     ReactiveFormsModule,
@@ -46,7 +47,12 @@ export const SHARED_COMPONENTS = [
    LoadingWait,
    SharedComponent,
    NotifyComponent,
-   ...Dialog_COMPONENTS
+   ...Dialog_COMPONENTS,
+   NgPipesModule,
+   SkinModule,
+   MomentModule,
+   ReactiveFormsModule,
+   FormsModule
 ],
 entryComponents: [
   ...Dialog_COMPONENTS

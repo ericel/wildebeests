@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Title, Meta } from '@angular/platform-browser';
 import { NavbarService } from '../../../../shared/core/navbar/navbar.service';
+import { AuthService } from '../../../../shared/core/auth/authservice/auth.service';
 
 @Component({
   selector: 'app-send',
@@ -9,7 +10,7 @@ import { NavbarService } from '../../../../shared/core/navbar/navbar.service';
 })
 export class SendComponent implements OnInit {
 
-  constructor(public nav: NavbarService, private title: Title, private meta: Meta) { }
+  constructor(public nav: NavbarService, private title: Title, private meta: Meta, public auth: AuthService) { }
 
   ngOnInit() {
     this.nav.show();
