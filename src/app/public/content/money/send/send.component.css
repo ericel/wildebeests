@@ -150,7 +150,9 @@ img.dealer-img-1 {
 .finalized {
     background: #ccccdd;
 }
-
+.btn-m-1, .btn-m-2 {
+    display: none;
+}
 @media screen and (max-width: 991px){
     .chat-page{
         display: block;
@@ -181,4 +183,38 @@ img.dealer-img-1 {
         margin-top: 47px;
         max-height: 79%;
     }
+   
+   .btn-m-1 {
+       display: inline-block;
+       position: absolute;
+       left: 5px;
+       top:2px;
+   }
+   .btn-m-2 {
+    display: inline-block;
+    position: absolute;
+    right: 5px;
+    top:2px;
+  }
+  .left-1-m {
+    -webkit-box-shadow: 10px 0 5px -2px #888;
+    box-shadow: 10px 0 5px -2px #888;
+    border-right: 1px solid #ccd;
+    z-index: -1;
+    box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.75);
+    overflow-x: scroll;
+    padding-bottom: 70px;
+  }
+
+  .right-1-m{
+    background: #eee;
+    -webkit-box-shadow: 10px 0 5px -2px #888;
+    box-shadow: 10px 0 5px -2px #888;
+    border-right: 1px solid #ccd;
+    z-index: -1;
+    box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.75);
+    overflow-x: scroll;
+    padding-bottom: 70px;
+  }
+
 }
