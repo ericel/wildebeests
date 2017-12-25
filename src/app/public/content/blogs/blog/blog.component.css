@@ -54,10 +54,7 @@ img.user-img-c {
  height:60px;
 
 }
-.no-gutter > [class*='col-'] {
-    padding-right:5px;
-    padding-left:5px;
-}
+
 
 .ads-w100 {
     height: 150px;

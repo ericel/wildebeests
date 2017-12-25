@@ -190,3 +190,7 @@ ul.no-padding {
 .pad-10 {
     padding: 10px 0;
 }
+.no-gutter > [class*='col-'] {
+    padding-right:5px;
+    padding-left:5px;
+}

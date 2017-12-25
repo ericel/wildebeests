@@ -37,13 +37,15 @@
     width: 52%;
     background: #eee;
     border-right: 1px solid #ccd;
-
+    
 }
 .text-box {
     position:absolute;
-    bottom:10%;
+    bottom:5%;
     right: 0;
     left: 0;
+    z-index: 99;
+    background-color: rgb(238, 238, 238); 
 }
 .right-1 {
     width: 30%;
@@ -115,4 +117,68 @@ img.dealer-img-1 {
     font-size: 0.9rem;
     border-left: 5px solid red;
     padding: 10px;
+}
+.text-box .form-control {
+    border: 3px solid #c5c5c5;
+    border-radius: 0.8rem;
+}
+.scroll-1 {
+    max-height: 89%;
+    margin-top: 30px;
+}
+.md-header {
+    position: absolute;
+    top: 0.1%;
+    right: 0;
+    left: 0;
+    z-index: 9999 !important;
+    background-color: rgb(238, 238, 238);
+    clear: both;
+    
+}
+.dealer-is {
+    background: rgb(248, 246, 246);
+}
+.deal-01 {
+    position: relative;
+}
+.finalize {
+    position: absolute;
+    right: 1px;
+    top: -39px;
+}
+.finalized {
+    background: #ccccdd;
+}
+
+@media screen and (max-width: 991px){
+    .chat-page{
+        display: block;
+    }
+    .left-1, .middle-1, .right-1 {
+        width: 100%;
+    }
+    .left-1, .right-1 {
+        display: none;
+    }
+    .pad-10 {
+        padding: 30px 0;
+    }
+    .float-sm-right-l{
+        float: right;
+        position: absolute;
+        top: -15px;
+        right: 5px;
+    }
+    .pad-10-1 {
+        padding-top: 20px ;
+    }
+    .md-header{
+        position: absolute;
+        top: 1%;
+    }
+    .scroll-1 {
+        margin-top: 47px;
+        max-height: 79%;
+    }
 }

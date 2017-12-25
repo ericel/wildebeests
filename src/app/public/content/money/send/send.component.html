@@ -14,9 +14,11 @@
            <button mat-icon-button class="text-right-btn" [matMenuTriggerFor]="menuSender"><mat-icon>keyboard_arrow_down</mat-icon></button>
        </div>
        <mat-list>
-          <a routerLink="" >
+          <a routerLink="" class="deal-01">
           <h3 mat-subheader>Folders</h3>
-          <mat-list-item class="active">
+          
+          <mat-list-item class="active  finalized">
+              <button mat-button class="finalize">Finalize</button>
             <mat-icon mat-list-icon>folder</mat-icon>
             <h4 mat-line>folder.name</h4>
             <p mat-line> folder.updated | date </p>
@@ -104,16 +106,130 @@
       </perfect-scrollbar> 
   </div>
   <div class="middle-1">
-      <perfect-scrollbar style="max-width: 600px; max-height: 400px;" [config]="config">
-          <div>Scrollable content</div>
-        </perfect-scrollbar>
-    <div class="text-box">
-    <form>
-          <div class="form-group">
-            <label for="email">Email address:</label>
-            <textarea  class="form-control" id="email"></textarea>
+      <div class="card-header md-header">
+          <small class="text-muted text-italic"><em>Transaction ID: FhBtM70QZKM</em></small>
+        </div>
+      <perfect-scrollbar class="scroll-1">
+         
+          <div class="container mar-30">
+            <div class="alert alert-info">
+              <div class="row">
+              <div class="col-md-6">
+                <blockquote class="blockquote">
+                    <p class="mb-0 lead">Things you should know about this deal!.</p>
+                    <ol>
+                      <li>Dealer can't pay out more than <strong class="text-danger">$1000</strong></li>
+                      <li>Dealer pays out within <strong class="text-danger"> 1 working day.</strong></li>
+                      <li>Dealer pays out with the following  methods:</li>
+                      <span class="badge  badge-info">10 Deals</span>
+                      <span class="badge  badge-info">10 Deals</span>
+                      <span class="badge  badge-danger">2 Bad deals</span>
+                      <li>Dealer's fees are on his/her discretion below 10% of sending amount.</li>
+                      <li>Deal Auto finalizes after <strong class="text-warning"> 3 days from now.</strong></li>
+                    </ol>
+                    <footer class="blockquote-footer">Wildebeests <cite title="Source Title">Team</cite></footer>
+                  </blockquote>
+                </div>
+                <div class="col-md-6">
+                    <blockquote class="blockquote">
+                        <p class="mb-0 lead">Deal Completed. What Next?</p>
+                        <ol>
+                          <li>If deal is completed, go ahead and make arrangement for your pick up.</li>
+                          <li>Unable to verify transaction after<strong class="text-danger"> 1 working day</strong>?</li>
+                           <a mat-raised-button color="warn">Report Transaction</a>
+                          <li>Dealer is asking for more than 10% fee of sending amount, click above to report.</li>
+                          <li>Don't forget to <a routerLink="">finalize</a> a deal. You earn Beest coins for every finalized deal.</li>
+                        </ol>
+                        <footer class="blockquote-footer">Wildebeests <cite title="Source Title">Team</cite></footer>
+                      </blockquote>
+                </div>
+              </div>
+            </div>
+            <div class="alert alert-info">
+               <strong> Cancel deal at anytime!</strong> Say <strong>'Hi'</strong> and wait for dealer to respond.
+               <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+            <div class="container">
+                <div class="row pad-10">
+                    <div class="col-sm-12 col-md-1">
+                       <img src="./assets/img/avatar.png" class="dealer-img-1 rounded " alt="Cinque Terre">
+                    </div>
+                    <div class="col-md-11 pad-10-1">
+                      <div class="float-sm-right-l"><a routerLink="font-weight-bold display-2 h1">Oj Obasi</a> <small> 5 mins ago</small></div>
+                       Haven't jumped into firebase rules fully yet. Thanks for all the help. Patrick [10:07 AM] not having the uid in the Systems collection makes it a little bit more tricky to set rul
+                    </div>
+                 </div>
+                 <div class="row pad-10 dealer-is">
+                    <div class="col-sm-12 col-md-1">
+                       <img src="./assets/img/avatar.png" class="dealer-img-1 rounded " alt="Cinque Terre">
+                    </div>
+                    <div class="col-md-11 pad-10-1">
+                      <div class="float-sm-right-l"><a routerLink="font-weight-bold display-2 h1">Oj Obasi</a> <small> 5 mins ago</small></div>
+                       Haven't jumped into firebase rules fully yet. Thanks for all the help. Patrick [10:07 AM] not having the uid in the Systems collection makes it a little bit more tricky to set rul
+                    </div>
+                 </div>
+                 <div class="row pad-10">
+                    <div class="col-sm-12 col-md-1">
+                       <img src="./assets/img/avatar.png" class="dealer-img-1 rounded " alt="Cinque Terre">
+                    </div>
+                    <div class="col-md-11 pad-10-1">
+                      <div class="float-sm-right-l"><a routerLink="font-weight-bold display-2 h1">Oj Obasi</a> <small> 5 mins ago</small></div>
+                       Haven't jumped into firebase rules fully yet. Thanks for all the help. Patrick [10:07 AM] not having the uid in the Systems collection makes it a little bit more tricky to set rul
+                    </div>
+                 </div>
+                 <div class="row pad-10 dealer-is">
+                    <div class="col-sm-12 col-md-1">
+                       <img src="./assets/img/avatar.png" class="dealer-img-1 rounded " alt="Cinque Terre">
+                    </div>
+                    <div class="col-md-11 pad-10-1">
+                      <div class="float-sm-right-l"><a routerLink="font-weight-bold display-2 h1">Oj Obasi</a> <small> 5 mins ago</small></div>
+                       Haven't jumped into firebase rules fully yet. Thanks for all the help. Patrick [10:07 AM] not having the uid in the Systems collection makes it a little bit more tricky to set rul
+                    </div>
+                 </div>
+                 <div class="row pad-10">
+                    <div class="col-sm-12 col-md-1">
+                       <img src="./assets/img/avatar.png" class="dealer-img-1 rounded " alt="Cinque Terre">
+                    </div>
+                    <div class="col-md-11 pad-10-1">
+                      <div class="float-sm-right-l"><a routerLink="font-weight-bold display-2 h1">Oj Obasi</a> <small> 5 mins ago</small></div>
+                       Haven't jumped into firebase rules fully yet. Thanks for all the help. Patrick [10:07 AM] not having the uid in the Systems collection makes it a little bit more tricky to set rul
+                    </div>
+                 </div>
+                 <div class="row pad-10 dealer-is">
+                    <div class="col-sm-12 col-md-1">
+                       <img src="./assets/img/avatar.png" class="dealer-img-1 rounded " alt="Cinque Terre">
+                    </div>
+                    <div class="col-md-11 pad-10-1">
+                      <div class="float-sm-right-l"><a routerLink="font-weight-bold display-2 h1">Oj Obasi</a> <small> 5 mins ago</small></div>
+                       Haven't jumped into firebase rules fully yet. Thanks for all the help. Patrick [10:07 AM] not having the uid in the Systems collection makes it a little bit more tricky to set rul
+                       Haven't jumped into firebase rules fully yet. Thanks for all the help. Patrick [10:07 AM] not having the uid in the Systems collection makes it a little bit more tricky to set rul
+                    </div>
+                 </div>
+            </div>
           </div>
-    </form>
+        </perfect-scrollbar>
+    <div class="text-box card-footer text-muted">
+      <div class="container">
+         <div class="row">
+            <div class="col-md-8">
+                <button mat-button><i class="fa fa-plus fa-1x"></i> Send Now</button>
+                <button mat-button><i class="fa fa-plus fa-1x"></i> Cancel Deal</button>
+                <button mat-button ><i class="fa fa-plus fa-1x"></i> Finalize Deal</button>
+            </div>
+            <div class="col-md-4">
+                <button mat-icon-button  class="float-right"><i class="fa fa-plus fa-1x"></i></button>
+            </div>
+         </div>
+        </div>
+         
+   
+          <form>
+              <div class="form-group">
+                <textarea  class="form-control" id="email"></textarea>
+              </div>
+          </form>
   </div>
   </div>
   <div class="right-1 card" *ngIf="auth.user | async as user">
