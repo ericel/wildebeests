@@ -1,6 +1,6 @@
 <main class="main chat-page">
   <div class="left-1 card" *ngIf="auth.user | async as user">
-      <perfect-scrollbar  [config]="config">
+      <perfect-scrollbar >
       <div class="card-header">
          <div class="dicplay-2 font-weight-bold">
             <span class="online-now primary-bg"></span> {{ user.displayName | shorten: 10: '...'}}
@@ -114,7 +114,7 @@
         <!-- Start Mobile Menus -->
         <mat-menu #meMenu="matMenu" class="m-menus">
             <div class="left-1-m card" *ngIf="auth.user | async as user">
-                <perfect-scrollbar  [config]="config">
+                <perfect-scrollbar>
                 <div class="card-header">
                    <div class="dicplay-2 font-weight-bold">
                       <span class="online-now primary-bg"></span> {{ user.displayName | shorten: 10: '...'}}
@@ -513,7 +513,7 @@
   </div>
   </div>
   <div class="right-1 card" *ngIf="auth.user | async as user">
-      <perfect-scrollbar [config]="config">
+      <perfect-scrollbar >
       <div class="card-header">
         <ul class="items-dealer">
          <li class="dicplay-2 font-weight-bold">
