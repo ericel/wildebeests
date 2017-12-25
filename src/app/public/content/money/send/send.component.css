@@ -21,16 +21,29 @@
           overflow-x: scroll;
           padding-bottom: 70px;
 }
+.left-1 .mat-list .mat-list-item.mat-2-line{
+    height: 40px !important;
+}
+.mat-list-item.active {
+    border-left: 4px solid #005048;
+}
 .text-right-btn {
     position: absolute;
     right: 5px;
     top: 3px;
 }
 .middle-1 {
+    position: relative;
     width: 52%;
     background: #eee;
     border-right: 1px solid #ccd;
 
+}
+.text-box {
+    position:absolute;
+    bottom:10%;
+    right: 0;
+    left: 0;
 }
 .right-1 {
     width: 30%;
