@@ -45,7 +45,6 @@ export function blogReducer(
 
         case actions.ADD_ALL:
             return blogAdapter.addAll(action.blog, state);
-        
 
         default:
             return state;

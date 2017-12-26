@@ -12,12 +12,13 @@ import * as fromBlog from './../state/blogs.reducer';
   styleUrls: ['./blog.component.css']
 })
 export class BlogComponent implements OnInit {
-
+  blogs: Observable<any>;
   constructor(public nav: NavbarService,
      private title: Title,
     private meta: Meta,
     private router: Router,
-    private route: ActivatedRoute,) { }
+    private route: ActivatedRoute,
+    private store: Store<fromBlog.State>) { }
   
     ngOnInit() {
       this.nav.show();
@@ -25,7 +26,10 @@ export class BlogComponent implements OnInit {
         let str = params['string'];
         let n = str.lastIndexOf('-');
         let result = str.substring(n + 1);
-        console.log(result)
+        this.blogs = this.store.select(fromBlog.selectAll);
+        this.store.dispatch(  new actions.Query() )
+
+        console.log(this.blogs[result]);
       });
       this.title.setTitle('Blog name');
       this.meta.addTags([
@@ -33,4 +37,5 @@ export class BlogComponent implements OnInit {
         { name: 'description', content: 'Blog Editor' }
       ]);
     }
+
 }

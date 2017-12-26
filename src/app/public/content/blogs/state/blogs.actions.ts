@@ -43,9 +43,14 @@ export class Delete implements Action {
     constructor(public id: string) { }
 }
 
+export class Get_blog implements Action {
+    readonly type = QUERY;
+    constructor(public id: string) { }
+}
 export type BlogsActions
 = Create
 | Update
 | Delete
 | Query
+| Get_blog
 | AddAll;

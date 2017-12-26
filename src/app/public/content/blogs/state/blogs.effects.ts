@@ -64,6 +64,6 @@ export class BlogsEffects {
         .map(() => {
             return new actions.Success()
         })
-    
+
     constructor(private actions$: Actions, private afs: AngularFirestore) { }    
 }

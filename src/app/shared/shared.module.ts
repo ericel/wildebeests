@@ -16,6 +16,7 @@ import { DetailDealerCard } from '../public/content/money/shared/dealer-card';
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar/dist/lib/perfect-scrollbar.module';
 import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
+import { ADS_COMPONENTS } from './components/ads-right/ads-right.component';
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
 };
@@ -46,7 +47,8 @@ export const SHARED_COMPONENTS = [
     SharedComponent,
     NotifyComponent,
     DetailDealerCard,
-    ...Dialog_COMPONENTS
+    ...Dialog_COMPONENTS,
+    ...ADS_COMPONENTS
   ],
   exports: [
    WysiwygComponent,
@@ -55,6 +57,7 @@ export const SHARED_COMPONENTS = [
    SharedComponent,
    NotifyComponent,
    DetailDealerCard,
+   ...ADS_COMPONENTS,
    ...Dialog_COMPONENTS,
    NgPipesModule,
    SkinModule,
