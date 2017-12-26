@@ -28,11 +28,12 @@ import { SharedModule, SHARED_COMPONENTS } from './shared/shared.module';
 import { AuthModule } from './shared/core/auth/auth.module';
 import { CoreModule } from './shared/core/core.module';
 
+
 @NgModule({
   declarations: [
     AppComponent,
     ...PUBLIC_COMPONENTS,
-    ...SHARED_COMPONENTS,
+    ...SHARED_COMPONENTS
   ],
   imports: [
     BrowserAnimationsModule,

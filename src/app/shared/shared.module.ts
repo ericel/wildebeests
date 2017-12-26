@@ -12,15 +12,20 @@ import { RouterModule, Routes } from '@angular/router';
 import { SharedComponent } from './components/shared/shared.component';
 import { MomentModule } from 'angular2-moment';
 import { NotifyComponent, Dialog_COMPONENTS } from './components/notify/notify.component';
-
+import { DetailDealerCard } from '../public/content/money/shared/dealer-card';
+import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar/dist/lib/perfect-scrollbar.module';
+import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
+import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
+const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
+  suppressScrollX: true
+};
 export const SHARED_COMPONENTS = [
   NavbarComponent,
   NavbarDownComponent,
   NavbarMobileComponent,
   SignupComponent,
   LoginComponent,
-  MainintoComponent,
-  
+  MainintoComponent
 ]
 @NgModule({
   imports: [
@@ -31,7 +36,8 @@ export const SHARED_COMPONENTS = [
     ReactiveFormsModule,
     SkinModule,
     NgPipesModule,
-    MomentModule
+    MomentModule,
+    PerfectScrollbarModule
   ],
   declarations: [
     WysiwygComponent,
@@ -39,6 +45,7 @@ export const SHARED_COMPONENTS = [
     LoadingWait,
     SharedComponent,
     NotifyComponent,
+    DetailDealerCard,
     ...Dialog_COMPONENTS
   ],
   exports: [
@@ -47,12 +54,20 @@ export const SHARED_COMPONENTS = [
    LoadingWait,
    SharedComponent,
    NotifyComponent,
+   DetailDealerCard,
    ...Dialog_COMPONENTS,
    NgPipesModule,
    SkinModule,
+   PerfectScrollbarModule,
    MomentModule,
    ReactiveFormsModule,
    FormsModule
+],
+providers: [
+  {
+    provide: PERFECT_SCROLLBAR_CONFIG,
+    useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG
+  }
 ],
 entryComponents: [
   ...Dialog_COMPONENTS
