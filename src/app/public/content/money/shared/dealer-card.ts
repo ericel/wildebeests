@@ -4,7 +4,7 @@ import { Component, OnInit, Input } from '@angular/core';
 @Component({
   selector: 'app-dealer-card',
   template: `
-  <perfect-scrollbar class=" card">
+
   <div class="card-header">
     <ul class="items-dealer">
      <li class="dicplay-2 font-weight-bold">
@@ -168,7 +168,7 @@ import { Component, OnInit, Input } from '@angular/core';
     </div>
 
   </div>
-</perfect-scrollbar>
+
 <mat-menu #menuDealer="matMenu" xPosition="before">
     <button mat-menu-item>Item 1</button>
     <button mat-menu-item>Item 2</button>

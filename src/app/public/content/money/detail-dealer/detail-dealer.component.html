@@ -2,11 +2,35 @@
   <div class="container">
       <div class="row">
         <div class="col-md-8">
+          <div class="card">
           <app-dealer-card [dealer]="dealer"></app-dealer-card>
         </div>
+        </div>
         <div class="col-md-4">
+          <div class="deal-box mar-30">
+            <button mat-raised-button color="primary" class="w-100 padding-30 " (click)="deal($event)"> <i class="fa fa-spinner fa-spin" *ngIf="isValid"></i> Start Deal Now</button>
+            <div class="mar-10"></div>
+            <button mat-raised-button color="warn" class="w-100 padding-10 ">Cancel Deal Now</button>
+          </div>
+          <div class="as-1 card">
+            <div class="card-header">
+                <h4 class="card-title"> Why Trust This Deal?</h4>
+             
+            </div>
+            <div class="card-block">
+              <div class="alert alert-info card-text">
+                <p>
+                <strong class="card-text">This Dealer has  <strong class="text-danger">$1000 in verified </strong>  bond. So you have nothing to worry.</strong>
+              </p>
+                <p class="card-text">We will make sure your transaction is safe and completed in a timely manner.</p>
+                <p class="card-text">
+                  Make sure, you keep tracks of your transactions for complaint purposes. 
+                  Wildebeests team, is doing it's out most best to keep your transactions safe and secured.
+                </p>
+            </div>
+            </div>
+          </div>
             <app-ads-right></app-ads-right>
-            <app-ads-right-2></app-ads-right-2>
         </div>
       </div>
   </div>

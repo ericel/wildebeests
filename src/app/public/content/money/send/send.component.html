@@ -513,7 +513,9 @@
   </div>
   </div>
   <div class="right-1" *ngIf="auth.user | async as user">
-      <app-dealer-card [dealer]="user"></app-dealer-card>
+      <perfect-scrollbar class=" card">
+          <app-dealer-card [dealer]="user"></app-dealer-card>
+      </perfect-scrollbar>
   </div>
 </main>
 

@@ -1,16 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { NavbarService } from '../../../../shared/core/navbar/navbar.service';
 import { Title, Meta } from '@angular/platform-browser';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-detail-dealer',
   templateUrl: './detail-dealer.component.html',
   styleUrls: ['./detail-dealer.component.css']
 })
 export class DetailDealerComponent implements OnInit {
-
+isValid;
   constructor(private nav: NavbarService,
     private title: Title,
-    private meta: Meta
+    private meta: Meta,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -22,4 +24,8 @@ export class DetailDealerComponent implements OnInit {
       ]);
   }
 
+  deal($event){
+    this.isValid = true;
+    //this.router.navigate(['money/send/FhBtM70QZKM']);
+  }
 }
