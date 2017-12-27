@@ -17,6 +17,7 @@ import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar/dist/lib/perfect-s
 import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 import { ADS_COMPONENTS } from './components/ads-right/ads-right.component';
+import { FlexLayoutModule } from '@angular/flex-layout';
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
 };
@@ -38,7 +39,8 @@ export const SHARED_COMPONENTS = [
     SkinModule,
     NgPipesModule,
     MomentModule,
-    PerfectScrollbarModule
+    PerfectScrollbarModule,
+    FlexLayoutModule
   ],
   declarations: [
     WysiwygComponent,
@@ -64,7 +66,8 @@ export const SHARED_COMPONENTS = [
    PerfectScrollbarModule,
    MomentModule,
    ReactiveFormsModule,
-   FormsModule
+   FormsModule,
+   FlexLayoutModule
 ],
 providers: [
   {
