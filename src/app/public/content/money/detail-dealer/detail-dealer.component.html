@@ -8,7 +8,10 @@
         </div>
         <div class="col-md-4">
           <div class="deal-box mar-30">
-            <button mat-raised-button color="primary" class="w-100 padding-30 " (click)="deal($event)"> <i class="fa fa-spinner fa-spin" *ngIf="isValid"></i> Start Deal Now</button>
+            <button mat-raised-button color="primary" class="w-100 padding-30 " (click)="deal($event)">
+                <app-spinner name="mySpinner" [(show)]="spinnerShowing"><i class="fa fa-spinner fa-spin"></i></app-spinner> 
+                
+              Start Deal Now</button>
             <div class="mar-10"></div>
             <button mat-raised-button color="warn" class="w-100 padding-10 ">Cancel Deal Now</button>
           </div>

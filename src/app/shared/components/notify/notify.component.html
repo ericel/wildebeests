@@ -1,2 +1,10 @@
 
-
+<div *ngIf="notify.msg | async as msg" class="alert"
+[ngClass]="{ 
+  'alert-danger': msg.style == 'error',
+  'alert-success': msg.style == 'success',
+  'alert-info': msg.style == 'info'
+}">
+<button class="delete" (click)="notify.clear()"></button>
+{{ msg.content }}
+</div>

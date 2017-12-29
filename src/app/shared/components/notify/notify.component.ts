@@ -1,8 +1,8 @@
-import { Component, ViewEncapsulation, Inject, OnInit, Input, ViewContainerRef } from '@angular/core';
+import { Component, ViewEncapsulation, Inject, OnInit, Input, ViewContainerRef, OnDestroy, AfterViewInit, Output, EventEmitter} from '@angular/core';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import { NotifyService } from '../../core/notify/notify.service';
-import { AfterViewInit } from '@angular/core/src/metadata/lifecycle_hooks';
 import { Success } from '../../../public/content/blogs/state/blogs.actions';
+import { SpinnerService } from '../../services/spinner.service';
 @Component({
   selector: 'error',
   template: `
@@ -88,8 +88,55 @@ message: string;
   
 }
 
+
+@Component({
+  selector: 'app-spinner',
+  template:`
+  <span *ngIf="show">
+  <img *ngIf="loadingImage" [src]="loadingImage" />
+  <ng-content></ng-content>
+</span>
+  `,
+  styles: [`
+  `]
+})
+export class SpinnerComponent  implements OnInit, OnDestroy{
+
+  constructor(private spinner: SpinnerService)  {
+   }
+
+   @Input() name: string;
+   @Input() group: string;
+   @Input() loadingImage: string;
+ 
+   private isShowing = false;
+ 
+   @Input()
+   get show(): boolean {
+     return this.isShowing;
+   }
+ 
+   @Output() showChange = new EventEmitter();
+ 
+   set show(val: boolean) {
+     this.isShowing = val;
+     this.showChange.emit(this.isShowing);
+   }
+ 
+   ngOnInit(): void {
+     if (!this.name) throw new Error("Spinner must have a 'name' attribute.");
+ 
+     this.spinner._register(this);
+   }
+ 
+   ngOnDestroy(): void {
+     this.spinner._unregister(this);
+   }
+
+}
 export const Dialog_COMPONENTS = [
   SuccessDialog,
   ErrorDialog,
-  InfoDialog
+  InfoDialog,
+  SpinnerComponent
 ]

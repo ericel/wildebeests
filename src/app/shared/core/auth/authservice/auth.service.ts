@@ -16,6 +16,7 @@ interface User {
   createdAt?: string;
   updatedAt?: string;
   catchPhrase?: string;
+  status?: string;
 }
 @Injectable()
 export class AuthService {

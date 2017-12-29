@@ -18,6 +18,7 @@ import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 import { ADS_COMPONENTS } from './components/ads-right/ads-right.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { SpinnerService } from './services/spinner.service';
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
 };
@@ -73,7 +74,8 @@ providers: [
   {
     provide: PERFECT_SCROLLBAR_CONFIG,
     useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG
-  }
+  },
+  SpinnerService
 ],
 entryComponents: [
   ...Dialog_COMPONENTS

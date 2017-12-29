@@ -2,6 +2,7 @@ import { Component, OnInit, HostListener } from '@angular/core';
 import {Title, Meta} from "@angular/platform-browser"; 
 import { NavbarService } from './../../shared/core/navbar/navbar.service';
 import { AuthService } from './../../shared/core/auth/authservice/auth.service';
+import { SpinnerService } from '../../shared/services/spinner.service';
 
 @Component({
   selector: 'app-home',
@@ -13,7 +14,10 @@ export class HomeComponent implements OnInit {
   mode = 'determinate';
   value = 50;
   heading = 'Join llll greatest only \n powerful social network.';
-  constructor(private title: Title, private meta: Meta,  public nav: NavbarService, public auth: AuthService) {
+  constructor(private title: Title, private meta: Meta,  public nav: NavbarService,
+     public auth: AuthService,
+     private spinner: SpinnerService)
+  {
     this.nav.show();
   }
 
@@ -23,6 +27,8 @@ export class HomeComponent implements OnInit {
       { name: 'keywords', content: 'Wildebeests, share all'},
       { name: 'description', content: 'We serve the best of baked web.' }
     ]);
-  }
 
+    this.spinner.show('mySpinner');
+  }
+   
 }
