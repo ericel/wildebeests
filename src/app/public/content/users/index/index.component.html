@@ -1,3 +1,19 @@
-<p>
-  index works!
-</p>
+<main class="main">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8">
+        <div class="row">
+          <div class="col-md-4" *ngFor="let user of users | async">
+              <app-user-card [user]='user'></app-user-card>
+           </div>
+          </div>
+          <app-ads-content-match></app-ads-content-match>
+          
+      </div>
+      <div class="col-md-4">
+          <app-ads-right></app-ads-right>
+      </div>
+    </div>
+  </div>
+</main>
+

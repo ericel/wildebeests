@@ -1,8 +1,6 @@
 import { ModuleWithProviders }  from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { AuthGuard } from '../../../shared/core/auth/authguard/auth.guard';
-import { IndexComponent, UsersComponent } from './index/index.component';
- 
+import { IndexComponent, UsersComponent} from './index/index.component'
 export const routes: Routes = [
    { 
     path: '', 

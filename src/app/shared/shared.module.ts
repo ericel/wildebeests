@@ -19,6 +19,8 @@ import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 import { ADS_COMPONENTS } from './components/ads-right/ads-right.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { SpinnerService } from './services/spinner.service';
+import { UserCardComponent } from '../public/content/users/user-card/user-card.component';
+
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
 };
@@ -51,7 +53,8 @@ export const SHARED_COMPONENTS = [
     NotifyComponent,
     DetailDealerCard,
     ...Dialog_COMPONENTS,
-    ...ADS_COMPONENTS
+    ...ADS_COMPONENTS,
+    UserCardComponent
   ],
   exports: [
    WysiwygComponent,
@@ -68,7 +71,8 @@ export const SHARED_COMPONENTS = [
    MomentModule,
    ReactiveFormsModule,
    FormsModule,
-   FlexLayoutModule
+   FlexLayoutModule,
+   UserCardComponent
 ],
 providers: [
   {
