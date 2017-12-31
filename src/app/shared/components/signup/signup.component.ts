@@ -4,7 +4,7 @@ import {Title, Meta} from "@angular/platform-browser";
 import { NavbarService } from './../../core/navbar/navbar.service';
 import { ReactiveFormsModule, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { SpinnerService } from '../../services/spinner.service';
-
+import { PasswordValidation } from './confirmpassword';
 type UserFields = 'email' | 'password';
 type FormErrors = { [u in UserFields]: string };
 
@@ -65,6 +65,8 @@ export class SignupComponent implements OnInit {
         Validators.maxLength(25)
         ]
       ],
+    },{
+      validator: PasswordValidation.MatchPassword // your validation method
     });
 
     // Second Step
@@ -86,7 +88,6 @@ export class SignupComponent implements OnInit {
 
   // Step 1
   signup() {
-    this.spinner.show('mySpinner');
     this.auth.emailSignUp(this.email.value, this.password.value);
   }
 
@@ -99,8 +100,7 @@ export class SignupComponent implements OnInit {
 
 
   login(){
-    this.spinner.show('myspnnerl');
-    this.auth.emailLogin(this.email.value, this.password.value);
+    this.auth.emailLogin(this.loginForm.value['email'], this.loginForm.value['password']);
   }
   
   buildLoginForm(){

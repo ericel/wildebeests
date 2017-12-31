@@ -94,6 +94,7 @@ export class AuthService {
 
   //// Email/Password Auth ////
    emailSignUp(email: string, password: string) {
+    this.spinner.show('mySpinners');
     return this.afAuth.auth.createUserWithEmailAndPassword(email, password)
       .then((user) => {
         this.notify.update('Welcome to Firestarter!!!', 'success');
@@ -103,6 +104,7 @@ export class AuthService {
   }
 
   emailLogin(email: string, password: string) {
+    this.spinner.show('mySpinnerl');
     return this.afAuth.auth.signInWithEmailAndPassword(email, password)
       .then((user) => {
         this.notify.update('Welcome to Firestarter!!!', 'success')

@@ -38,8 +38,8 @@
                                                        <!-- <div *ngIf="loginForm.valid" class="alert alert-success mar-30">Credentials Look Valid</div>-->
                                                     <button mat-raised-button color="primary" class="btn-100" type="submit" [disabled]="!loginForm.valid"><app-spinner name="mySpinnerl" [(show)]="spinnerShowingl"><i class="fa fa-spinner fa-spin"></i></app-spinner>Log In Now!</button>
                                                 </div>
-                                               <div class="col-md-12 text-center mar-20">
-                                                <a mat-button  *ngIf="!passReset && loginForm.controls.email.valid" class="text-muted font-weight-bold" (click)="resetPassword()">Reset Password for <span class="text-info"><u>{{loginForm.value.email}}</u></span>?</a>
+                                               <div class="col-md-12 text-center">
+                                                <a mat-button  *ngIf="!passReset && loginForm.controls.email.valid" class="text-muted  mar-20 font-weight-bold" (click)="resetPassword()">Reset Password for <span class="text-info"><u>{{loginForm.value.email}}</u></span>?</a>
                                                 <p *ngIf="passReset" class="alert alert-info">Reset requested. Check your email for instructions.</p>
                                               </div>
                                        </div>
@@ -78,14 +78,15 @@
                                              [class.text-danger]="confirmPassword.invalid && confirmPassword.touched"
                                             formControlName="confirmPassword" required>
   
-                                            <div *ngIf="confirmPassword.invalid && confirmPassword.touched" class="alert alert-danger">
+                                            <!--<div *ngIf="confirmPassword.invalid && confirmPassword.touched" class="alert alert-danger">
                                               Password Doesn't Match! 
-                                            </div>
+                                            </div>-->
+                                            <div class="alert alert-danger" *ngIf="signupForm.controls.confirmPassword.errors?.MatchPassword">Password not match</div>
                                         </div>
                                     </div>
                                   <div class="row">
                                       <div class="col-md-12">
-                                          <button mat-raised-button color="primary" class="btn-100" type="submit" [disabled]="!signupForm.valid"><app-spinner name="mySpinner" [(show)]="spinnerShowing"><i class="fa fa-spinner fa-spin"></i></app-spinner>Sign Up Now!</button>
+                                          <button mat-raised-button color="primary" class="btn-100" type="submit" [disabled]="!signupForm.valid"><app-spinner name="mySpinners" [(show)]="spinnerShowings"><i class="fa fa-spinner fa-spin"></i></app-spinner>Sign Up Now!</button>
                                       </div>
                                   </div>
                               </form>
