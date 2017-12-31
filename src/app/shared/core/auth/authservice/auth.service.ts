@@ -8,6 +8,7 @@ import 'rxjs/add/operator/switchMap'
 import { NotifyService } from './../../notify/notify.service';
 import { User } from './auth.model';
 import { map } from 'rxjs/operators';
+import { take } from 'rxjs/operators';
 import { merge } from 'rxjs/observable/merge';
 @Injectable()
 export class AuthService {
@@ -115,25 +116,35 @@ export class AuthService {
       .catch((error) => this.handleError(error));
   }
   private updateUserData(user) {
-    // Sets user data to firestore on login
     const userRef: AngularFirestoreDocument<any> = this.afs.doc(`wi-users/${user.uid}`);
-    const data: User = {
-      uid: user.uid,
-      username: user.displayName.replace(/[\s]/g, '.'),
-      email: user.email,
-      displayName: user.displayName,
-      photoURL: user.photoURL || 'https://wilde-beests.firebaseapp.com/assets/img/avatar.png',
-      createdAt: new Date().getTime(),
-      updatedAt: new Date().getTime(),
-      roles: {
-        user: true,
-        dealer: false,
-        contentcreator: false,
-        admin: false,
-      },
-      status: 'online'
+    userRef.valueChanges().subscribe(res=>{
+    if(res){
+      const data = {
+        updatedAt: new Date().getTime(),
+        status: 'online'
+      }
+      return userRef.update(data);
+    } else {
+      const data: User = {
+        uid: user.uid,
+        username: user.displayName.replace(/[\s]/g, '.'),
+        email: user.email,
+        displayName: user.displayName,
+        photoURL: user.photoURL || 'https://wilde-beests.firebaseapp.com/assets/img/avatar.png',
+        createdAt: new Date().getTime(),
+        updatedAt: new Date().getTime(),
+        roles: {
+          user: true,
+          dealer: false,
+          contentcreator: false,
+          admin: false,
+        },
+        status: 'online'
+      }
+      return userRef.set(data, {merge: true})
     }
-    return userRef.set(data, {merge: true})
+    });
+   
   }
   signOut() {
     this.afAuth.auth.signOut().then(() => {
@@ -146,4 +157,29 @@ export class AuthService {
       console.error(error)
       this.notify.update(error.message, 'error')
  }
+
+
+  ///// Role-based Authorization //////
+  canRead(user: User): boolean {
+    const allowed = ['admin', 'editor', 'subscriber']
+    return this.checkAuthorization(user, allowed)
+  }
+  canEdit(user: User): boolean {
+    const allowed = ['admin', 'editor']
+    return this.checkAuthorization(user, allowed)
+  }
+  canDelete(user: User): boolean {
+    const allowed = ['admin']
+    return this.checkAuthorization(user, allowed)
+  }
+  // determines if user has matching role
+  private checkAuthorization(user: User, allowedRoles: string[]): boolean {
+    if (!user) return false
+    for (const role of allowedRoles) {
+      if ( user.roles[role] ) {
+        return true
+      }
+    }
+    return false
+  }
 }
