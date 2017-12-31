@@ -12,22 +12,37 @@
                       <mat-tab-group class="tab-group">
                           <mat-tab label="Log In">
                             <h3>Have an Account? log in.</h3>
-                              <form >
-                                  <div class="row">
-                                    <div class="col-md-12">
-                                        <input type="email" class="form-control form-control-md" id="lgFormGroupInput" placeholder="Your Email">
-                                    </div>
-                                  </div>
-                                  <div class="row">
-                                      <div class="col-md-12">
-                                          <input type="password" class="form-control form-control-md" id="lgFormGroupInput" placeholder="New Password">
-                                      </div>
-                                  </div>
-                                  <div class="row">
-                                      <div class="col-md-12">
-                                          <button mat-raised-button color="primary" class="btn-100">Log In Now!</button>
-                                      </div>
-                                  </div>
+                              <form [formGroup]="loginForm" *ngIf="!user.uid" (ngSubmit)="login()">
+                                    <div class="row">
+                                            <div class="col-md-12">
+                                                    <input type="email" id="email" class="form-control form-control-md"
+                                                    formControlName="email" required placeholder="Log in Email">
+                                           
+                                                    <div *ngIf="formErrors.email" class="alert alert-danger">
+                                                    {{ formErrors.email }}
+                                                    </div>
+                                            </div>
+                                     </div>
+                                     <div class="row">
+                                            <div class="col-md-12">
+                                                    <input type="password" id="password" class="form-control form-control-md"
+                                                    formControlName="password" required placeholder="Enter your password">
+                                           
+                                                   <div *ngIf="formErrors.password" class="alert alert-danger">
+                                                    {{ formErrors.password }}
+                                                    </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                                <div class="col-md-12">
+                                                       <!-- <div *ngIf="loginForm.valid" class="alert alert-success mar-30">Credentials Look Valid</div>-->
+                                                    <button mat-raised-button color="primary" class="btn-100" type="submit" [disabled]="!loginForm.valid"><app-spinner name="mySpinnerl" [(show)]="spinnerShowingl"><i class="fa fa-spinner fa-spin"></i></app-spinner>Log In Now!</button>
+                                                </div>
+                                               <div class="col-md-12 text-center mar-20">
+                                                <a mat-button  *ngIf="!passReset && loginForm.controls.email.valid" class="text-muted font-weight-bold" (click)="resetPassword()">Reset Password for <span class="text-info"><u>{{loginForm.value.email}}</u></span>?</a>
+                                                <p *ngIf="passReset" class="alert alert-info">Reset requested. Check your email for instructions.</p>
+                                              </div>
+                                       </div>
                               </form>
                           </mat-tab>
                           <mat-tab label="Sign Up">
@@ -36,10 +51,10 @@
                                     <div class="col-md-12">
                                         <input type="email" class="form-control form-control-md"
                                          id="email" placeholder="Your Email"
-                                         [class.is-danger]="email.invalid && email.dirty"
+                                         [class.text-danger]="email.invalid && email.dirty"
                                          formControlName="email" required autocomplete="off"
                                          >
-                                         <div *ngIf="email.invalid && email.dirty" class="notification is-danger">
+                                         <div *ngIf="email.invalid && email.dirty" class="alert alert-danger">
                                             Your email doesn't look quite right...
                                         </div>
                                     </div>
@@ -48,21 +63,33 @@
                                       <div class="col-md-12">
                                           <input type="password" class="form-control
                                            form-control-md" id="password" placeholder="New Password" 
-                                           [class.is-danger]="password.invalid && password.touched"
+                                           [class.text-danger]="password.invalid && password.touched"
                                           formControlName="password" required>
 
-                                          <div *ngIf="password.invalid && password.touched" class="notification is-danger">
+                                          <div *ngIf="password.invalid && password.touched" class="alert alert-danger">
                                             Password must be between 6 and 24 chars and have at least one number 
                                           </div>
                                       </div>
                                   </div>
                                   <div class="row">
+                                        <div class="col-md-12">
+                                            <input type="password" class="form-control
+                                             form-control-md" id="confirmPassword" placeholder="Confirm New Password" 
+                                             [class.text-danger]="confirmPassword.invalid && confirmPassword.touched"
+                                            formControlName="confirmPassword" required>
+  
+                                            <div *ngIf="confirmPassword.invalid && confirmPassword.touched" class="alert alert-danger">
+                                              Password Doesn't Match! 
+                                            </div>
+                                        </div>
+                                    </div>
+                                  <div class="row">
                                       <div class="col-md-12">
-                                          <button mat-raised-button color="primary" class="btn-100" type="submit" [disabled]="!signupForm.valid">Sign Up Now!</button>
+                                          <button mat-raised-button color="primary" class="btn-100" type="submit" [disabled]="!signupForm.valid"><app-spinner name="mySpinner" [(show)]="spinnerShowing"><i class="fa fa-spinner fa-spin"></i></app-spinner>Sign Up Now!</button>
                                       </div>
                                   </div>
                               </form>
-                              <form [formGroup]="detailForm" *ngIf="user.uid && !user.catchPhrase" (ngSubmit)="setCatchPhrase(user)">
+                             <!-- <form [formGroup]="detailForm" *ngIf="user.uid && !user.catchPhrase" (ngSubmit)="setCatchPhrase(user)">
                                 <div class="row">
                                   <div class="col-md-6">
                                       <input type="text" class="form-control form-control-md" id="f-name" 
@@ -77,17 +104,17 @@
                               </form>
                               <p *ngIf="user.catchPhrase" class="text-success">
                                 You have completed the form!
-                            </p>
+                            </p>-->
                           </mat-tab>
                       </mat-tab-group>
                       <div class="or-cl"><span>Alternatively</span></div>
                       <div class="container signupbuttons">
                         <div class="row">
                           <div class="col-md-6">
-                            <button mat-raised-button class="facebook" (click)="auth.facebookLogin()"><mat-icon>home</mat-icon> facebook</button>
+                            <button mat-raised-button class="facebook" (click)="auth.facebookLogin()"><app-spinner name="mySpinnerf" [(show)]="spinnerShowingf"><i class="fa fa-spinner fa-spin"></i></app-spinner> facebook</button>
                           </div>
                           <div class="col-md-6">
-                              <button mat-raised-button class="google" (click)="auth.googleLogin()"><span [class.is-loading]="user.loading">fff</span>Google</button>
+                              <button mat-raised-button class="google" (click)="auth.googleLogin()"><app-spinner name="mySpinnerg" [(show)]="spinnerShowingg"><i class="fa fa-spinner fa-spin"></i></app-spinner> Google</button>
                           </div>
                         </div>
                       </div>

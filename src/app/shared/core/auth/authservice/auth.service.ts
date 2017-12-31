@@ -10,6 +10,7 @@ import { User } from './auth.model';
 import { map } from 'rxjs/operators';
 import { take } from 'rxjs/operators';
 import { merge } from 'rxjs/observable/merge';
+import { SpinnerService } from '../../../services/spinner.service';
 @Injectable()
 export class AuthService {
   user: Observable<User | null>;
@@ -18,7 +19,8 @@ export class AuthService {
   constructor(private afAuth: AngularFireAuth,
               private afs: AngularFirestore,
               private router: Router,
-            private notify: NotifyService) {
+            private notify: NotifyService,
+            private spinner: SpinnerService) {
       //// Get auth data, then get firestore user document || null
       this.user = this.afAuth.authState
         .switchMap(user => {
@@ -67,11 +69,13 @@ export class AuthService {
   }*/
 /* END CHECK USER STATUS */
   googleLogin() {
+    this.spinner.show('mySpinnerg');
     const provider = new firebase.auth.GoogleAuthProvider()
     return this.oAuthLogin(provider);
   }
 
   facebookLogin() {
+    this.spinner.show('mySpinnerf');
     const provider = new firebase.auth.FacebookAuthProvider()
     return this.oAuthLogin(provider);
   }
@@ -127,9 +131,9 @@ export class AuthService {
     } else {
       const data: User = {
         uid: user.uid,
-        username: user.displayName.replace(/[\s]/g, '.'),
+        username: user.displayName || user.email.split('@')[0],
         email: user.email,
-        displayName: user.displayName,
+        displayName: user.displayName || user.email.split('@')[0],
         photoURL: user.photoURL || 'https://wilde-beests.firebaseapp.com/assets/img/avatar.png',
         createdAt: new Date().getTime(),
         updatedAt: new Date().getTime(),
@@ -144,7 +148,7 @@ export class AuthService {
       return userRef.set(data, {merge: true})
     }
     });
-   
+   this.spinner.hideAll();
   }
   signOut() {
     this.afAuth.auth.signOut().then(() => {

@@ -1,6 +1,7 @@
 import { ModuleWithProviders }  from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { IndexComponent, UsersComponent} from './index/index.component'
+import { IndexComponent, UsersComponent} from './index/index.component';
+import { UserComponent } from './user/user.component';
 export const routes: Routes = [
    { 
     path: '', 
@@ -8,6 +9,9 @@ export const routes: Routes = [
     children: [
       {
         path: '', component: UsersComponent, pathMatch: 'full'
+      },
+      {
+        path: 'u/:string', component: UserComponent, pathMatch: 'full'
       }
     ] 
    }
