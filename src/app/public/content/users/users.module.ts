@@ -5,6 +5,8 @@ import { IndexComponent, UsersComponent } from './index/index.component';
 import { routing } from './users.routes';
 import { SharedModule } from '../../../shared/shared.module';
 import { UserDetailComponent } from './user-detail/user-detail.component';
+import { DetailDealerComponent } from './detail-dealer/detail-dealer.component';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -15,7 +17,8 @@ import { UserDetailComponent } from './user-detail/user-detail.component';
     UserComponent,
      IndexComponent,
      UsersComponent,
-     UserDetailComponent
+     UserDetailComponent,
+     DetailDealerComponent
     ]
 })
 export class UsersModule { }

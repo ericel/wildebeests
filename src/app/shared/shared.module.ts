@@ -12,14 +12,15 @@ import { RouterModule, Routes } from '@angular/router';
 import { SharedComponent } from './components/shared/shared.component';
 import { MomentModule } from 'angular2-moment';
 import { NotifyComponent, Dialog_COMPONENTS } from './components/notify/notify.component';
-import { DetailDealerCard } from '../public/content/money/shared/dealer-card';
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar/dist/lib/perfect-scrollbar.module';
 import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 import { ADS_COMPONENTS } from './components/ads-right/ads-right.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { SpinnerService } from './services/spinner.service';
-import { UserCardComponent } from '../public/content/users/user-card/user-card.component';
+import { DetailDealerCard } from '../public/content/users/shared/dealer-card';
+import { UserCardComponent } from '../public/content/users/shared/user-card/user-card.component';
+
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true

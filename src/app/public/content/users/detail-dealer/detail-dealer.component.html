@@ -2,8 +2,8 @@
   <div class="container">
       <div class="row">
         <div class="col-md-8">
-          <div class="card">
-          <app-dealer-card [dealer]="dealer"></app-dealer-card>
+          <div class="card" *ngIf="user | async as user">
+           <app-dealer-card [dealer]="user"></app-dealer-card>
         </div>
         </div>
         <div class="col-md-4">

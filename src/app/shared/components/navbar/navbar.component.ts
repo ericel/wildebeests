@@ -22,11 +22,14 @@ export class NavbarComponent implements OnInit {
   isHeaderUp: boolean = false;
   logo: string = 'logo_w.png';
   desktop: boolean = false;
+  user: any;
   constructor(public nav: NavbarService, public auth: AuthService, @Inject(PLATFORM_ID) private platformId: Object) {
     nav.width$.subscribe(value => { if(value > 991){ this.desktop = true} else {this.desktop = false}});
   }
 
   ngOnInit() {
+    this.user = this.auth.getUser(this.auth.userId);
+    console.log(this.user);
     if (isPlatformBrowser(this.platformId)) {
       // Client only code.
   

@@ -8,7 +8,7 @@ import { Component, OnInit, Input } from '@angular/core';
   <div class="card-header">
     <ul class="items-dealer">
      <li class="dicplay-2 font-weight-bold">
-       <a routerLink=""> <span class="online-now primary-bg blink"></span> dealer.displayName</a>
+       <a routerLink=""> <span class="online-now primary-bg blink"></span> {{dealer.displayName | ucfirst}}</a>
      </li>
      <li class="dicplay-2 font-weight-bold">
         <i class="fa fa-plus primary-text" aria-hidden="true"></i>3728
@@ -34,13 +34,13 @@ import { Component, OnInit, Input } from '@angular/core';
   <div class="card-block container">
     <div class="row mar-30">
       <div class="col-md-4">
-          <img src="./assets/img/avatar.png" class="dealer-img rounded " alt="Cinque Terre">
+          <img src="{{dealer.photoURL}}" class="dealer-img rounded " alt="Cinque Terre">
       </div>
       <div class="col-md-8">
          <ul class="no-padding dealer-details">
             <li>
-                <a routerLink="" class="font-weight-bold"> dealer.displayName</a><br>
-                <em class="text-muted">ID: dealer.uid</em>
+                <a routerLink="" class="font-weight-bold"> {{dealer.displayName | ucfirst}}</a><br>
+                <em class="text-muted">ID: {{dealer.uid}}</em><br>
                 <span class="badge  badge-info"><i class="fa fa-facebook-square" aria-hidden="true"></i> Verified</span>
                 <span class="badge  badge-info"><i class="fa fa-twitter-square" aria-hidden="true"></i> Verified</span>
                 <span class="badge  badge-info"><i class="fa fa-twitter-square" aria-hidden="true"></i> Verified</span>
@@ -48,10 +48,10 @@ import { Component, OnInit, Input } from '@angular/core';
                 <span class="badge  badge-danger"><i class="fa fa-phone-square" aria-hidden="true"></i> Verified</span>
             </li>
             <li>
-                Available: 1 min ago.
+                Available: {{dealer.updatedAt | amTimeAgo | shorten: 20:'...' | ucfirst}}.
             </li>
             <li>
-                Joined Date: <span class="text-muted">July 1st, 2008</span>
+                Joined Date: <span class="text-muted">{{dealer.createdAt | date: "yyyy/mm/dd"}}</span>
             </li>
             <li>
                 Country: <span class="text-muted">Vietnam</span>
@@ -174,7 +174,7 @@ import { Component, OnInit, Input } from '@angular/core';
     <button mat-menu-item>Item 2</button>
 </mat-menu> 
   `,
-  styleUrls: ['./../send/send.component.css']
+  styleUrls: ['./../../money/send/send.component.css']
 })
 export class DetailDealerCard implements OnInit {
  @Input() dealer;

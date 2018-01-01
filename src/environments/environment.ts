@@ -6,11 +6,11 @@
 export const environment = {
   production: false,
   firebase: {
-    apiKey: "AIzaSyDnJLsZbnmVnsCn4GKe7ukdTlDUBSG7QC4",
-    authDomain: "shakedown-2161b.firebaseapp.com",
-    databaseURL: "https://shakedown-2161b.firebaseio.com",
-    projectId: "shakedown-2161b",
-    storageBucket: "shakedown-2161b.appspot.com",
-    messagingSenderId: "873658338684"
+    apiKey: "AIzaSyCA2VMxJMWC7xSNhCvoPZECHLFT9_-5u6w",
+    authDomain: "wilde-beests.firebaseapp.com",
+    databaseURL: "https://wilde-beests.firebaseio.com",
+    projectId: "wilde-beests",
+    storageBucket: "wilde-beests.appspot.com",
+    messagingSenderId: "208322373023"
   }
 };

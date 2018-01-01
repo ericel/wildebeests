@@ -18,6 +18,7 @@ export class AuthService {
   user: Observable<User | null>;
   usersCollection: AngularFirestoreCollection<User>;
   userId: string; // current user uid
+  
   timestamp = firebase.firestore.FieldValue.serverTimestamp();
   constructor(private afAuth: AngularFireAuth,
               private afs: AngularFirestore,
@@ -40,6 +41,12 @@ export class AuthService {
 
      this.usersCollection = this.afs.collection('wi-users', (ref) => ref.orderBy('updatedAt', 'desc').limit(5));
   }
+
+    // Return a single observable User
+    getUser(id: string) {
+      const ref = this.afs.doc<User>(`wi-users/${id}`);
+      return ref.valueChanges();
+    }
 
   getSnapshot(): Observable<User[]> {
     // ['added', 'modified', 'removed']

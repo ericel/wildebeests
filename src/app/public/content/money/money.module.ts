@@ -7,7 +7,6 @@ import { CommonModule } from '@angular/common';
 import { SendComponent } from './send/send.component';
 import { IndexComponent } from './index.component';
 import { SharedModule } from '../../../shared/shared.module';
-import { DetailDealerComponent } from './detail-dealer/detail-dealer.component';
 
 @NgModule({
   imports: [
@@ -19,8 +18,7 @@ import { DetailDealerComponent } from './detail-dealer/detail-dealer.component';
   declarations: [
     IndexComponent,
     MoneyComponent,
-    SendComponent,
-    DetailDealerComponent
+    SendComponent
   ]
 })
 export class MoneyModule { }

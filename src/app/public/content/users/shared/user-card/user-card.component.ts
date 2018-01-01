@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { User } from '../../../../shared/core/auth/authservice/auth.model';
+import { User } from '../../../../../shared/core/auth/authservice/auth.model';
 @Component({
   selector: 'app-user-card',
   templateUrl: './user-card.component.html',

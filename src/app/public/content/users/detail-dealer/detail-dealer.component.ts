@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { NavbarService } from '../../../../shared/core/navbar/navbar.service';
 import { Title, Meta } from '@angular/platform-browser';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { SpinnerService } from '../../../../shared/services/spinner.service';
+import { AuthService } from '../../../../shared/core/auth/authservice/auth.service';
+import { User } from '../../../../shared/core/auth/authservice/auth.model';
+import { Observable } from 'rxjs/Observable';
 @Component({
   selector: 'app-detail-dealer',
   templateUrl: './detail-dealer.component.html',
@@ -10,23 +13,30 @@ import { SpinnerService } from '../../../../shared/services/spinner.service';
 })
 export class DetailDealerComponent implements OnInit {
 isValid;
+user: Observable<User>;
   constructor(private nav: NavbarService,
     private title: Title,
     private meta: Meta,
     private router: Router,
     private spinner: SpinnerService,
+    private auth: AuthService,
+    private route: ActivatedRoute
     
   ) { this.spinner.hideAll();}
 
   ngOnInit() {
     
     this.nav.show();
+    this.route.params.subscribe(params => {
+    const uid = params['id'];
     this.title.setTitle('dealer beest dealer page');
       this.meta.addTags([
         { name: 'keywords', content: 'Send money to ....., dealer beest dealer page'},
         { name: 'description', content: 'Send money to...' }
       ]);
-   
+  
+      this.user = this.auth.getUser(uid);
+    });
   }
 
   deal($event){

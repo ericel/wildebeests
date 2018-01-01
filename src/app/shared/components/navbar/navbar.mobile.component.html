@@ -41,11 +41,13 @@
                         <mat-list-item>
                           <img class="user-image"  [src]="user.photoURL" alt="{{user.displayName"> 
                           <h4 mat-line class="font-weight-bold primary-text"> {{ user.displayName }}</h4>
-                          <p mat-line>Online: 1923 /38/02 </p>
-                          <a mat-line mat-raised-button color="primary">My Account</a>
+                          <p *ngIf="user" mat-line class="text-muted">Online: {{user.updatedAt | amTimeAgo | shorten: 10:'...' | ucfirst}} </p>
+                          <a *ngIf="user.roles.admin && user.roles.dealer" mat-line mat-raised-button color="primary" routerLink="users/d/1/{{user.uid}}">My Account</a>
+                          <a *ngIf="user.roles.dealer && !user.roles.admin" mat-line mat-raised-button color="primary" routerLink="users/d/0/{{user.uid}}">My Account</a>
+                          <a *ngIf="!user.roles.admin && !user.roles.dealer" mat-line mat-raised-button color="primary" routerLink="users/u/0/{{user.uid}}">My Account</a>
                         </mat-list-item>
                         <mat-list-item><mat-icon mat-list-icon>attach_money</mat-icon>  <a mat-line class="black" routerLink="money">Send money</a> </mat-list-item>
-                        <mat-list-item><mat-icon mat-list-icon>folder</mat-icon>  <a mat-line class="black" routerLink="/setting">Write a blog</a> </mat-list-item>
+                        <mat-list-item><mat-icon mat-list-icon>folder</mat-icon>  <a mat-line class="black" routerLink="/content/editor">Write a blog</a> </mat-list-item>
                         <mat-list-item><mat-icon mat-list-icon>place</mat-icon> <a  mat-line class="black" routerLink="/setting">List a place</a> </mat-list-item>
                         <mat-divider></mat-divider>
                         <mat-list-item><mat-icon mat-list-icon>settings</mat-icon> <a mat-line class="black" routerLink="/setting">Setting</a> </mat-list-item>
@@ -57,7 +59,7 @@
     <ng-template #guest>
         <div>
             <div color="primary">
-                <button mat-icon-button [matMenuTriggerFor]="menuGuest" class="c menu-lang" xPosition="before"><img class="user-image" src="./assets/img/avatar.png" alt="Username">
+                <button mat-icon-button [matMenuTriggerFor]="menuGuest" class="c menu-lang" xPosition="before"><img class="img-thumbnail user-image" src="./assets/img/avatar.png" alt="Username">
                 </button>
             </div> 
         </div>
@@ -66,7 +68,7 @@
     <ng-template #authenticated>
             <div>
                 <div *ngIf="auth.user | async as user" >
-                    <button mat-icon-button [matMenuTriggerFor]="menuUser" class="c menu-lang" xPosition="before"> <img class="user-image" [src]="user.photoURL" alt="{{ user.displayName }}">
+                    <button mat-icon-button [matMenuTriggerFor]="menuUser" class="c menu-lang" xPosition="before"> <img class="img-thumbnail user-image" [src]="user.photoURL" alt="{{ user.displayName }}">
                     </button>
                 </div> 
             </div>

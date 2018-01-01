@@ -3,7 +3,6 @@ import { Routes, RouterModule } from '@angular/router';
 import { MoneyComponent } from './money.component';
 import { IndexComponent } from './index.component';
 import { SendComponent } from './send/send.component';
-import { DetailDealerComponent } from './detail-dealer/detail-dealer.component';
 export const routes: Routes = [
    { 
     path: '', 
@@ -14,9 +13,6 @@ export const routes: Routes = [
       },
       {
         path: 'send/:id', component: SendComponent, pathMatch: 'full' 
-      },
-      {
-        path: 'dealer/:id', component: DetailDealerComponent, pathMatch: 'full' 
       }
     ] 
    }
