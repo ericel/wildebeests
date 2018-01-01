@@ -11,16 +11,21 @@ import { map } from 'rxjs/operators';
 import { take } from 'rxjs/operators';
 import { merge } from 'rxjs/observable/merge';
 import { SpinnerService } from '../../../services/spinner.service';
+import { Location } from '@angular/common';
+import * as moment from 'moment';
 @Injectable()
 export class AuthService {
   user: Observable<User | null>;
   usersCollection: AngularFirestoreCollection<User>;
   userId: string; // current user uid
+  timestamp = firebase.firestore.FieldValue.serverTimestamp();
   constructor(private afAuth: AngularFireAuth,
               private afs: AngularFirestore,
               private router: Router,
-            private notify: NotifyService,
-            private spinner: SpinnerService) {
+              private notify: NotifyService,
+              private spinner: SpinnerService,
+              private location: Location
+            ) {
       //// Get auth data, then get firestore user document || null
       this.user = this.afAuth.authState
         .switchMap(user => {
@@ -126,7 +131,7 @@ export class AuthService {
     userRef.valueChanges().subscribe(res=>{
     if(res){
       const data = {
-        updatedAt: new Date().getTime(),
+        updatedAt: this.getCurrentTime(),
         status: 'online'
       }
       return userRef.update(data);
@@ -137,8 +142,8 @@ export class AuthService {
         email: user.email,
         displayName: user.displayName || user.email.split('@')[0],
         photoURL: user.photoURL || 'https://wilde-beests.firebaseapp.com/assets/img/avatar.png',
-        createdAt: new Date().getTime(),
-        updatedAt: new Date().getTime(),
+        createdAt: this.getCurrentTime(),
+        updatedAt: this.getCurrentTime(),
         roles: {
           user: true,
           dealer: false,
@@ -151,10 +156,11 @@ export class AuthService {
     }
     });
    this.spinner.hideAll();
+   this.back();
   }
   signOut() {
     this.afAuth.auth.signOut().then(() => {
-        this.router.navigate(['/']);
+      this.back();
     });
   }
 
@@ -188,4 +194,14 @@ export class AuthService {
     }
     return false
   }
+
+back() {
+      if(this.router.url == '/')
+        this.router.navigate(['/']);
+      else
+        this.location.back();
+}
+getCurrentTime(){
+  return moment().format('DD MMM YYYY HH:mm:ss'); 
+}
 }

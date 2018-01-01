@@ -46,7 +46,7 @@ export class WysiwygComponent implements OnInit, AfterViewInit, AfterContentInit
       'textArea': ['', Validators.compose([Validators.required, Validators.minLength(30)])]
     });
    
-    this.richtextarea.nativeElement.contentDocument.body.innerHTML = "<h1>Hello! Wildebeests. :)  Start your Blog now!</h1>";
+    this.richtextarea.nativeElement.contentDocument.body.innerHTML = "<h1>Hello! Wildebeests. :)  Start your Blog now!</h1> ";
    
   }
  

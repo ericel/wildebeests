@@ -11,7 +11,7 @@ export const routes: Routes = [
         path: '', component: UsersComponent, pathMatch: 'full'
       },
       {
-        path: 'u/:string', component: UserComponent, pathMatch: 'full'
+        path: 'u/0/:string', component: UserComponent, pathMatch: 'full'
       }
     ] 
    }
