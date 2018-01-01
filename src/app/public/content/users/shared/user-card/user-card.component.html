@@ -16,7 +16,9 @@
         </div>
         <div class="card-block">
             <a href="#" class="card-link float-left">Contact</a>
-            <a href="#" class="card-link float-right">Follow</a>
+            <a *ngIf="user.roles.admin && user.roles.dealer"  routerLink="d/1/{{user.uid}}"  class="card-link float-right">View Profile</a>
+            <a *ngIf="user.roles.dealer && !user.roles.admin"  routerLink="d/0/{{user.uid}}" class="card-link float-right">View Profile</a>
+            <a *ngIf="!user.roles.admin && !user.roles.dealer"  routerLink="u/0/{{user.uid}}" class="card-link float-right">View Profile</a>
         </div>
       </div>
 

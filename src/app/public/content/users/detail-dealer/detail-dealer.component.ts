@@ -6,6 +6,7 @@ import { SpinnerService } from '../../../../shared/services/spinner.service';
 import { AuthService } from '../../../../shared/core/auth/authservice/auth.service';
 import { User } from '../../../../shared/core/auth/authservice/auth.model';
 import { Observable } from 'rxjs/Observable';
+import { NotifyService } from '../../../../shared/core/notify/notify.service';
 @Component({
   selector: 'app-detail-dealer',
   templateUrl: './detail-dealer.component.html',
@@ -13,6 +14,7 @@ import { Observable } from 'rxjs/Observable';
 })
 export class DetailDealerComponent implements OnInit {
 isValid;
+deathSpinner: boolean = false;
 user: Observable<User>;
   constructor(private nav: NavbarService,
     private title: Title,
@@ -20,7 +22,8 @@ user: Observable<User>;
     private router: Router,
     private spinner: SpinnerService,
     private auth: AuthService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private notify: NotifyService
     
   ) { this.spinner.hideAll();}
 
@@ -34,8 +37,17 @@ user: Observable<User>;
         { name: 'keywords', content: 'Send money to ....., dealer beest dealer page'},
         { name: 'description', content: 'Send money to...' }
       ]);
-  
       this.user = this.auth.getUser(uid);
+      this.user.subscribe(user =>{
+        if(!user.roles.dealer || !user.roles.dealer){
+          this.spinner.show('dealerSpinner');
+          this.deathSpinner = true;
+          this.notify.update('<strong>Bad Route</strong>! You\'ll be redirected!', 'error');
+          setTimeout(()=>{  
+           this.auth.back();
+          },3000);
+        } 
+      });
     });
   }
 

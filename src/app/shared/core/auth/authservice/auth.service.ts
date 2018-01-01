@@ -44,7 +44,7 @@ export class AuthService {
 
     // Return a single observable User
     getUser(id: string) {
-      const ref = this.afs.doc<User>(`wi-users/${id}`);
+      const ref =  this.afs.doc<User>(`wi-users/${id}`);
       return ref.valueChanges();
     }
 

@@ -1,10 +1,11 @@
 <main class="main">
   <div class="container">
-      <div class="row">
-        <div class="col-md-8">
-          <div class="card" *ngIf="user | async as user">
-           <app-dealer-card [dealer]="user"></app-dealer-card>
-        </div>
+      <app-spinner name="dealerSpinner" [(show)]="dealerSpinner" class="text-muted"><i class="fa fa-spinner fa-spin fa-4x"></i></app-spinner>
+      <div class="row" *ngIf="!deathSpinner">
+        <div class="col-md-8 mar-30">
+            <div class="card" *ngIf="user | async as user">
+                <app-dealer-card  [dealer]="user"></app-dealer-card>
+            </div>
         </div>
         <div class="col-md-4">
           <div class="deal-box mar-30">
@@ -12,7 +13,7 @@
                 <app-spinner name="mySpinner" [(show)]="spinnerShowing"><i class="fa fa-spinner fa-spin"></i></app-spinner> 
                 
               Start Deal Now</button>
-            <div class="mar-10"></div>
+            <div class="mar-10"></div> 
             <button mat-raised-button color="warn" class="w-100 padding-10 ">Cancel Deal Now</button>
           </div>
           <div class="as-1 card">

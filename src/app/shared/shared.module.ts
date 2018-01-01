@@ -12,19 +12,14 @@ import { RouterModule, Routes } from '@angular/router';
 import { SharedComponent } from './components/shared/shared.component';
 import { MomentModule } from 'angular2-moment';
 import { NotifyComponent, Dialog_COMPONENTS } from './components/notify/notify.component';
-import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar/dist/lib/perfect-scrollbar.module';
-import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
-import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 import { ADS_COMPONENTS } from './components/ads-right/ads-right.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { SpinnerService } from './services/spinner.service';
 import { DetailDealerCard } from '../public/content/users/shared/dealer-card';
 import { UserCardComponent } from '../public/content/users/shared/user-card/user-card.component';
+import * as Ps from 'perfect-scrollbar'
 
 
-const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
-  suppressScrollX: true
-};
 export const SHARED_COMPONENTS = [
   NavbarComponent,
   NavbarDownComponent,
@@ -43,7 +38,6 @@ export const SHARED_COMPONENTS = [
     SkinModule,
     NgPipesModule,
     MomentModule,
-    PerfectScrollbarModule,
     FlexLayoutModule
   ],
   declarations: [
@@ -68,7 +62,6 @@ export const SHARED_COMPONENTS = [
    ...Dialog_COMPONENTS,
    NgPipesModule,
    SkinModule,
-   PerfectScrollbarModule,
    MomentModule,
    ReactiveFormsModule,
    FormsModule,
@@ -76,10 +69,6 @@ export const SHARED_COMPONENTS = [
    UserCardComponent
 ],
 providers: [
-  {
-    provide: PERFECT_SCROLLBAR_CONFIG,
-    useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG
-  },
   SpinnerService
 ],
 entryComponents: [

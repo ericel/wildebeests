@@ -69,21 +69,21 @@ message: string;
    }
   ngOnInit(){
    
-    this.notify.msg.subscribe(data => {
+    /*this.notify.msg.subscribe(data => {
       if(data){
         this.message = data.content;
         this.open(data.style);
       }
-     });
+     });*/
   }
   
-  open(key) {
+  /*open(key) {
     this.dialogRef = this.dialog.open(dialogsMap[key]);
     this.dialogRef.componentInstance.msg = this.message;
     this.dialogRef.afterClosed().subscribe(result => {
       this.dialogRef = null;
     });
-  }
+  }*/
 
   
 }

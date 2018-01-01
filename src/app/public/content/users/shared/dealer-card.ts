@@ -1,11 +1,12 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { AuthService } from '../../../../shared/core/auth/authservice/auth.service';
 
 
 @Component({
   selector: 'app-dealer-card',
   template: `
 
-  <div class="card-header">
+  <div class="card-header dealer-header">
     <ul class="items-dealer">
      <li class="dicplay-2 font-weight-bold">
        <a routerLink=""> <span class="online-now primary-bg blink"></span> {{dealer.displayName | ucfirst}}</a>
@@ -169,21 +170,24 @@ import { Component, OnInit, Input } from '@angular/core';
 
   </div>
 
-<mat-menu #menuDealer="matMenu" xPosition="before">
-    <button mat-menu-item>Item 1</button>
-    <button mat-menu-item>Item 2</button>
+<mat-menu #menuDealer="matMenu" xPosition="before" >
+<span *ngIf="auth.user | async as user">
+    <a mat-menu-item *ngIf="dealer.uid !== user.uid"><i class="fa fa-flag-o" aria-hidden="true"></i> Report User</a>
+    <a mat-menu-item *ngIf="dealer.uid === user.uid"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit Profile</a>
+    <a mat-menu-item *ngIf="dealer.uid === user.uid"><i class="fa fa-level-up" aria-hidden="true"></i> Upgrade Profile</a>
+  </span>
 </mat-menu> 
   `,
-  styleUrls: ['./../../money/send/send.component.css']
+  styleUrls: ['./../../money/send/send.component.css', './../detail-dealer/detail-dealer.component.css']
 })
 export class DetailDealerCard implements OnInit {
  @Input() dealer;
-  constructor() {
+  constructor(public auth: AuthService) {
       
    }
 
   ngOnInit() {
-    console.log(this.dealer);
+ 
   }
 
 }

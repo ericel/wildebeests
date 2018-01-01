@@ -44,7 +44,7 @@ video {
 }
 .main {
     padding: 60px 0;
-    min-height: 500px;
+    min-height: 768px;
 }
 @media screen and (max-width: 991px){
     .main {
@@ -76,6 +76,16 @@ a:hover {
 @media screen and (max-width: 700px){
     .text-smo-center{
         text-align: center !important;
+    }
+}
+@media screen and (max-width: 991px){
+    .desktop {
+        display: none !important;
+    }
+}
+@media screen and (min-width: 991px){
+    .mobile {
+        display: none !important;
     }
 }
 .primary-text {
