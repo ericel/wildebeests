@@ -16,8 +16,11 @@ import { ADS_COMPONENTS } from './components/ads-right/ads-right.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { SpinnerService } from './services/spinner.service';
 import { DetailDealerCard } from '../public/content/users/shared/dealer-card';
-import { UserCardComponent } from '../public/content/users/shared/user-card/user-card.component';
 import * as Ps from 'perfect-scrollbar'
+import { UsersCard } from '../public/content/users/shared/users-card/users-card.component';
+import { UserDetailCard } from '../public/content/users/shared/user-card/user-card.component';
+
+
 
 
 export const SHARED_COMPONENTS = [
@@ -49,7 +52,8 @@ export const SHARED_COMPONENTS = [
     DetailDealerCard,
     ...Dialog_COMPONENTS,
     ...ADS_COMPONENTS,
-    UserCardComponent
+    UsersCard,
+    UserDetailCard
   ],
   exports: [
    WysiwygComponent,
@@ -66,7 +70,8 @@ export const SHARED_COMPONENTS = [
    ReactiveFormsModule,
    FormsModule,
    FlexLayoutModule,
-   UserCardComponent
+   UsersCard,
+   UserDetailCard
 ],
 providers: [
   SpinnerService

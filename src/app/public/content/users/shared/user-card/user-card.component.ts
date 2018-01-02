@@ -1,12 +1,12 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { User } from '../../../../../shared/core/auth/authservice/auth.model';
+
 @Component({
   selector: 'app-user-card',
   templateUrl: './user-card.component.html',
-  styleUrls: ['./user-card.component.css']
+  styleUrls: ['./../../../money/send/send.component.css']
 })
-export class UserCardComponent implements OnInit {
-@Input() user: User;
+export class UserDetailCard implements OnInit {
+  @Input() user0;
   constructor() { }
 
   ngOnInit() {

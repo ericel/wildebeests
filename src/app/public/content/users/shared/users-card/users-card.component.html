@@ -1,0 +1,25 @@
+
+    <div class="card">
+      <div class="card-header text-center" [ngClass]="{'dealer-header': user.roles.dealer}">
+          <span class="status-show online-now bg-warning blink"></span>
+          <img class=" rounded img-thumbnail user-img " src="{{user.photoURL}}" alt="{{user.displayName }}">
+          <h4 class="card-title text-info">{{user.displayName | shorten: 10:'...'}}</h4> 
+      </div>
+      <div class="card-block text-center">
+          <p class="card-text text-muted">
+                <span class="badge badge-warning" *ngIf="user.roles.admin">Admin</span>
+                <span class="badge badge-primary" *ngIf="user.roles.user">User</span>
+                <span class="badge badge-success" *ngIf="user.roles.contentcreator">Content Creator</span>
+                <span class="badge badge-info" *ngIf="user.roles.dealer">Dealer</span>
+          </p>
+          <p class="card-text">Last Online: {{user.updatedAt | amTimeAgo | shorten: 10:'...' | ucfirst}}</p>
+        </div>
+        <div class="card-block">
+            <a href="#" class="card-link float-left">Contact</a>
+            <a *ngIf="user.roles.admin && user.roles.dealer"  routerLink="d/1/{{user.uid}}"  class="card-link float-right">View Profile</a>
+            <a *ngIf="user.roles.dealer && !user.roles.admin"  routerLink="d/0/{{user.uid}}" class="card-link float-right">View Profile</a>
+            <a *ngIf="!user.roles.admin && !user.roles.dealer"  routerLink="u/0/{{user.uid}}" class="card-link float-right">View Profile</a>
+        </div>
+      </div>
+
+ 

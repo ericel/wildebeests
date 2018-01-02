@@ -3,10 +3,10 @@ import { NavbarService } from '../../../../shared/core/navbar/navbar.service';
 
 @Component({
   selector: 'app-user',
-  templateUrl: './user.component.html',
-  styleUrls: ['./user.component.css']
+  templateUrl: './detail-user.component.html',
+  styleUrls: ['./detail-user.component.css']
 })
-export class UserComponent implements OnInit {
+export class DetailUserComponent implements OnInit {
 
   constructor(private nav: NavbarService) { }
 
