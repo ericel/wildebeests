@@ -1,8 +1,10 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { AuthService } from '../../../../shared/core/auth/authservice/auth.service';
 import { Local } from './../../../../shared/core/auth/authservice/auth.model';
 import { Observable } from 'rxjs/Observable';
 import { LocationService } from '../../../../shared/services/location.service';
+import { VotingService } from '../../../../shared/services/voting.service';
+import { sum, values } from 'lodash';
 @Component({
   selector: 'app-dealer-card',
   template: `
@@ -13,11 +15,11 @@ import { LocationService } from '../../../../shared/services/location.service';
        <a routerLink=""> <span class="online-now primary-bg blink"></span> {{dealer.displayName | ucfirst}}</a>
      </li>
      <li class="dicplay-2 font-weight-bold">
-        <i class="fa fa-plus primary-text" aria-hidden="true"></i>3728
-     </li>
-     <li class="dicplay-2 font-weight-bold">
-        <i class="fa fa-minus text-danger" aria-hidden="true"></i>3728
-     </li>
+     <i class="fa fa-plus primary-text" aria-hidden="true"></i> {{positiveVoteCounts}}
+    </li>
+    <li class="dicplay-2 font-weight-bold">
+      <i class="fa fa-minus text-danger" aria-hidden="true"></i> {{negativeVoteCounts}}
+    </li>
      <li class="dicplay-2 font-weight-bold verify">
         <span class="fa fa-stack fa-lg primary-text">
             <i class="fa fa-certificate fa-stack-2x"></i>
@@ -69,6 +71,9 @@ import { LocationService } from '../../../../shared/services/location.service';
       </div>
     </div>
     <div class="container">
+    <div class="text-center" *ngIf="auth.user | async as user">
+         <app-voting [itemId]='dealer?.uid' [userId]='user?.uid'></app-voting>
+      </div>
       <div class="text-center">
           
           <span class="badge  badge-info">10 Deals</span>
@@ -81,31 +86,8 @@ import { LocationService } from '../../../../shared/services/location.service';
         </blockquote>
         <mat-tab-group class="tab-group-s" >
         <mat-tab label="Terms">
-        <div class="demo-tab-content">
-           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla venenatis ante augue.
-           Phasellus volutpat neque ac dui mattis vulputate. Etiam consequat aliquam cursus.
-           In sodales pretium ultrices. Maecenas lectus est, sollicitudin consectetur felis nec,
-           feugiat ultricies mi. Aliquam erat volutpat. Nam placerat, tortor in ultrices porttitor,
-           orci enim rutrum enim, vel tempor sapien arcu a tellus.
-           <br />
-           <br />
-           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla venenatis ante augue.
-           Phasellus volutpat neque ac dui mattis vulputate. Etiam consequat aliquam cursus.
-           In sodales pretium ultrices. Maecenas lectus est, sollicitudin consectetur felis nec,
-           feugiat ultricies mi. Aliquam erat volutpat. Nam placerat, tortor in ultrices porttitor,
-           orci enim rutrum enim, vel tempor sapien arcu a tellus.
-           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla venenatis ante augue.
-           Phasellus volutpat neque ac dui mattis vulputate. Etiam consequat aliquam cursus.
-           In sodales pretium ultrices. Maecenas lectus est, sollicitudin consectetur felis nec,
-           feugiat ultricies mi. Aliquam erat volutpat. Nam placerat, tortor in ultrices porttitor,
-           orci enim rutrum enim, vel tempor sapien arcu a tellus.
-           <br />
-           <br />
-           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla venenatis ante augue.
-           Phasellus volutpat neque ac dui mattis vulputate. Etiam consequat aliquam cursus.
-           In sodales pretium ultrices. Maecenas lectus est, sollicitudin consectetur felis nec,
-           feugiat ultricies mi. Aliquam erat volutpat. Nam placerat, tortor in ultrices porttitor,
-           orci enim rutrum enim, vel tempor sapien arcu a tellus.
+        <div class="tab-content">
+        <div [innerHTML]="dealer.bio"></div>
          </div>  
        </mat-tab>
             <mat-tab label="Reviews (83)"  class="clearfix">
@@ -188,15 +170,34 @@ import { LocationService } from '../../../../shared/services/location.service';
   `,
   styleUrls: ['./../../money/send/send.component.css', './../detail-dealer/detail-dealer.component.css']
 })
-export class DetailDealerCard implements OnInit {
+export class DetailDealerCard implements OnInit, OnDestroy {
  @Input() dealer;
+ userVote: number = 0;
+ userVoteUp: number = 0;
+ positiveVoteCounts: number;
+ negativeVoteCounts: number;
+ subscription;
+ subscription2;
  local: Observable<Local>;
-  constructor(public auth: AuthService, private _local: LocationService) {
-      
-   }
+  constructor(public auth: AuthService, private _local: LocationService, private _voting: VotingService
+  ) { }
 
   ngOnInit() {
     this.local = this._local.getUserLocal(this.dealer.uid);
+    this.subscription = this._voting.getItemVotesUp(this.dealer.uid)
+    .subscribe(upvotes => {
+      this.positiveVoteCounts = sum(values(upvotes))
+    });
+    this.subscription2 = this._voting.getItemVotesDown(this.dealer.uid)
+        .subscribe(downvotes => {
+          this.negativeVoteCounts = sum(values(downvotes))
+    })
+
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+    this.subscription2.unsubscribe();
   }
 
 }

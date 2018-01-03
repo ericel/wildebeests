@@ -4,10 +4,10 @@
        <a routerLink=""> <span class="online-now primary-bg blink"></span> {{user0.displayName}}</a>
      </li>
      <li class="dicplay-2 font-weight-bold">
-        <i class="fa fa-plus primary-text" aria-hidden="true"></i>3728
+        <i class="fa fa-plus primary-text" aria-hidden="true"></i> {{positiveVoteCounts}}
      </li>
      <li class="dicplay-2 font-weight-bold">
-        <i class="fa fa-minus text-danger" aria-hidden="true"></i>3728
+        <i class="fa fa-minus text-danger" aria-hidden="true"></i> {{negativeVoteCounts}}
      </li>
      <li class="dicplay-2 font-weight-bold verify">
         <span class="fa fa-stack fa-lg primary-text">
@@ -69,7 +69,7 @@
         </blockquote>
         <mat-tab-group class="tab-group-s" >
         <mat-tab label="About me">
-        <div class="demo-tab-content">
+        <div class="tab-content">
           <div [innerHTML]="user0.bio"></div>
          </div>  
        </mat-tab>
