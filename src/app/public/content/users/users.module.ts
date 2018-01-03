@@ -8,6 +8,7 @@ import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar/dist/lib/perfect-s
 import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 import { DetailUserComponent } from './detail-user/detail-user.component';
+import { EditUserComponent } from './edit-user/edit-user.component';
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
 };
@@ -22,7 +23,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
      DetailUserComponent,
      IndexComponent,
      UsersComponent,
-     DetailDealerComponent
+     DetailDealerComponent,
+     EditUserComponent
     ],
 providers:  [
       {

@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SkinModule } from './core/skin/skin.module';
+
 import { NavbarComponent, NavbarDownComponent, NavbarMobileComponent } from './components/navbar/navbar.component';
 import { SignupComponent, LoginComponent, MainintoComponent } from './components/signup/signup.component';
 import { WysiwygComponent } from '../public/content/blogs/shared/wysiwyg/wysiwyg.component';
@@ -40,7 +41,6 @@ export const SHARED_COMPONENTS = [
     ReactiveFormsModule,
     FormsModule,
     RouterModule,
-    ReactiveFormsModule,
     SkinModule,
     NgPipesModule,
     MomentModule,

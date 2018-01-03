@@ -27,13 +27,7 @@ import { reducers } from './reducers';
 import { SharedModule, SHARED_COMPONENTS } from './shared/shared.module';
 import { AuthModule } from './shared/core/auth/auth.module';
 import { CoreModule } from './shared/core/core.module';
-import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
-import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
-import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 
-const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
-  suppressScrollX: true
-};
 @NgModule({
   declarations: [
     AppComponent,
@@ -56,14 +50,10 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     AngularFireAuthModule,
     PizzaModule,
     SharedModule,
-    AuthModule,
-    PerfectScrollbarModule
+    AuthModule
   ],
   providers: [
-    {
-      provide: PERFECT_SCROLLBAR_CONFIG,
-      useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG
-    }
+   
   ],
   bootstrap: [AppComponent]
 })

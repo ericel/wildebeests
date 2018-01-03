@@ -4,6 +4,7 @@ import { IndexComponent, UsersComponent} from './index/index.component';
 
 import { DetailDealerComponent } from './detail-dealer/detail-dealer.component';
 import { DetailUserComponent } from './detail-user/detail-user.component';
+import { EditUserComponent } from './edit-user/edit-user.component';
 export const routes: Routes = [
    { 
     path: '', 
@@ -20,6 +21,9 @@ export const routes: Routes = [
       },
       {
         path: 'd/1/:id', component: DetailDealerComponent, pathMatch: 'full'
+      },
+      {
+        path: 'u/edit/:id', component: EditUserComponent, pathMatch: 'full'
       }
     ] 
    }

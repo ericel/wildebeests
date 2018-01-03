@@ -1,0 +1,15 @@
+.main {
+    position: relative;
+    top: -150px !important;
+}
+.header {
+    height: 250px;
+    color: #fff;
+    padding: 75px 10px 0 10px;
+}
+.card-header {
+    height: 100px;
+}
+.row .mat-card {
+    margin-top: 20px;
+}
