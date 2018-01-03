@@ -39,6 +39,9 @@ user: Observable<User>;
       ]);
       this.user = this.auth.getUser(uid);
       this.user.subscribe(user =>{
+        if(!user){
+          this.auth.back();
+        }
         if(!user.roles.dealer || !user.roles.dealer){
           this.spinner.show('dealerSpinner');
           this.deathSpinner = true;
@@ -47,6 +50,11 @@ user: Observable<User>;
            this.auth.back();
           },3000);
         } 
+        this.title.setTitle(user.displayName + ' Wildebeests profile!');
+        this.meta.addTags([
+          { name: 'keywords', content: user.displayName + ' Wildebeests profile!, '+user.roles+', send money back home, dealer'},
+          { name: 'description', content: user.displayName + ' will help you send money back home to your love ones!' }
+        ]);
       });
     });
   }

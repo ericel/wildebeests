@@ -19,6 +19,9 @@ import { DetailDealerCard } from '../public/content/users/shared/dealer-card';
 import * as Ps from 'perfect-scrollbar'
 import { UsersCard } from '../public/content/users/shared/users-card/users-card.component';
 import { UserDetailCard } from '../public/content/users/shared/user-card/user-card.component';
+import { LocationService } from './services/location.service';
+import { VotingComponent } from './components/voting/voting.component';
+import { VotingService } from './services/voting.service';
 
 
 
@@ -53,7 +56,8 @@ export const SHARED_COMPONENTS = [
     ...Dialog_COMPONENTS,
     ...ADS_COMPONENTS,
     UsersCard,
-    UserDetailCard
+    UserDetailCard,
+    VotingComponent
   ],
   exports: [
    WysiwygComponent,
@@ -74,7 +78,9 @@ export const SHARED_COMPONENTS = [
    UserDetailCard
 ],
 providers: [
-  SpinnerService
+  SpinnerService,
+  LocationService,
+  VotingService
 ],
 entryComponents: [
   ...Dialog_COMPONENTS

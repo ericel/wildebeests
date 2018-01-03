@@ -1,11 +1,12 @@
 .notifier {
     position: relative;
 }
-.alert {
+.notifier .alert {
     overflow: hidden;
     position: absolute;
     top: 70px;
     width: 90%;
+    z-index: 9999;
 }
 .closeBTN {
     position: absolute;

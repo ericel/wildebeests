@@ -1,7 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { AuthService } from '../../../../shared/core/auth/authservice/auth.service';
-
-
+import { Local } from './../../../../shared/core/auth/authservice/auth.model';
+import { Observable } from 'rxjs/Observable';
+import { LocationService } from '../../../../shared/services/location.service';
 @Component({
   selector: 'app-dealer-card',
   template: `
@@ -42,20 +43,27 @@ import { AuthService } from '../../../../shared/core/auth/authservice/auth.servi
             <li>
                 <a routerLink="" class="font-weight-bold"> {{dealer.displayName | ucfirst}}</a><br>
                 <em class="text-muted">ID: {{dealer.uid}}</em><br>
-                <span class="badge  badge-info"><i class="fa fa-facebook-square" aria-hidden="true"></i> Verified</span>
-                <span class="badge  badge-info"><i class="fa fa-twitter-square" aria-hidden="true"></i> Verified</span>
-                <span class="badge  badge-info"><i class="fa fa-twitter-square" aria-hidden="true"></i> Verified</span>
-                <span class="badge  badge-info"><i class="fa fa-envelope" aria-hidden="true"></i> Verified</span>
-                <span class="badge  badge-danger"><i class="fa fa-phone-square" aria-hidden="true"></i> Verified</span>
+                <span class="badge" [ngClass]="dealer.verified.facebook ? 'badge-info' : 'badge-danger'"><i class="fa fa-facebook-square" aria-hidden="true"></i> 
+                    {{ dealer.verified.facebook ? "verified" : "not verified" }}
+                </span>
+                <span class="badge"  [ngClass]="dealer.verified.twitter ? 'badge-info' : 'badge-danger'"><i class="fa fa-twitter-square" aria-hidden="true"></i>
+                    {{ dealer.verified.twitter ? "verified" : "not verified" }}
+                </span>
+                <span class="badge"  [ngClass]="dealer.verified.email ? 'badge-info' : 'badge-danger'"><i class="fa fa-envelope" aria-hidden="true"></i> 
+                    {{ dealer.verified.email ? "verified" : "not verified" }}
+                </span>
+                <span class="badge" [ngClass]="dealer.verified.phone ? 'badge-info' : 'badge-danger'"><i class="fa fa-phone-square" aria-hidden="true"></i> 
+                    {{ dealer.verified.phone ? "verified" : "not verified" }}
+                </span>
             </li>
             <li>
                 Available: {{dealer.updatedAt | amTimeAgo | shorten: 20:'...' | ucfirst}}.
             </li>
             <li>
-                Joined Date: <span class="text-muted">{{dealer.createdAt | date: "yyyy/mm/dd"}}</span>
+                Joined Date: <span class="text-muted">{{dealer.createdAt | amDateFormat:'LL'}}</span>
             </li>
             <li>
-                Country: <span class="text-muted">Vietnam</span>
+                Country: <span class="text-muted" *ngIf="local | async as local">{{local.city}} / {{local.country}}</span>
             </li>
         </ul>
       </div>
@@ -182,12 +190,13 @@ import { AuthService } from '../../../../shared/core/auth/authservice/auth.servi
 })
 export class DetailDealerCard implements OnInit {
  @Input() dealer;
-  constructor(public auth: AuthService) {
+ local: Observable<Local>;
+  constructor(public auth: AuthService, private _local: LocationService) {
       
    }
 
   ngOnInit() {
- 
+    this.local = this._local.getUserLocal(this.dealer.uid);
   }
 
 }

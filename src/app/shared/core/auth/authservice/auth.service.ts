@@ -6,33 +6,31 @@ import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument 
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/switchMap'
 import { NotifyService } from './../../notify/notify.service';
-import { User } from './auth.model';
+import { User, Local } from './auth.model';
 import { map } from 'rxjs/operators';
 import { take } from 'rxjs/operators';
 import { merge } from 'rxjs/observable/merge';
 import { SpinnerService } from '../../../services/spinner.service';
 import { Location } from '@angular/common';
 import * as moment from 'moment';
+import { LocationService } from '../../../services/location.service';
 @Injectable()
 export class AuthService {
   user: Observable<User | null>;
   usersCollection: AngularFirestoreCollection<User>;
   userId: string; // current user uid
-  
-  timestamp = firebase.firestore.FieldValue.serverTimestamp();
   constructor(private afAuth: AngularFireAuth,
               private afs: AngularFirestore,
               private router: Router,
               private notify: NotifyService,
               private spinner: SpinnerService,
-              private location: Location
+              private location: Location,
+              private _locationService: LocationService
             ) {
       //// Get auth data, then get firestore user document || null
       this.user = this.afAuth.authState
         .switchMap(user => {
           if (user) {
-           // this.updateOnConnect();
-            //this.userId = user.uid
             return this.afs.doc<User>(`wi-users/${user.uid}`).valueChanges()
           } else {
             return Observable.of(null)
@@ -40,6 +38,7 @@ export class AuthService {
         })
 
      this.usersCollection = this.afs.collection('wi-users', (ref) => ref.orderBy('updatedAt', 'desc').limit(5));
+    
   }
 
     // Return a single observable User
@@ -69,17 +68,7 @@ export class AuthService {
     return userRef.update(data)
   }
   }
-  /// Updates status when connection to Firebase starts
-  /*private updateOnConnect() {
-    const userRef: AngularFirestoreDocument<any> = this.afs.doc(`wi-users/${this.userId}`);
-    return this.afs.object('.info/connected')
-    .do(connected => {
-        let status = connected.$value ? 'online' : 'offline'
-        this.updateStatus(status)
-    })
-    .subscribe()
-  }*/
-/* END CHECK USER STATUS */
+
   googleLogin() {
     this.spinner.show('mySpinnerg');
     const provider = new firebase.auth.GoogleAuthProvider()
@@ -154,16 +143,44 @@ export class AuthService {
         roles: {
           user: true,
           dealer: false,
-          contentcreator: false,
           admin: false,
         },
-        status: 'online'
+        verified: {
+          links:{
+            facebook: 'Enter your facebook profile url',
+            twitter: 'Enter your twitter profile url',
+            email: user.email || 'Enter your email address',
+            phone: 'Enter your phone number'
+          },
+          facebook: false,
+          twitter: false,
+          email: true,
+          phone: false
+        },
+        status: 'online',
+        bio: 'I\'m a wildebeests! More about me to be added. <p class="text-danger">Incomplete profile! Profile needs more information.</p>'
       }
+      this._Local_User(user);
       return userRef.set(data, {merge: true})
     }
     });
    this.spinner.hideAll();
    this.back();
+  }
+  private _Local_User(user){
+    const userRef: AngularFirestoreDocument<any> = this.afs.doc(`wi-users-local/${user.uid}`);
+    const local = this._locationService.getCurrentIpLocation().subscribe(local => {
+      const data: Local = {
+        uid: user.uid,
+        country: local.country || 'Country needed!',
+        city: local.city || 'City needed!',
+        ip: local.ip || 'Location Ip needed!',
+        region: local.region || 'State, Province needed!',
+        lat_long: local.loc || 'Latitude and Longitude needed!',
+        internetOrg: local.org
+      }
+    return userRef.set(data, {merge: true})
+  });
   }
   signOut() {
     this.afAuth.auth.signOut().then(() => {
@@ -173,7 +190,6 @@ export class AuthService {
 
     // If error, console log and notify user
   private handleError(error) {
-      console.error(error)
       this.notify.update(error.message, 'error')
  }
 
@@ -209,6 +225,6 @@ back() {
         this.location.back();
 }
 getCurrentTime(){
-  return moment().format('DD MMM YYYY HH:mm:ss'); 
+  return moment().format("YYYY-MM-DD HH:mm:ss"); 
 }
 }

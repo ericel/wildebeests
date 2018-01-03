@@ -7,6 +7,25 @@ export interface Roles {
     admin?: boolean;
 }
 
+export interface Verified {
+    links?: any;
+    facebook?: boolean;
+    twitter?: boolean;
+    email?: boolean;
+    phone?: boolean;
+}
+
+export interface Local {
+    uid: string;
+    country: string;
+    city: string;
+    lat_long: string;
+    region: string;
+    internetOrg: string;
+    ip: string;
+    admin?: boolean;
+}
+
 export interface User {
     uid: string;
     username: string;
@@ -20,4 +39,6 @@ export interface User {
     catchPhrase?: string;
     status?: string;
     roles?: Roles;
+    verified?: Verified;
+    bio?: string;
 }

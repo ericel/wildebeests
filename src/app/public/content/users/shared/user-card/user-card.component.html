@@ -1,7 +1,7 @@
 <div class="card-header">
     <ul class="items-dealer">
      <li class="dicplay-2 font-weight-bold">
-       <a routerLink=""> <span class="online-now primary-bg blink"></span> user0.displayName</a>
+       <a routerLink=""> <span class="online-now primary-bg blink"></span> {{user0.displayName}}</a>
      </li>
      <li class="dicplay-2 font-weight-bold">
         <i class="fa fa-plus primary-text" aria-hidden="true"></i>3728
@@ -22,74 +22,55 @@
       </ng-container>-->
      </li>
     </ul>
-      <button mat-icon-button class="text-right-btn" [matMenuTriggerFor]="menuDealer"><mat-icon>keyboard_arrow_down</mat-icon></button>
+      <button mat-icon-button class="text-right-btn" [matMenuTriggerFor]="menuUser"><mat-icon>keyboard_arrow_down</mat-icon></button>
   </div>
   <div class="card-block container">
     <div class="row mar-30">
       <div class="col-md-4">
-          <img src="./assets/img/avatar.png" class="dealer-img rounded " alt="Cinque Terre">
+          <img src="{{user0.photoURL}}" class="dealer-img rounded " alt="{{user0.displayName}}">
       </div>
       <div class="col-md-8">
          <ul class="no-padding dealer-details">
             <li>
-                <a routerLink="" class="font-weight-bold"> dealer.displayName</a><br>
-                <em class="text-muted">ID: dealer.uid</em>
-                <span class="badge  badge-info"><i class="fa fa-facebook-square" aria-hidden="true"></i> Verified</span>
-                <span class="badge  badge-info"><i class="fa fa-twitter-square" aria-hidden="true"></i> Verified</span>
-                <span class="badge  badge-info"><i class="fa fa-twitter-square" aria-hidden="true"></i> Verified</span>
-                <span class="badge  badge-info"><i class="fa fa-envelope" aria-hidden="true"></i> Verified</span>
-                <span class="badge  badge-danger"><i class="fa fa-phone-square" aria-hidden="true"></i> Verified</span>
+                <a routerLink="" class="font-weight-bold"> {{user0.displayName}}</a><br>
+                <em class="text-muted">ID: {{user0.uid}}</em><br>
+                <span class="badge" [ngClass]="user0.verified.facebook ? 'badge-info' : 'badge-danger'"><i class="fa fa-facebook-square" aria-hidden="true"></i> 
+                    {{ user0.verified.facebook ? "verified" : "not verified" }}
+                </span>
+                <span class="badge"  [ngClass]="user0.verified.twitter ? 'badge-info' : 'badge-danger'"><i class="fa fa-twitter-square" aria-hidden="true"></i>
+                    {{ user0.verified.twitter ? "verified" : "not verified" }}
+                </span>
+                <span class="badge"  [ngClass]="user0.verified.email ? 'badge-info' : 'badge-danger'"><i class="fa fa-envelope" aria-hidden="true"></i> 
+                    {{ user0.verified.email ? "verified" : "not verified" }}
+                </span>
+                <span class="badge" [ngClass]="user0.verified.phone ? 'badge-info' : 'badge-danger'"><i class="fa fa-phone-square" aria-hidden="true"></i> 
+                    {{ user0.verified.phone ? "verified" : "not verified" }}
+                </span>
             </li>
             <li>
-                Available: 1 min ago.
+                Available: {{user0.updatedAt | amTimeAgo | shorten: 20:'...' | ucfirst}}.
             </li>
             <li>
-                Joined Date: <span class="text-muted">July 1st, 2008</span>
+                Joined Date: <span class="text-muted">{{user0.createdAt | amDateFormat:'LL'}}</span>
             </li>
             <li>
-                Country: <span class="text-muted">Vietnam</span>
+                Country: <span class="text-muted" *ngIf="local | async as local">{{local.city}} / {{local.country}}</span>
             </li>
         </ul>
       </div>
     </div>
     <div class="container">
-      <div class="text-center">
-          
-          <span class="badge  badge-info">10 Deals</span>
-        <span class="badge  badge-info">10 Deals</span>
-        <span class="badge  badge-danger">2 Bad deals</span>
+      <div class="text-center" *ngIf="auth.user | async as user">
+         <app-voting [itemId]='user0?.uid' [userId]='user?.uid'></app-voting>
       </div>
       <blockquote class="blockquote">
           <p class="mb-0">Make sure you always read dealer's terms before you deal.</p>
           <footer class="blockquote-footer">Wildebeests <cite title="Source Title">Team</cite></footer>
         </blockquote>
         <mat-tab-group class="tab-group-s" >
-        <mat-tab label="Terms">
+        <mat-tab label="About me">
         <div class="demo-tab-content">
-           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla venenatis ante augue.
-           Phasellus volutpat neque ac dui mattis vulputate. Etiam consequat aliquam cursus.
-           In sodales pretium ultrices. Maecenas lectus est, sollicitudin consectetur felis nec,
-           feugiat ultricies mi. Aliquam erat volutpat. Nam placerat, tortor in ultrices porttitor,
-           orci enim rutrum enim, vel tempor sapien arcu a tellus.
-           <br />
-           <br />
-           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla venenatis ante augue.
-           Phasellus volutpat neque ac dui mattis vulputate. Etiam consequat aliquam cursus.
-           In sodales pretium ultrices. Maecenas lectus est, sollicitudin consectetur felis nec,
-           feugiat ultricies mi. Aliquam erat volutpat. Nam placerat, tortor in ultrices porttitor,
-           orci enim rutrum enim, vel tempor sapien arcu a tellus.
-           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla venenatis ante augue.
-           Phasellus volutpat neque ac dui mattis vulputate. Etiam consequat aliquam cursus.
-           In sodales pretium ultrices. Maecenas lectus est, sollicitudin consectetur felis nec,
-           feugiat ultricies mi. Aliquam erat volutpat. Nam placerat, tortor in ultrices porttitor,
-           orci enim rutrum enim, vel tempor sapien arcu a tellus.
-           <br />
-           <br />
-           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla venenatis ante augue.
-           Phasellus volutpat neque ac dui mattis vulputate. Etiam consequat aliquam cursus.
-           In sodales pretium ultrices. Maecenas lectus est, sollicitudin consectetur felis nec,
-           feugiat ultricies mi. Aliquam erat volutpat. Nam placerat, tortor in ultrices porttitor,
-           orci enim rutrum enim, vel tempor sapien arcu a tellus.
+          <div [innerHTML]="user0.bio"></div>
          </div>  
        </mat-tab>
             <mat-tab label="Reviews (83)"  class="clearfix">
@@ -161,8 +142,10 @@
     </div>
 
   </div>
-
-<mat-menu #menuDealer="matMenu" xPosition="before">
-    <button mat-menu-item>Item 1</button>
-    <button mat-menu-item>Item 2</button>
-</mat-menu> 
+  <mat-menu #menuUser="matMenu" xPosition="before" >
+    <span *ngIf="auth.user | async as user">
+        <a mat-menu-item *ngIf="user0.uid !== user.uid"><i class="fa fa-flag-o" aria-hidden="true"></i> Report User</a>
+        <a mat-menu-item *ngIf="user0.uid === user.uid"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit Profile</a>
+        <a mat-menu-item *ngIf="user0.uid === user.uid"><i class="fa fa-level-up" aria-hidden="true"></i> Upgrade Profile</a>
+      </span>
+  </mat-menu> 
