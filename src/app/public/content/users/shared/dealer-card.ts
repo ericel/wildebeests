@@ -163,7 +163,7 @@ import { sum, values } from 'lodash';
 <mat-menu #menuDealer="matMenu" xPosition="before" >
 <span *ngIf="auth.user | async as user">
     <a mat-menu-item *ngIf="dealer.uid !== user.uid"><i class="fa fa-flag-o" aria-hidden="true"></i> Report User</a>
-    <a mat-menu-item *ngIf="dealer.uid === user.uid"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit Profile</a>
+    <a mat-menu-item *ngIf="dealer.uid === user.uid" routerLink="/users/u/edit/{{dealer.uid}}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit Profile</a>
     <a mat-menu-item *ngIf="dealer.uid === user.uid"><i class="fa fa-level-up" aria-hidden="true"></i> Upgrade Profile</a>
   </span>
 </mat-menu> 

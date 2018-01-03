@@ -1,44 +1,115 @@
 <div class="w-100 primary-bg header">
   <div class="h1 text-center">Edit Your Profile! Help Us Serve You Better</div>
 </div>
-<main class="main">
-  <div class="container">
-    <mat-card class="card">
-      <div class="card-header">
-        photo
+<main class="main edit-cards" *ngIf="_auth && user$">
+  <div class="container" *ngIf="_auth.uid === user$.uid">
+    <mat-card class="card-1">
+      <div class="head-0">
+          <img mat-card-image src="{{user$.photoURL}}" alt="Photo of a Shiba Inu">
       </div>
+      <div class="text-center avatar">
+          <img mat-card-avatar src="{{user$.photoURL}}" class="img-thumbnail" alt="{{user$.displayName}}">
+      </div>
+      <mat-card-title class="text-center title">{{user$.displayName}}</mat-card-title>
+      <button mat-button class="edit-button text-muted"><mat-icon>mode_edit</mat-icon></button>
     </mat-card>
-    <div class="row">
+    <div class="row card-2">
       <div class="col-md-6">
-          <mat-card class="card">
-              <div class="card-header">
-                Locality
-              </div>
+          <mat-card>
+              <mat-card-header >
+              <mat-card-title>About me / Terms</mat-card-title>
+              <mat-card-subtitle >Tell others more about you and your services!</mat-card-subtitle>
+              </mat-card-header>
+              <mat-card-content>
+                  <p [innerHTML] = "user$.bio"></p>
+               </mat-card-content>
+              <button mat-button class="edit-button text-muted"><mat-icon>mode_edit</mat-icon></button>
             </mat-card>
+           
       </div>
       <div class="col-md-6">
-          <mat-card class="card">
-              <div class="card-header">
-                Links
-              </div>
+          <mat-card>
+              <mat-card-header >
+                  <mat-card-title>Address / Country</mat-card-title>
+                  <mat-card-subtitle >Your address and contact! Compulsory for Dealers!</mat-card-subtitle>
+              </mat-card-header>
+               <mat-card-content *ngIf="local | async as local">
+                  <div class="row">
+                    <div class="col-md-4">
+                        <p class="text-muted">Region</p>
+                        <p >{{local.region}}</p>
+                    </div>
+                    <div class="col-md-4">
+                        <p class="text-muted">City</p>
+                        <p >{{local.city}}</p>
+                    </div>
+                    <div class="col-md-4">
+                        <p class="text-muted">Country</p>
+                        <p >{{local.country}}</p>
+                    </div>
+                  </div>
+                </mat-card-content>
+              <button mat-button class="edit-button text-muted"><mat-icon>mode_edit</mat-icon></button>
             </mat-card>
         </div>
     </div>
-    <div class="row">
+    <div class="row card-2">
         <div class="col-md-6">
-            <mat-card class="card">
-                <div class="card-header">
-                  Locality
-                </div>
+            <mat-card>
+                <mat-card-header >
+                    <mat-card-title>Social Links</mat-card-title>
+                    <mat-card-subtitle >Helps verifies your profile as a human!</mat-card-subtitle>
+                </mat-card-header>
+                 <mat-card-content>
+                    <div class="row">
+                      <div class="col-md-4">
+                          <p class="text-muted">Email</p>
+                          <p >{{user$.verified.links.email | shorten: 15: '..'}}</p>
+                      </div>
+                      <div class="col-md-4">
+                          <p class="text-muted">Phone</p>
+                          <p >{{user$.verified.links.phone | shorten: 15: '..'}}</p>
+                      </div>
+                      <div class="col-md-4">
+                          <p class="text-muted">Facebook</p>
+                          <p >{{user$.verified.links.facebook | shorten: 15: '..'}}</p>
+                      </div>
+                      <div class="col-md-4">
+                          <p class="text-muted">Twitter</p>
+                          <p >{{user$.verified.links.twitter | shorten: 15: '..'}}</p>
+                      </div>
+                    </div>
+                  </mat-card-content>
+                <button mat-button class="edit-button text-muted"><mat-icon>mode_edit</mat-icon></button>
               </mat-card>
         </div>
         <div class="col-md-6">
             <mat-card class="card">
-                <div class="card-header">
-                  Links
-                </div>
+                <mat-card-header >
+                    <mat-card-title>Upgrade Account</mat-card-title>
+                    <mat-card-subtitle>Gives you super powers to open businesses and list places!</mat-card-subtitle>
+                </mat-card-header>
+                 <mat-card-content>
+                    <div class="row">
+                      <div class="col-md-4">
+                          <p class="text-muted">User <em class="primary-text">{{user$.roles.user}}</em></p>
+                          <p >No Super powers</p>
+                      </div>
+                      <div class="col-md-4">
+                          <p class="text-muted">Dealer <em class="primary-text">{{user$.roles.dealer}}</em></p>
+                          <p >Super powers! Able to deal, send money, start a business</p>
+                      </div>
+                      <div class="col-md-4">
+                          <p class="text-muted">Admin <em class="primary-text">{{user$.roles.admin}}</em></p>
+                          <p >Unlimited super powers! Delete users, post, ban users!</p>
+                      </div>
+                    </div>
+                </mat-card-content>
+                <button mat-button class="edit-button text-muted"><mat-icon>mode_edit</mat-icon></button>
               </mat-card>
           </div>
       </div>
+
+      <div class="mar-30 text-center">Need help! <a routerLink="/contact">Contact Us!</a></div>
   </div>
 </main>
