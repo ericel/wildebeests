@@ -57,6 +57,7 @@ export const SHARED_COMPONENTS = [
     ...ADS_COMPONENTS,
     UsersCard,
     UserDetailCard,
+    VotingComponent,
     VotingComponent
   ],
   exports: [
@@ -75,7 +76,8 @@ export const SHARED_COMPONENTS = [
    FormsModule,
    FlexLayoutModule,
    UsersCard,
-   UserDetailCard
+   UserDetailCard,
+   VotingComponent
 ],
 providers: [
   SpinnerService,

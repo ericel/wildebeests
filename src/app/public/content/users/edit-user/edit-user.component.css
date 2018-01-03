@@ -19,6 +19,8 @@
 .head-0 .mat-card-image {
     margin: 0px !important;
     height: 150px;
+    object-fit: cover;
+    filter:grayscale(100%);
 }
 .head-0 {
     height: 50px;
@@ -26,6 +28,10 @@
 .avatar img{
     width: 150px;
     height: 150px;
+}
+.img-thumbnail {
+    position: relative;
+    z-index: 9;
 }
 .title {
     padding:19px;

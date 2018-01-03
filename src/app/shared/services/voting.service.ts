@@ -22,7 +22,7 @@ export class VotingService {
   }
   updateUserVote(itemId, userId, vote, action): void {
     if(itemId === userId){
-      return this.notify.update('<strong>Come on!</strong> You Can\'t update or down vote yourself!', 'error')
+      return this.notify.update('<strong>Come on!</strong> You Can\'t up vote or down vote yourself!', 'error')
     }
     if(action === "upvote"){
        this.upVote(action, vote, userId, itemId);

@@ -1,4 +1,199 @@
-<main class="main">
+<div class="w-100 primary-bg header">
+  <app-spinner name="dealerSpinner" [(show)]="dealerSpinner" class="text-muted"><i class="fa fa-spinner fa-spin fa-4x"></i></app-spinner>
+</div>
+<main class="main user-cards " *ngIf="!deathSpinner">
+  <div class="container" *ngIf="user | async as user$">
+    <mat-card class="card-1">
+      <div class="head-0 dealer-header">
+        <img mat-card-image src="{{user$.photoURL}}" alt="Photo of a Shiba Inu">
+      </div>
+      <div class="text-center avatar">
+          <img mat-card-avatar src="{{user$.photoURL}}" class="img-thumbnail" alt="{{user$.displayName}}">
+      </div>
+      <mat-card-title class="text-center title">{{user$.displayName}}</mat-card-title>
+      <div class="text-center mard-20" *ngIf="_auth.user | async as _auth$">
+          <app-voting [itemId]='user$?.uid' [userId]='_auth$?.uid'></app-voting>
+        <button mat-button class="edit-button text-muted"  *ngIf="user$.uid === _auth$.uid" [matMenuTriggerFor]="menuDealer"><mat-icon>filter_list</mat-icon></button>
+        <mat-menu #menuDealer="matMenu" xPosition="before" >
+            <span *ngIf="_auth.user | async as user">
+                <a mat-menu-item *ngIf="user$.uid !== user.uid"><i class="fa fa-flag-o" aria-hidden="true"></i> Report User</a>
+                <a mat-menu-item *ngIf="user$.uid === user.uid" routerLink="/users/u/edit/{{user$.uid}}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit Profile</a>
+                <a mat-menu-item *ngIf="user$.uid === user.uid" routerLink="/users/u/edit/{{user$.uid}}"><i class="fa fa-level-up" aria-hidden="true"></i> Upgrade Profile</a>
+              </span>
+            </mat-menu> 
+      </div>
+    </mat-card>
+    <div class="row card-2">
+      <div class="col-md-6">
+          <mat-card>
+              <mat-card-header >
+              <mat-card-title>About me / Terms</mat-card-title>
+              <mat-card-subtitle >Tell others more about you and your services!</mat-card-subtitle>
+              </mat-card-header>
+              <mat-card-content>
+                  <p [innerHTML] = "user$.bio"></p>
+               </mat-card-content>
+            
+            </mat-card>
+           
+      </div>
+      <div class="col-md-6">
+          <mat-card>
+              <mat-card-header >
+                  <mat-card-title>Verified / Profile</mat-card-title>
+                  <mat-card-subtitle >Profile completed and verified!</mat-card-subtitle>
+              </mat-card-header>
+              <mat-card-content>
+                  <div class="row">
+                      <div class="col-md-6">
+                          <div class="progress blue">
+                              <span class="progress-left">
+                                  <span class="progress-bar"></span>
+                              </span>
+                              <span class="progress-right">
+                                  <span class="progress-bar"></span>
+                              </span>
+                              <div class="progress-value">90% <div class="text-muted">Verified</div></div>
+                          </div>
+                      </div>
+                      <div class="col-md-6">
+                          <div class="progress yellow">
+                              <span class="progress-left">
+                                  <span class="progress-bar"></span>
+                              </span>
+                              <span class="progress-right">
+                                  <span class="progress-bar"></span>
+                              </span>
+                              <div class="progress-value">75%</div>
+                          </div>
+                      </div>
+                  </div>
+                </mat-card-content>
+               
+             
+            </mat-card>
+        </div>
+    </div>
+    <div class="row card-2">
+        <div class="col-md-6">
+            <mat-card>
+                <mat-card-header >
+                <mat-card-title>Start Deal / Cancel Deal</mat-card-title>
+                <mat-card-subtitle >Click to chat with dealer! Make sure you understood the terms above.</mat-card-subtitle>
+                </mat-card-header>
+                <mat-card-content>
+                    <button mat-raised-button color="primary" class="w-100 padding-30 " (click)="deal($event)">
+                        <app-spinner name="mySpinner" [(show)]="spinnerShowing"><i class="fa fa-spinner fa-spin"></i></app-spinner> 
+                        
+                      Start Deal Now</button>
+                    <div class="mar-10"></div> 
+                    <button mat-raised-button color="warn" class="w-100 padding-10 ">Cancel Deal Now</button>
+                 </mat-card-content>
+              
+              </mat-card>
+             
+        </div>
+        <div class="col-md-6">
+            <mat-card>
+                <mat-card-header >
+                    <mat-card-title>Address / Country</mat-card-title>
+                    <mat-card-subtitle >User address and contact! Compulsory for Dealers!</mat-card-subtitle>
+                </mat-card-header>
+                <mat-card-content *ngIf="local | async as local">
+                    <div class="row">
+                      <div class="col-md-4">
+                          <p class="text-muted">Region</p>
+                          <p >{{local.region}}</p>
+                      </div>
+                      <div class="col-md-4">
+                          <p class="text-muted">City</p>
+                          <p >{{local.city}}</p>
+                      </div>
+                      <div class="col-md-4">
+                          <p class="text-muted">Country</p>
+                          <p >{{local.country}}</p>
+                      </div>
+                    </div>
+                  </mat-card-content>
+               
+              </mat-card>
+          </div>
+      </div>
+    <div class="row card-2">
+        <div class="col-md-6">
+            <mat-card>
+                <mat-card-header >
+                    <mat-card-title>Social Links</mat-card-title>
+                    <mat-card-subtitle >Helps verifies profile as a human!</mat-card-subtitle>
+                </mat-card-header>
+                 <mat-card-content>
+                    <div class="row">
+                      <div class="col-md-4">
+                          <p class="text-muted">Email <em class="badge" [ngClass]="user$.verified.email ? 'badge-info' : 'badge-danger'"><i class="fa fa-mail-square" aria-hidden="true"></i> 
+                            {{ user$.verified.email ? "verified" : "not verified" }}
+                          </em>
+                        </p>
+                          <p >{{user$.verified.links.email | shorten: 5: '.....'}}</p>
+                      </div>
+                      <div class="col-md-4">
+                          <p class="text-muted">Phone 
+                              <em class="badge" [ngClass]="user$.verified.phone ? 'badge-info' : 'badge-danger'"><i class="fa fa-phone-square" aria-hidden="true"></i> 
+                                {{ user$.verified.phone ? "verified" : "not verified" }}
+                              </em>
+                          </p>
+                          <p >{{user$.verified.links.phone | shorten: 5: '.....'}}</p>
+                      </div>
+                      <div class="col-md-4">
+                          <p class="text-muted">Facebook 
+                              <em class="badge" [ngClass]="user$.verified.facebook ? 'badge-info' : 'badge-danger'"><i class="fa fa-facebook-square" aria-hidden="true"></i> 
+                                {{ user$.verified.facebook ? "verified" : "not verified" }}
+                              </em>
+                          </p>
+                          <p >{{user$.verified.links.facebook | shorten: 5: '.....'}}</p>
+                      </div>
+                      <div class="col-md-4">
+                          <p class="text-muted">Twitter 
+                              <em class="badge" [ngClass]="user$.verified.twitter ? 'badge-info' : 'badge-danger'"><i class="fa fa-twitter-square" aria-hidden="true"></i> 
+                                {{ user$.verified.twitter ? "verified" : "not verified" }}
+                              </em>
+                          </p>
+                          <p >{{user$.verified.links.twitter | shorten: 5: '.....'}}</p>
+                      </div>
+                    </div>
+                  </mat-card-content>
+                
+              </mat-card>
+        </div>
+        <div class="col-md-6">
+            <mat-card class="card">
+                <mat-card-header >
+                    <mat-card-title>Upgrade Account</mat-card-title>
+                    <mat-card-subtitle>Gives you super powers to open businesses and list places!</mat-card-subtitle>
+                </mat-card-header>
+                 <mat-card-content>
+                    <div class="row">
+                      <div class="col-md-4">
+                          <p class="text-muted">User <em class="primary-text">{{user$.roles.user}}</em></p>
+                          <p >No Super powers</p>
+                      </div>
+                      <div class="col-md-4">
+                          <p class="text-muted">Dealer <em class="primary-text">{{user$.roles.dealer}}</em></p>
+                          <p >Super powers! Able to deal, send money, start a business</p>
+                      </div>
+                      <div class="col-md-4">
+                          <p class="text-muted">Admin <em class="primary-text">{{user$.roles.admin}}</em></p>
+                          <p >Unlimited super powers! Delete users, post, ban users!</p>
+                      </div>
+                    </div>
+                </mat-card-content>
+               
+              </mat-card>
+          </div>
+      </div>
+  </div>
+</main>
+
+<!--<main class="main">
   <div class="container">
       <app-spinner name="dealerSpinner" [(show)]="dealerSpinner" class="text-muted"><i class="fa fa-spinner fa-spin fa-4x"></i></app-spinner>
       <div class="row" *ngIf="!deathSpinner">
@@ -38,5 +233,4 @@
         </div>
       </div>
   </div>
-</main>
-
+</main>-->
