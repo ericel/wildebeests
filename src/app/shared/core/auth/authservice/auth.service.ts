@@ -227,4 +227,19 @@ back() {
 getCurrentTime(){
   return moment().format("YYYY-MM-DD HH:mm:ss"); 
 }
+
+//Update user data
+updateBio(uid, bio){
+  const userRef: AngularFirestoreDocument<any> = this.afs.doc(`wi-users/${uid}`);
+  userRef.valueChanges().subscribe(res=>{
+  if(res){
+    const data = {
+      updatedAt: this.getCurrentTime(),
+      bio: bio
+    }
+    return userRef.update(data);
+  } 
+
+ })
+}
 }

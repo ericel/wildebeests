@@ -23,8 +23,7 @@ import { UserDetailCard } from '../public/content/users/shared/user-card/user-ca
 import { LocationService } from './services/location.service';
 import { VotingComponent } from './components/voting/voting.component';
 import { VotingService } from './services/voting.service';
-
-
+import { ReadMoreComponent } from './components/read-more';
 
 
 export const SHARED_COMPONENTS = [
@@ -58,7 +57,8 @@ export const SHARED_COMPONENTS = [
     UsersCard,
     UserDetailCard,
     VotingComponent,
-    VotingComponent
+    VotingComponent,
+    ReadMoreComponent
   ],
   exports: [
    WysiwygComponent,
@@ -77,7 +77,8 @@ export const SHARED_COMPONENTS = [
    FlexLayoutModule,
    UsersCard,
    UserDetailCard,
-   VotingComponent
+   VotingComponent,
+   ReadMoreComponent
 ],
 providers: [
   SpinnerService,

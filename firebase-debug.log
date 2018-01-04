@@ -1,0 +1,17 @@
+[debug] [2018-01-04T07:09:12.073Z] ----------------------------------------------------------------------
+[debug] [2018-01-04T07:09:12.076Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\Administrator\AppData\Roaming\npm\node_modules\firebase-tools\bin\firebase deploy
+[debug] [2018-01-04T07:09:12.076Z] CLI Version:   3.16.0
+[debug] [2018-01-04T07:09:12.076Z] Platform:      win32
+[debug] [2018-01-04T07:09:12.076Z] Node Version:  v8.9.3
+[debug] [2018-01-04T07:09:12.076Z] Time:          Wed Jan 03 2018 23:09:12 GMT-0800 (Pacific Standard Time)
+[debug] [2018-01-04T07:09:12.076Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2018-01-04T07:09:12.089Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2018-01-04T07:09:12.089Z] > authorizing via signed-in user
+[debug] [2018-01-04T07:09:12.091Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/projects/wilde-beests  
+  
+ Wed Jan 03 2018 23:09:12 GMT-0800 (Pacific Standard Time)
+[debug] [2018-01-04T07:09:12.951Z] <<< HTTP RESPONSE 200
+[debug] [2018-01-04T07:09:12.952Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/database/wilde-beests/tokens  
+  
+ Wed Jan 03 2018 23:09:12 GMT-0800 (Pacific Standard Time)

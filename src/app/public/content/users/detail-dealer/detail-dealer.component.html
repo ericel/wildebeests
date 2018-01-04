@@ -31,7 +31,8 @@
               <mat-card-subtitle >Tell others more about you and your services!</mat-card-subtitle>
               </mat-card-header>
               <mat-card-content>
-                  <p [innerHTML] = "user$.bio"></p>
+                  <!--<p [innerHTML] = "user$.bio"></p>-->
+                  <read-more [text]="user$.bio" [maxLength]="2000"></read-more>
                </mat-card-content>
             
             </mat-card>

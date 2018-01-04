@@ -21,9 +21,9 @@
               <mat-card-subtitle >Tell others more about you and your services!</mat-card-subtitle>
               </mat-card-header>
               <mat-card-content>
-                  <p [innerHTML] = "user$.bio"></p>
+                <read-more [text]="user$.bio" [maxLength]="1000"></read-more>
                </mat-card-content>
-              <button mat-button class="edit-button text-muted"><mat-icon>mode_edit</mat-icon></button>
+              <button mat-button class="edit-button text-muted" (click)="openBio()"><mat-icon>mode_edit</mat-icon></button>
             </mat-card>
            
       </div>

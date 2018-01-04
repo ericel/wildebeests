@@ -25,6 +25,7 @@
 }
 .user-cards .mat-card {
     padding: 0px !important;
+    word-wrap: break-word;
 }
 .head-0 .mat-card-image {
     margin: 0px !important;
