@@ -13,6 +13,7 @@ import { LocationService } from '../../../../shared/services/location.service';
 import { ReactiveFormsModule, FormGroup, FormBuilder, Validators,  } from '@angular/forms';
 import {AbstractControl} from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
+import { CountryService } from '../../../../shared/components/country-picker/country.service';
 @Component({
   selector: 'app-edit-user',
   templateUrl: './edit-user.component.html',
@@ -274,11 +275,13 @@ export class Dialog1 implements OnInit {
   </mat-form-field>
 
   <mat-form-field>
-    <mat-select placeholder="Select Country" [compareWith]="compareFn" name="country">
-      <mat-option value="option">Option</mat-option>
-    </mat-select>
-  </mat-form-field>
-
+      <mat-select [(ngModel)]="selected" name="selected">
+        <mat-option *ngFor="let option of countries" [value]="option.countryName">
+          {{ option.countryName }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <span>selected value: {{selected}}</span>
   <button class="w-100" mat-raised-button color="primary">Save Changes</button>
  
   </form>
@@ -291,14 +294,42 @@ export class Dialog1 implements OnInit {
 })
 export class Dialog2 implements OnInit {
   bioForm: FormGroup;
-  public myState: string = 'AL';
+  selected: string;
+  options = [
+    {
+      value: 'DOG',
+      label: 'Dog'
+    },
+    {
+      value: 'CAT',
+      label: 'Cat'
+    },
+    {
+      value: 'KR',
+      label: 'Kr'
+    },
+    {
+      value: 'HAMSTER',
+      label: 'Hamster'
+    },
+    {
+      value: 'GOLDFISH',
+      label: 'Goldfish'
+    }
+  ];
+  public countries: any[];
   constructor(@Inject(MAT_DIALOG_DATA) public data: any, 
-  public fb: FormBuilder, private auth: AuthService
+  private _countries: CountryService,
+  public fb: FormBuilder, private auth: AuthService,
+  //
   ) {
-   
+    
   }
 
   ngOnInit(){
+    this.countries = this._countries.getCountries();
+   // this._countries.getCountries().subscribe(countries => { console.log(countries)});
+    this.selected = this.data.country;
     this.buildBioForm();
   }
 
@@ -312,11 +343,6 @@ export class Dialog2 implements OnInit {
     });
   }
 
-  compareFn: ((f1: any, f2: any) => boolean) | null = this.compareByValue;
-
-compareByValue(f1: any, f2: any) { 
-  return f1 && f2 && f1.value === this.data.country; 
-}
 }
 @Component({
   selector: 'dialog-3',

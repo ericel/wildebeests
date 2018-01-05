@@ -25,6 +25,8 @@ import { VotingComponent } from './components/voting/voting.component';
 import { VotingService } from './services/voting.service';
 import { ReadMoreComponent } from './components/read-more';
 import { IsotopeModule } from 'ngx-isotope';
+import { CountryService } from './components/country-picker/country.service';
+
 
 export const SHARED_COMPONENTS = [
   NavbarComponent,
@@ -85,7 +87,8 @@ export const SHARED_COMPONENTS = [
 providers: [
   SpinnerService,
   LocationService,
-  VotingService
+  VotingService,
+  CountryService
 ],
 entryComponents: [
   ...Dialog_COMPONENTS
