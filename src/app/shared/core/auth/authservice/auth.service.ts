@@ -287,4 +287,25 @@ updateContactInfo(uid, address, city, country){
   }).unsubscribe;
   
 }
+
+updateVerifiedLinks(uid, facebook, twitter, email, phone){
+  const userRef: AngularFirestoreDocument<any> = this.afs.doc(`wi-users/${uid}`);
+  userRef.valueChanges().subscribe(res=>{
+  if(res){
+    const data = {
+      email: email,
+      updatedAt: this.getCurrentTime(),
+      "verified.links.facebook": facebook,
+      "verified.links.twitter": twitter,
+      "verified.links.email": email,
+      "verified.links.phone": phone
+    }
+    return userRef.update(data).then(() => {
+    this.notify.update("<strong>Social Links Saved!</strong> Way to go.", 'info')
+    }).catch((error) => this.handleError(error) );
+  } 
+
+}).unsubscribe;
+
+}
 }

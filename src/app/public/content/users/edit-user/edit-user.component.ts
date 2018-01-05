@@ -14,7 +14,7 @@ import { ReactiveFormsModule, FormGroup, FormBuilder, Validators  } from '@angul
 import {AbstractControl} from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 import { CountryService } from '../../../../shared/components/country-picker/country.service';
-type formFields = 'address' | 'city' | 'country';
+type formFields = 'facebook' | 'twitter' | 'email' | 'phone' | 'address' | 'city' | 'country';
 type FormErrors = { [u in formFields]: string };
 @Component({
   selector: 'app-edit-user',
@@ -99,7 +99,10 @@ export class EditUserComponent implements OnInit {
     this.dialog.open(Dialog3, {
       data: {
         uid: this._auth.uid,
-        bio: this._auth.bio
+        facebook: this._auth.verified.links.facebook,
+        twitter: this._auth.verified.links.twitter,
+        email: this._auth.verified.links.email,
+        phone: this._auth.verified.links.phone
       }
     });
   }
@@ -107,9 +110,10 @@ export class EditUserComponent implements OnInit {
   openUpgrade() {
     this.dialog.open(Dialog4, {
       data: {
-        country: this._auth.uid,
-        city: this._auth.bio,
-        address: this._auth.region
+        uid: this._auth.uid,
+        email: this._auth.verified.links.email,
+        username: this._auth.displayName,
+        phone: this._auth.verified.links.phone
       }
     });
   }
@@ -311,6 +315,10 @@ export class Dialog2 implements OnInit {
   selected: string;
   notifytext: string ='';
   formErrors: FormErrors = {
+    'facebook': '',
+    'twitter': '',
+    'email': '',
+    'phone': '',
     'address': '',
     'city': '',
     'country': ''
@@ -405,7 +413,46 @@ export class Dialog2 implements OnInit {
   template:`
   <div class="block-dialog card">
   <div class="card-header">
-    Edit Account Social Links
+    Edit Account Info
+  </div>
+  <div class="card-block">
+  <div class="info">
+  <form  [formGroup]="dailog3Form" (ngSubmit)="dailog3FormSubmit()" *ngIf="data.uid">
+  <mat-form-field>
+    <input matInput placeholder="Your Facebook Profile Link" [(value)]="data.facebook" formControlName="facebook" required>
+    <div *ngIf="formErrors.facebook" class="alert alert-danger">
+      {{ formErrors.facebook }}
+    </div>
+  </mat-form-field>
+  <mat-form-field>
+  <input matInput placeholder="Your Twitter Profile Link" [(value)]="data.twitter" formControlName="twitter" required>
+  <div *ngIf="formErrors.twitter" class="alert alert-danger">
+    {{ formErrors.twitter }}
+  </div>
+</mat-form-field>
+<mat-form-field>
+<ng-template [ngIf]="emailFail">
+  <input matInput placeholder="Confirm Account Email" formControlName="email"  value="{{data.email}}"  required>
+</ng-template>
+<ng-template [ngIf]="!emailFail">
+  <input matInput placeholder="Confirm Account Email" formControlName="email"  value="{{data.email}}"  readonly>
+</ng-template>
+<div *ngIf="formErrors.email" class="alert alert-danger">
+  {{ formErrors.email }}
+</div>
+</mat-form-field>
+  <mat-form-field>
+  <input matInput placeholder="Your City" [(value)]="data.phone" formControlName="phone" required>
+  <div *ngIf="formErrors.phone" class="alert alert-danger">
+    {{ formErrors.phone }}
+  </div>
+  </mat-form-field>
+
+    <span>{{notifytext}}</span>
+  <button class="w-100" mat-raised-button color="primary" type="submit" [disabled]="!dailog3Form.valid"><app-spinner name="mySpinner3" [(show)]="spinnerShowing"><i class="fa fa-spinner fa-spin"></i></app-spinner><mat-icon>publish</mat-icon> Save Changes</button>
+ 
+  </form>
+</div>
   </div>
   </div>
   `,
@@ -413,27 +460,132 @@ export class Dialog2 implements OnInit {
   
 })
 export class Dialog3 implements OnInit {
-  bioForm: FormGroup;
+  dailog3Form: FormGroup;
+  selected: string;
+  notifytext: string ='';
+  emailFail: boolean;
+  email: string;
+  formErrors: FormErrors = {
+    'facebook': '',
+    'twitter': '',
+    'email': '',
+    'phone': '',
+    'address': '',
+    'city': '',
+    'country': ''
+  };
+  validationMessages = {
+    'facebook': {
+      'required': 'Address is required.',
+      'minlength': 'Address must be at least 4 characters long.',
+      'maxlength': 'Address cannot be more than 100 characters long.',
+    },
+    'twitter': {
+      'required': 'City is required.',
+      'minlength': 'City must be at least 4 characters long.',
+      'maxlength': 'City cannot be more than 100 characters long.',
+    },
+    'email': {
+      'required': 'Email is required.',
+      'email': 'Email must be a valid email',
+    },
+    'phone': {
+      'required': 'Country is required.',
+      'minlength': 'Country must be at least 2 characters long.',
+      'maxlength': 'Country cannot be more than 100 characters long.',
+    }
+  };
+  public countries: any[];
   constructor(@Inject(MAT_DIALOG_DATA) public data: any, 
-  public fb: FormBuilder, private auth: AuthService
+  private _countries: CountryService,
+  public fb: FormBuilder, private auth: AuthService,
+  private spinner: SpinnerService
   ) {
-   
+    
   }
-
+ 
   ngOnInit(){
-    this.buildBioForm();
+    this.countries = this._countries.getCountries();
+   // this._countries.getCountries().subscribe(countries => { console.log(countries)});
+    this.selected = 'Goldfish';
+    this.builddailog3Form();
+    this.checkValidEmail();
   }
 
-  buildBioForm(){
-    this.bioForm = this.fb.group({
-      'password': ['', [
+  builddailog3Form(){
+    this.dailog3Form = this.fb.group({
+      'facebook': ['', [
         Validators.required,
-        Validators.email
+        Validators.pattern,
+        Validators.minLength(4),
+        Validators.maxLength(100)
+        ]
+      ],
+      'twitter': ['', [
+        Validators.required,
+        Validators.minLength(4),
+        Validators.pattern,
+        Validators.maxLength(100)
+        ]
+      ],
+      'email': ['', [
+        Validators.minLength(2),
+        Validators.maxLength(100)
+        ]
+      ],
+      'phone': ['', [
+        Validators.required,
+        Validators.pattern,
+        Validators.minLength(2),
+        Validators.maxLength(100)
         ]
       ]
     });
+    this.dailog3Form.valueChanges.subscribe((data) => this.onValueChanged(data));
+    this.onValueChanged(); // reset validation messages
   }
+  
+    onValueChanged(data?: any) {
+      if (!this.dailog3Form) { return; }
+      const form = this.dailog3Form;
+      for (const field in this.formErrors) {
+        if (Object.prototype.hasOwnProperty.call(this.formErrors, field) && (field === 'facebook' || field === 'twitter' || field === 'email' || field === 'phone')) {
+          // clear previous error message (if any)
+          this.formErrors[field] = '';
+          const control = form.get(field);
+          if (control && control.dirty && !control.valid) {
+            const messages = this.validationMessages[field];
+            if (control.errors) {
+              for (const key in control.errors) {
+                if (Object.prototype.hasOwnProperty.call(control.errors, key) ) {
+                  this.formErrors[field] += `${(messages as {[key: string]: string})[key]} `;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+   checkValidEmail(){
+    let EMAIL_REGEXP = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    if(EMAIL_REGEXP.test(this.data.email)){
+      this.emailFail = false;
+      this.email = this.data.email;
+    } else {
+      this.emailFail = true;
+    }
+   }
 
+   get getemail(){
+    return this.dailog3Form.value['email']
+   }
+    dailog3FormSubmit(){
+      this.spinner.show('mySpinnerg3');
+      if(this.emailFail){
+       this.email = this.dailog3Form.value['email']
+      }
+      this.auth.updateVerifiedLinks(this.data.uid, this.dailog3Form.value['facebook'], this.dailog3Form.value['twitter'], this.email, this.dailog3Form.value['phone']);
+    }
   
 }
 @Component({
@@ -441,7 +593,46 @@ export class Dialog3 implements OnInit {
   template:`
   <div class="block-dialog card">
   <div class="card-header">
-    Upgrade your account!
+    Edit Account Info
+  </div>
+  <div class="card-block">
+  <div class="info">
+  <form  [formGroup]="dailog3Form" (ngSubmit)="dailog3FormSubmit()" *ngIf="data.uid">
+  <mat-form-field>
+    <input matInput placeholder="Your Facebook Profile Link" [(value)]="data.facebook" formControlName="facebook" required>
+    <div *ngIf="formErrors.facebook" class="alert alert-danger">
+      {{ formErrors.facebook }}
+    </div>
+  </mat-form-field>
+  <mat-form-field>
+  <input matInput placeholder="Your Twitter Profile Link" [(value)]="data.twitter" formControlName="twitter" required>
+  <div *ngIf="formErrors.twitter" class="alert alert-danger">
+    {{ formErrors.twitter }}
+  </div>
+</mat-form-field>
+<mat-form-field>
+<ng-template [ngIf]="emailFail">
+  <input matInput placeholder="Confirm Account Email" formControlName="email"  value="{{data.email}}"  required>
+</ng-template>
+<ng-template [ngIf]="!emailFail">
+  <input matInput placeholder="Confirm Account Email" formControlName="email"  value="{{data.email}}"  readonly>
+</ng-template>
+<div *ngIf="formErrors.email" class="alert alert-danger">
+  {{ formErrors.email }}
+</div>
+</mat-form-field>
+  <mat-form-field>
+  <input matInput placeholder="Your City" [(value)]="data.phone" formControlName="phone" required>
+  <div *ngIf="formErrors.phone" class="alert alert-danger">
+    {{ formErrors.phone }}
+  </div>
+  </mat-form-field>
+
+    <span>{{notifytext}}</span>
+  <button class="w-100" mat-raised-button color="primary" type="submit" [disabled]="!dailog3Form.valid"><app-spinner name="mySpinner3" [(show)]="spinnerShowing"><i class="fa fa-spinner fa-spin"></i></app-spinner><mat-icon>publish</mat-icon> Save Changes</button>
+ 
+  </form>
+</div>
   </div>
   </div>
   `,
@@ -449,27 +640,132 @@ export class Dialog3 implements OnInit {
   
 })
 export class Dialog4 implements OnInit {
-  bioForm: FormGroup;
+  dailog3Form: FormGroup;
+  selected: string;
+  notifytext: string ='';
+  emailFail: boolean;
+  email: string;
+  formErrors: FormErrors = {
+    'facebook': '',
+    'twitter': '',
+    'email': '',
+    'phone': '',
+    'address': '',
+    'city': '',
+    'country': ''
+  };
+  validationMessages = {
+    'facebook': {
+      'required': 'Address is required.',
+      'minlength': 'Address must be at least 4 characters long.',
+      'maxlength': 'Address cannot be more than 100 characters long.',
+    },
+    'twitter': {
+      'required': 'City is required.',
+      'minlength': 'City must be at least 4 characters long.',
+      'maxlength': 'City cannot be more than 100 characters long.',
+    },
+    'email': {
+      'required': 'Email is required.',
+      'email': 'Email must be a valid email',
+    },
+    'phone': {
+      'required': 'Country is required.',
+      'minlength': 'Country must be at least 2 characters long.',
+      'maxlength': 'Country cannot be more than 100 characters long.',
+    }
+  };
+  public countries: any[];
   constructor(@Inject(MAT_DIALOG_DATA) public data: any, 
-  public fb: FormBuilder, private auth: AuthService
+  private _countries: CountryService,
+  public fb: FormBuilder, private auth: AuthService,
+  private spinner: SpinnerService
   ) {
-   
+    
   }
-
+ 
   ngOnInit(){
-    this.buildBioForm();
+    this.countries = this._countries.getCountries();
+   // this._countries.getCountries().subscribe(countries => { console.log(countries)});
+    this.selected = 'Goldfish';
+    this.builddailog3Form();
+    this.checkValidEmail();
   }
 
-  buildBioForm(){
-    this.bioForm = this.fb.group({
-      'password': ['', [
+  builddailog3Form(){
+    this.dailog3Form = this.fb.group({
+      'facebook': ['', [
         Validators.required,
-        Validators.email
+        Validators.pattern,
+        Validators.minLength(4),
+        Validators.maxLength(100)
+        ]
+      ],
+      'twitter': ['', [
+        Validators.required,
+        Validators.minLength(4),
+        Validators.pattern,
+        Validators.maxLength(100)
+        ]
+      ],
+      'email': ['', [
+        Validators.minLength(2),
+        Validators.maxLength(100)
+        ]
+      ],
+      'phone': ['', [
+        Validators.required,
+        Validators.pattern,
+        Validators.minLength(2),
+        Validators.maxLength(100)
         ]
       ]
     });
+    this.dailog3Form.valueChanges.subscribe((data) => this.onValueChanged(data));
+    this.onValueChanged(); // reset validation messages
   }
+  
+    onValueChanged(data?: any) {
+      if (!this.dailog3Form) { return; }
+      const form = this.dailog3Form;
+      for (const field in this.formErrors) {
+        if (Object.prototype.hasOwnProperty.call(this.formErrors, field) && (field === 'facebook' || field === 'twitter' || field === 'email' || field === 'phone')) {
+          // clear previous error message (if any)
+          this.formErrors[field] = '';
+          const control = form.get(field);
+          if (control && control.dirty && !control.valid) {
+            const messages = this.validationMessages[field];
+            if (control.errors) {
+              for (const key in control.errors) {
+                if (Object.prototype.hasOwnProperty.call(control.errors, key) ) {
+                  this.formErrors[field] += `${(messages as {[key: string]: string})[key]} `;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+   checkValidEmail(){
+    let EMAIL_REGEXP = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    if(EMAIL_REGEXP.test(this.data.email)){
+      this.emailFail = false;
+      this.email = this.data.email;
+    } else {
+      this.emailFail = true;
+    }
+   }
 
+   get getemail(){
+    return this.dailog3Form.value['email']
+   }
+    dailog3FormSubmit(){
+      this.spinner.show('mySpinnerg3');
+      if(this.emailFail){
+       this.email = this.dailog3Form.value['email']
+      }
+      this.auth.updateVerifiedLinks(this.data.uid, this.dailog3Form.value['facebook'], this.dailog3Form.value['twitter'], this.email, this.dailog3Form.value['phone']);
+    }
   
 }
 @Component({
