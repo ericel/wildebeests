@@ -290,6 +290,16 @@ updateContactInfo(uid, address, city, country){
 
 updateVerifiedLinks(uid, facebook, twitter, email, phone){
   const userRef: AngularFirestoreDocument<any> = this.afs.doc(`wi-users/${uid}`);
+  if (/^(https?:\/\/)?((w{3}\.)?)facebook.com\/.*/i.test(facebook)){
+     var verifyFacebook = true;
+  } else {
+    var verifyFacebook = false;
+  }
+  if (/^(?:https?:\/\/)?(?:www\.)?twitter\.com\/(#!\/)?[a-zA-Z0-9_]+$/i.test(twitter)){
+    var verifyTwitter = true;
+ } else {
+  var verifyTwitter = false;
+ }
   userRef.valueChanges().subscribe(res=>{
   if(res){
     const data = {
@@ -298,7 +308,9 @@ updateVerifiedLinks(uid, facebook, twitter, email, phone){
       "verified.links.facebook": facebook,
       "verified.links.twitter": twitter,
       "verified.links.email": email,
-      "verified.links.phone": phone
+      "verified.links.phone": phone,
+      "verified.facebook": verifyFacebook,
+      "verified.twitter": verifyTwitter
     }
     return userRef.update(data).then(() => {
     this.notify.update("<strong>Social Links Saved!</strong> Way to go.", 'info')
