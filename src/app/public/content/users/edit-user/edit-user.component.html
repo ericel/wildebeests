@@ -33,19 +33,19 @@
                   <mat-card-title>Address / Country</mat-card-title>
                   <mat-card-subtitle >Your address and contact! Compulsory for Dealers!</mat-card-subtitle>
               </mat-card-header>
-               <mat-card-content *ngIf="local | async as local">
+               <mat-card-content >
                   <div class="row">
                     <div class="col-md-4">
                         <p class="text-muted">Region</p>
-                        <p >{{local.region}}</p>
+                        <p >{{user$.contactInfo.region}}</p>
                     </div>
                     <div class="col-md-4">
                         <p class="text-muted">City</p>
-                        <p >{{local.city}}</p>
+                        <p >{{user$.contactInfo.city}}</p>
                     </div>
                     <div class="col-md-4">
                         <p class="text-muted">Country</p>
-                        <p >{{local.country}}</p>
+                        <p >{{user$.contactInfo.country}}</p>
                     </div>
                   </div>
                 </mat-card-content>

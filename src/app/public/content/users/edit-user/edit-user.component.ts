@@ -10,10 +10,12 @@ import { Title, Meta } from '@angular/platform-browser';
 import { Router, ActivatedRoute } from '@angular/router';
 import { NotifyService } from '../../../../shared/core/notify/notify.service';
 import { LocationService } from '../../../../shared/services/location.service';
-import { ReactiveFormsModule, FormGroup, FormBuilder, Validators,  } from '@angular/forms';
+import { ReactiveFormsModule, FormGroup, FormBuilder, Validators  } from '@angular/forms';
 import {AbstractControl} from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 import { CountryService } from '../../../../shared/components/country-picker/country.service';
+type formFields = 'address' | 'city' | 'country';
+type FormErrors = { [u in formFields]: string };
 @Component({
   selector: 'app-edit-user',
   templateUrl: './edit-user.component.html',
@@ -86,6 +88,7 @@ export class EditUserComponent implements OnInit {
   openCountry() {
     this.dialog.open(Dialog2, {
       data: {
+        uid: this._auth.uid,
         country: this._auth.contactInfo.country,
         city: this._auth.contactInfo.city,
         address: this._auth.contactInfo.region
@@ -256,6 +259,7 @@ export class Dialog1 implements OnInit {
     this.richtextarea.nativeElement.contentDocument.execCommand("strikeThrough", false, null)
   }
 }
+
 @Component({
   selector: 'dialog-2',
   template:`
@@ -265,24 +269,33 @@ export class Dialog1 implements OnInit {
   </div>
   <div class="card-block">
   <div class="info">
-  <form>
+  <form  [formGroup]="dailog2Form" (ngSubmit)="dailog2FormSubmit()" *ngIf="data.uid">
   <mat-form-field>
-    <input matInput placeholder="Your Address" value="{{data.address}}">
+    <input matInput placeholder="Your Address" [(value)]="data.address" formControlName="address" required>
+    <div *ngIf="formErrors.address" class="alert alert-danger">
+      {{ formErrors.address }}
+    </div>
   </mat-form-field>
 
   <mat-form-field>
-  <input matInput placeholder="Your City" value="{{data.city}}">
+  <input matInput placeholder="Your City" [(value)]="data.city" formControlName="city" required>
+  <div *ngIf="formErrors.city" class="alert alert-danger">
+    {{ formErrors.city }}
+  </div>
+  </mat-form-field>
+  <mat-form-field>
+   <mat-select *ngIf="selected" [(value)]="selected" formControlName="country" required>
+   
+      <mat-option *ngFor="let option of countries" [value]="option.countryName">{{ option.countryName }}</mat-option>
+   </mat-select>
+   <div *ngIf="formErrors.country" class="alert alert-danger">
+     {{ formErrors.country }}
+   </div>
   </mat-form-field>
 
-  <mat-form-field>
-      <mat-select [(ngModel)]="selected" name="selected">
-        <mat-option *ngFor="let option of countries" [value]="option.countryName">
-          {{ option.countryName }}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
-    <span>selected value: {{selected}}</span>
-  <button class="w-100" mat-raised-button color="primary">Save Changes</button>
+
+    <span>{{notifytext}}</span>
+  <button class="w-100" mat-raised-button color="primary" type="submit" [disabled]="!dailog2Form.valid"><app-spinner name="mySpinner1" [(show)]="spinnerShowing1"><i class="fa fa-spinner fa-spin"></i></app-spinner><mat-icon>publish</mat-icon> Save Changes</button>
  
   </form>
 </div>
@@ -292,57 +305,100 @@ export class Dialog1 implements OnInit {
   styleUrls: ['./edit-user.component.css']
   
 })
+
 export class Dialog2 implements OnInit {
-  bioForm: FormGroup;
+  dailog2Form: FormGroup;
   selected: string;
-  options = [
-    {
-      value: 'DOG',
-      label: 'Dog'
+  notifytext: string ='';
+  formErrors: FormErrors = {
+    'address': '',
+    'city': '',
+    'country': ''
+  };
+  validationMessages = {
+    'address': {
+      'required': 'Address is required.',
+      'minlength': 'Address must be at least 4 characters long.',
+      'maxlength': 'Address cannot be more than 100 characters long.',
     },
-    {
-      value: 'CAT',
-      label: 'Cat'
+    'city': {
+      'required': 'City is required.',
+      'minlength': 'City must be at least 4 characters long.',
+      'maxlength': 'City cannot be more than 100 characters long.',
     },
-    {
-      value: 'KR',
-      label: 'Kr'
+    'country': {
+      'required': 'Country is required.',
+      'minlength': 'Country must be at least 2 characters long.',
+      'maxlength': 'Country cannot be more than 100 characters long.',
     },
-    {
-      value: 'HAMSTER',
-      label: 'Hamster'
-    },
-    {
-      value: 'GOLDFISH',
-      label: 'Goldfish'
-    }
-  ];
+  };
   public countries: any[];
   constructor(@Inject(MAT_DIALOG_DATA) public data: any, 
   private _countries: CountryService,
   public fb: FormBuilder, private auth: AuthService,
-  //
+  private spinner: SpinnerService
   ) {
     
   }
-
+ 
   ngOnInit(){
     this.countries = this._countries.getCountries();
    // this._countries.getCountries().subscribe(countries => { console.log(countries)});
-    this.selected = this.data.country;
-    this.buildBioForm();
+    this.selected = 'Goldfish';
+    this.builddailog2Form();
   }
 
-  buildBioForm(){
-    this.bioForm = this.fb.group({
-      'password': ['', [
+  builddailog2Form(){
+    this.dailog2Form = this.fb.group({
+      'address': ['', [
         Validators.required,
-        Validators.email
+        Validators.minLength(4),
+        Validators.maxLength(100)
+        ]
+      ],
+      'city': ['', [
+        Validators.required,
+        Validators.minLength(4),
+        Validators.maxLength(100)
+        ]
+      ],
+      'country': ['', [
+        Validators.required,
+        Validators.minLength(2),
+        Validators.maxLength(100)
         ]
       ]
     });
+    this.dailog2Form.valueChanges.subscribe((data) => this.onValueChanged(data));
+    this.onValueChanged(); // reset validation messages
   }
+  
+    onValueChanged(data?: any) {
+      if (!this.dailog2Form) { return; }
+      const form = this.dailog2Form;
+      for (const field in this.formErrors) {
+        if (Object.prototype.hasOwnProperty.call(this.formErrors, field) && (field === 'address' || field === 'city' || field === 'country')) {
+          // clear previous error message (if any)
+          this.formErrors[field] = '';
+          const control = form.get(field);
+          if (control && control.dirty && !control.valid) {
+            const messages = this.validationMessages[field];
+            if (control.errors) {
+              for (const key in control.errors) {
+                if (Object.prototype.hasOwnProperty.call(control.errors, key) ) {
+                  this.formErrors[field] += `${(messages as {[key: string]: string})[key]} `;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
 
+    dailog2FormSubmit(){
+      this.spinner.show('mySpinnerg1');
+      this.auth.updateContactInfo(this.data.uid, this.dailog2Form.value['address'], this.dailog2Form.value['city'], this.dailog2Form.value['country']);
+    }
 }
 @Component({
   selector: 'dialog-3',

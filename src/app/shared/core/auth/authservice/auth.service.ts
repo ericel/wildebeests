@@ -167,7 +167,7 @@ export class AuthService {
       )
 
     }
-    });
+    }).unsubscribe;
    this.spinner.hideAll();
    this.back();
   }
@@ -183,8 +183,9 @@ export class AuthService {
           internetOrg: local.org
         }
       }
-    return userRef.update(data)
-  });
+    return userRef.update(data).then(() => {
+      }).catch((error) => this.handleError(error) );
+  }).unsubscribe;
   }
   private _Local_User(user){
     const userRef: AngularFirestoreDocument<any> = this.afs.doc(`wi-users-local/${user.uid}`);
@@ -198,8 +199,10 @@ export class AuthService {
         lat_long: local.loc || 'Latitude and Longitude needed!',
         internetOrg: local.org
       }
-    return userRef.set(data, {merge: true})
-  });
+    return userRef.set(data, {merge: true}).then(() => {
+      
+      }).catch((error) => this.handleError(error) );
+  }).unsubscribe;
   }
   signOut() {
     this.afAuth.auth.signOut().then(() => {
@@ -256,10 +259,32 @@ updateBio(uid, bio){
       updatedAt: this.getCurrentTime(),
       bio: bio
     }
-    return userRef.update(data);
+    return userRef.update(data).then(() => {
+      this.notify.update("<strong>User Saved!</strong> Way to go.", 'info')
+      }).catch((error) => this.handleError(error) );
   } 
 
- })
- this.notify.update("<strong>Bio Saved!</strong> Way to go.", 'info')
+ }).unsubscribe;
+}
+
+updateContactInfo(uid, address, city, country){
+  const userRef: AngularFirestoreDocument<any> = this.afs.doc(`wi-users/${uid}`);
+    userRef.valueChanges().subscribe(res=>{
+    if(res){
+      const data = {
+        updatedAt: this.getCurrentTime(),
+        contactInfo: {
+          region: address,
+          city: city,
+          country: country
+        }
+      }
+      return userRef.update(data).then(() => {
+      this.notify.update("<strong>User Saved!</strong> Way to go.", 'info')
+      }).catch((error) => this.handleError(error) );
+    } 
+
+  }).unsubscribe;
+  
 }
 }

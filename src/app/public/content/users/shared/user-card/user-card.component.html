@@ -54,7 +54,7 @@
                 Joined Date: <span class="text-muted">{{user0.createdAt | amDateFormat:'LL'}}</span>
             </li>
             <li>
-                Country: <span class="text-muted" *ngIf="local | async as local">{{local.city}} / {{local.country}}</span>
+                Country: <span class="text-muted" >{{user0.contactInfo.city}} / {{user0.contactInfo.country}}</span>
             </li>
         </ul>
       </div>
