@@ -9,7 +9,7 @@ import { SafeHtml } from '@angular/platform-browser';
     template: `
         <div [innerHTML]="currentText" >
         </div>
-        <a mat-button [class.hidden]="hideToggle" (click)="toggleView()"  >Read {{isCollapsed? 'more':'less'}}</a>
+        <a mat-button *ngIf="showToggleBtn" [class.hidden]="hideToggle" (click)="toggleView()"  >Read {{isCollapsed? 'more':'less'}}</a>
     `
 })
 
@@ -19,8 +19,9 @@ export class ReadMoreComponent implements OnChanges {
     currentText: SafeHtml;
     hideToggle: boolean = true;
     content;
+    showToggleBtn: boolean = true;
     public isCollapsed: boolean = true;
-
+    
     constructor(private elementRef: ElementRef, private sanitizer: DomSanitizer) {
 
     }
@@ -45,7 +46,10 @@ export class ReadMoreComponent implements OnChanges {
 
     }
     ngOnChanges() {
-        this.determineView();       
+        this.determineView();
+        if(this.text.length <= this.maxLength){
+            this.showToggleBtn =false;
+        }       
     }
     private wasInside = false;
 

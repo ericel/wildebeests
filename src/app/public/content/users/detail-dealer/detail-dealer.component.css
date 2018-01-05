@@ -82,6 +82,62 @@
     }
 }
 
+.bioView {
+    cursor: crosshair;
+}
+.user-cards-flex {
+    display: flex;
+    flex-direction: column; 
+    flex-wrap: wrap;
+    padding: 2.5em;
+    height: 250%; 
+}
+.flex-item:nth-of-type(1) { order: 3; align-self: flex-start;}
+.flex-item:nth-of-type(2) { order: 4; align-self: flex-start;}
+.flex-item:nth-of-type(3) { order: 1; }
+.flex-item:nth-of-type(4) { order: 5; }
+.flex-item:nth-of-type(5) { order: 2; align-self: flex-end;}
+.flex-item {
+    
+   right: 0;
+  
+    flex: 1 0 auto; 
+    
+    font-family: sans-serif;
+  }
+
+  
+  .grid {
+    background: #DDD;
+  }
+  
+  /* clear fix */
+  .grid:after {
+    content: '';
+    display: block;
+    clear: both;
+  }
+  
+  /* ---- .element-item ---- */
+  
+  /* 5 columns, percentage width */
+  .grid-item,
+  .grid-sizer {
+    width: 50%;
+  }
+  
+  .grid-item {
+    float: left;
+    
+    background: #0D8;
+    border: 2px solid #333;
+    border-color: hsla(0, 0%, 0%, 0.7);
+  }
+  
+  .grid-item--width2 { width: 40%; }
+  .grid-item--height2 { height: 200px; }
+ 
+
 /* Verified CSS */
 .progress{
     width: 150px;

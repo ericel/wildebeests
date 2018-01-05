@@ -11,7 +11,7 @@
           <img mat-card-avatar src="{{user$.photoURL}}" class="img-thumbnail" alt="{{user$.displayName}}">
       </div>
       <mat-card-title class="text-center title">{{user$.displayName}}</mat-card-title>
-      <button mat-button class="edit-button text-muted"><mat-icon>mode_edit</mat-icon></button>
+      <button mat-button class="edit-button text-muted" (click)="openHeader()"><mat-icon>mode_edit</mat-icon></button>
     </mat-card>
     <div class="row card-2">
       <div class="col-md-6">
@@ -49,7 +49,7 @@
                     </div>
                   </div>
                 </mat-card-content>
-              <button mat-button class="edit-button text-muted"><mat-icon>mode_edit</mat-icon></button>
+              <button mat-button class="edit-button text-muted" (click)="openCountry()"><mat-icon>mode_edit</mat-icon></button>
             </mat-card>
         </div>
     </div>
@@ -80,7 +80,7 @@
                       </div>
                     </div>
                   </mat-card-content>
-                <button mat-button class="edit-button text-muted"><mat-icon>mode_edit</mat-icon></button>
+                <button mat-button class="edit-button text-muted" (click)="openLinks()"><mat-icon>mode_edit</mat-icon></button>
               </mat-card>
         </div>
         <div class="col-md-6">
@@ -105,7 +105,7 @@
                       </div>
                     </div>
                 </mat-card-content>
-                <button mat-button class="edit-button text-muted"><mat-icon>mode_edit</mat-icon></button>
+                <button mat-button class="edit-button text-muted" (click)="openUpgrade()"><mat-icon>mode_edit</mat-icon></button>
               </mat-card>
           </div>
       </div>

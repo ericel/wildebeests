@@ -1,5 +1,8 @@
 <div class="w-100 primary-bg header">
-  <app-spinner name="dealerSpinner" [(show)]="dealerSpinner" class="text-muted"><i class="fa fa-spinner fa-spin fa-4x"></i></app-spinner>
+  
+
+        
+  <!--<app-spinner name="dealerSpinner" [(show)]="dealerSpinner" class="text-muted"><i class="fa fa-spinner fa-spin fa-4x"></i></app-spinner>-->
 </div>
 <main class="main user-cards " *ngIf="!deathSpinner">
   <div class="container" *ngIf="user | async as user$">
@@ -23,22 +26,22 @@
             </mat-menu> 
       </div>
     </mat-card>
-    <div class="row card-2">
-      <div class="col-md-6">
+<div class="row card-2">
+            
+      <div class="col-md-6 flex-item">
           <mat-card>
               <mat-card-header >
               <mat-card-title>About me / Terms</mat-card-title>
               <mat-card-subtitle >Tell others more about you and your services!</mat-card-subtitle>
               </mat-card-header>
               <mat-card-content>
-                  <!--<p [innerHTML] = "user$.bio"></p>-->
-                  <read-more [text]="user$.bio" [maxLength]="2000"></read-more>
+                  <read-more #bioView class="bioView" [text]="user$.bio" [maxLength]="2000"></read-more>
                </mat-card-content>
             
             </mat-card>
            
       </div>
-      <div class="col-md-6">
+      <div class="col-md-6 flex-item">
           <mat-card>
               <mat-card-header >
                   <mat-card-title>Verified / Profile</mat-card-title>
@@ -57,7 +60,7 @@
                               <div class="progress-value">90% <div class="text-muted">Verified</div></div>
                           </div>
                       </div>
-                      <div class="col-md-6">
+                      <div class="col-md-6 ">
                           <div class="progress yellow">
                               <span class="progress-left">
                                   <span class="progress-bar"></span>
@@ -76,7 +79,7 @@
         </div>
     </div>
     <div class="row card-2">
-        <div class="col-md-6">
+        <div class="col-md-6 flex-item">
             <mat-card>
                 <mat-card-header >
                 <mat-card-title>Start Deal / Cancel Deal</mat-card-title>
@@ -94,7 +97,7 @@
               </mat-card>
              
         </div>
-        <div class="col-md-6">
+        <div class="col-md-6 flex-item">
             <mat-card>
                 <mat-card-header >
                     <mat-card-title>Address / Country</mat-card-title>
@@ -121,7 +124,7 @@
           </div>
       </div>
     <div class="row card-2">
-        <div class="col-md-6">
+        <div class="col-md-6 flex-item">
             <mat-card>
                 <mat-card-header >
                     <mat-card-title>Social Links</mat-card-title>
@@ -165,7 +168,7 @@
                 
               </mat-card>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-6 flex-item">
             <mat-card class="card">
                 <mat-card-header >
                     <mat-card-title>Upgrade Account</mat-card-title>

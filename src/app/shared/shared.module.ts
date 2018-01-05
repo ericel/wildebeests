@@ -24,7 +24,7 @@ import { LocationService } from './services/location.service';
 import { VotingComponent } from './components/voting/voting.component';
 import { VotingService } from './services/voting.service';
 import { ReadMoreComponent } from './components/read-more';
-
+import { IsotopeModule } from 'ngx-isotope';
 
 export const SHARED_COMPONENTS = [
   NavbarComponent,
@@ -43,7 +43,8 @@ export const SHARED_COMPONENTS = [
     SkinModule,
     NgPipesModule,
     MomentModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    IsotopeModule
   ],
   declarations: [
     WysiwygComponent,
@@ -78,7 +79,8 @@ export const SHARED_COMPONENTS = [
    UsersCard,
    UserDetailCard,
    VotingComponent,
-   ReadMoreComponent
+   ReadMoreComponent,
+   IsotopeModule
 ],
 providers: [
   SpinnerService,

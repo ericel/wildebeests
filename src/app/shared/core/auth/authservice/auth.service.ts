@@ -36,7 +36,7 @@ export class AuthService {
             return Observable.of(null)
           }
         })
-
+      
      this.usersCollection = this.afs.collection('wi-users', (ref) => ref.orderBy('updatedAt', 'desc').limit(5));
     
   }
@@ -158,14 +158,33 @@ export class AuthService {
           phone: false
         },
         status: 'online',
-        bio: 'I\'m a wildebeests! More about me to be added. <p class="text-danger">Incomplete profile! Profile needs more information.</p>'
+        bio: 'I\'m a wildebeests! More about me to be added. <p class="text-danger">Incomplete profile! Profile needs more information.</p>',
+        
       }
       this._Local_User(user);
-      return userRef.set(data, {merge: true})
+      return userRef.set(data, {merge: true}).then(() =>
+        this.update_localto_user(user)
+      )
+
     }
     });
    this.spinner.hideAll();
    this.back();
+  }
+  private update_localto_user(user){
+    const userRef: AngularFirestoreDocument<any> = this.afs.doc(`wi-users/${user.uid}`);
+    const local = this._locationService.getCurrentIpLocation().subscribe(local => {
+      const data = {
+        contactInfo: {
+          country: local.country || 'Country needed!',
+          city: local.city || 'City needed!',
+          region: local.region || 'State, Province needed!',
+          lat_long: local.loc || 'Latitude and Longitude needed!',
+          internetOrg: local.org
+        }
+      }
+    return userRef.update(data)
+  });
   }
   private _Local_User(user){
     const userRef: AngularFirestoreDocument<any> = this.afs.doc(`wi-users-local/${user.uid}`);
@@ -241,5 +260,6 @@ updateBio(uid, bio){
   } 
 
  })
+ this.notify.update("<strong>Bio Saved!</strong> Way to go.", 'info')
 }
 }

@@ -69,6 +69,12 @@
     border: none;
     display: block;
 }
+
+
+.info .mat-form-field{
+    width:100%;
+    padding: 0 10px;
+}
 @media screen and (max-width: 991px){
     .header {
         padding: 5px 10px 0 10px;

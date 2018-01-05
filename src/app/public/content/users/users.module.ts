@@ -16,8 +16,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   imports: [
     CommonModule,
     routing,
-    SharedModule,
-    PerfectScrollbarModule
+    SharedModule
   ],
   declarations: [
      DetailUserComponent,

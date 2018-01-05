@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, ElementRef, ViewChild, } from '@angular/core';
+import { Component, OnInit, Inject, ElementRef, ViewChild, OnChanges} from '@angular/core';
 import {MatDialog, MAT_DIALOG_DATA} from '@angular/material';
 import { NavbarService } from '../../../../shared/core/navbar/navbar.service';
 import { AuthService } from '../../../../shared/core/auth/authservice/auth.service';
@@ -12,6 +12,7 @@ import { NotifyService } from '../../../../shared/core/notify/notify.service';
 import { LocationService } from '../../../../shared/services/location.service';
 import { ReactiveFormsModule, FormGroup, FormBuilder, Validators,  } from '@angular/forms';
 import {AbstractControl} from '@angular/forms';
+import { DomSanitizer } from '@angular/platform-browser';
 @Component({
   selector: 'app-edit-user',
   templateUrl: './edit-user.component.html',
@@ -32,7 +33,8 @@ export class EditUserComponent implements OnInit {
    private route: ActivatedRoute,
    private notify: NotifyService,
    private _local: LocationService,
-   public dialog: MatDialog
+   public dialog: MatDialog,
+   private sanitizer: DomSanitizer
   ) { 
 
     
@@ -79,6 +81,45 @@ export class EditUserComponent implements OnInit {
       }
     });
   }
+
+  openCountry() {
+    this.dialog.open(Dialog2, {
+      data: {
+        country: this._auth.contactInfo.country,
+        city: this._auth.contactInfo.city,
+        address: this._auth.contactInfo.region
+      }
+    });
+  }
+  openLinks() {
+    this.dialog.open(Dialog3, {
+      data: {
+        uid: this._auth.uid,
+        bio: this._auth.bio
+      }
+    });
+  }
+
+  openUpgrade() {
+    this.dialog.open(Dialog4, {
+      data: {
+        country: this._auth.uid,
+        city: this._auth.bio,
+        address: this._auth.region
+      }
+    });
+  }
+
+
+  openHeader() {
+    this.dialog.open(DialogHeader, {
+      data: {
+        country: this._auth.uid,
+        city: this._auth.bio,
+        address: this._auth.region
+      }
+    });
+  }
 }
 
 @Component({
@@ -101,7 +142,7 @@ export class EditUserComponent implements OnInit {
    
    
    <span class="float-right">
-       <small class="text-muted"><em [innerHTML]="notifyText"></em></small>
+       
        <button mat-icon-button (click)="updateBio()" title="Save Bio"><mat-icon color="primary">publish </mat-icon></button>
    </span>
 </div>
@@ -120,11 +161,12 @@ export class Dialog1 implements OnInit {
   bioForm: FormGroup;
   @ViewChild('richtextarea') richtextarea: ElementRef;
   constructor(@Inject(MAT_DIALOG_DATA) public data: any, 
-  public fb: FormBuilder, private auth: AuthService
+  public fb: FormBuilder, private auth: AuthService, private notify: NotifyService,
+  private sanitizer: DomSanitizer
   ) {
    
   }
- 
+
   ngOnInit(){
     this.buildBioForm();
     this.iFrameOn();
@@ -148,7 +190,7 @@ export class Dialog1 implements OnInit {
       };
      
   } else {
-    //this.notifyText = '<span class="text-danger">Blog needs more content!</span>';
+    this.notify.update("<strong>More Bio info required!</strong> Way to go.", 'error')
   }
   }
   get textarea() { 
@@ -213,7 +255,181 @@ export class Dialog1 implements OnInit {
     this.richtextarea.nativeElement.contentDocument.execCommand("strikeThrough", false, null)
   }
 }
+@Component({
+  selector: 'dialog-2',
+  template:`
+  <div class="block-dialog card">
+  <div class="card-header">
+    Edit Account Info
+  </div>
+  <div class="card-block">
+  <div class="info">
+  <form>
+  <mat-form-field>
+    <input matInput placeholder="Your Address" value="{{data.address}}">
+  </mat-form-field>
 
+  <mat-form-field>
+  <input matInput placeholder="Your City" value="{{data.city}}">
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-select placeholder="Select Country" [compareWith]="compareFn" name="country">
+      <mat-option value="option">Option</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <button class="w-100" mat-raised-button color="primary">Save Changes</button>
+ 
+  </form>
+</div>
+  </div>
+  </div>
+  `,
+  styleUrls: ['./edit-user.component.css']
+  
+})
+export class Dialog2 implements OnInit {
+  bioForm: FormGroup;
+  public myState: string = 'AL';
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any, 
+  public fb: FormBuilder, private auth: AuthService
+  ) {
+   
+  }
+
+  ngOnInit(){
+    this.buildBioForm();
+  }
+
+  buildBioForm(){
+    this.bioForm = this.fb.group({
+      'password': ['', [
+        Validators.required,
+        Validators.email
+        ]
+      ]
+    });
+  }
+
+  compareFn: ((f1: any, f2: any) => boolean) | null = this.compareByValue;
+
+compareByValue(f1: any, f2: any) { 
+  return f1 && f2 && f1.value === this.data.country; 
+}
+}
+@Component({
+  selector: 'dialog-3',
+  template:`
+  <div class="block-dialog card">
+  <div class="card-header">
+    Edit Account Social Links
+  </div>
+  </div>
+  `,
+  styleUrls: ['./edit-user.component.css']
+  
+})
+export class Dialog3 implements OnInit {
+  bioForm: FormGroup;
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any, 
+  public fb: FormBuilder, private auth: AuthService
+  ) {
+   
+  }
+
+  ngOnInit(){
+    this.buildBioForm();
+  }
+
+  buildBioForm(){
+    this.bioForm = this.fb.group({
+      'password': ['', [
+        Validators.required,
+        Validators.email
+        ]
+      ]
+    });
+  }
+
+  
+}
+@Component({
+  selector: 'dialog-4',
+  template:`
+  <div class="block-dialog card">
+  <div class="card-header">
+    Upgrade your account!
+  </div>
+  </div>
+  `,
+  styleUrls: ['./edit-user.component.css']
+  
+})
+export class Dialog4 implements OnInit {
+  bioForm: FormGroup;
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any, 
+  public fb: FormBuilder, private auth: AuthService
+  ) {
+   
+  }
+
+  ngOnInit(){
+    this.buildBioForm();
+  }
+
+  buildBioForm(){
+    this.bioForm = this.fb.group({
+      'password': ['', [
+        Validators.required,
+        Validators.email
+        ]
+      ]
+    });
+  }
+
+  
+}
+@Component({
+  selector: 'dialog-header',
+  template:`
+  <div class="block-dialog card">
+  <div class="card-header">
+    Edit Account Photo / Background Photo
+  </div>
+  </div>
+  `,
+  styleUrls: ['./edit-user.component.css']
+  
+})
+export class DialogHeader implements OnInit {
+  bioForm: FormGroup;
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any, 
+  public fb: FormBuilder, private auth: AuthService
+  ) {
+   
+  }
+
+  ngOnInit(){
+    this.buildBioForm();
+  }
+
+  buildBioForm(){
+    this.bioForm = this.fb.group({
+      'password': ['', [
+        Validators.required,
+        Validators.email
+        ]
+      ]
+    });
+  }
+
+  
+}
 export const Dailog_Components = [
-  Dialog1
+  Dialog1,
+  Dialog2,
+  Dialog3,
+  Dialog4,
+  DialogHeader
 ]

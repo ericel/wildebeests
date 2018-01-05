@@ -9,6 +9,7 @@ import { Observable } from 'rxjs/Observable';
 import { NotifyService } from '../../../../shared/core/notify/notify.service';
 import { Local } from './../../../../shared/core/auth/authservice/auth.model';
 import { LocationService } from '../../../../shared/services/location.service';
+import { IsotopeOptions } from 'ngx-isotope';
 @Component({
   selector: 'app-detail-dealer',
   templateUrl: './detail-dealer.component.html',
@@ -19,6 +20,14 @@ isValid;
 deathSpinner: boolean = false;
 local: Observable<Local>;
 user: Observable<User>;
+public gridOptions: IsotopeOptions = {
+  percentPosition: true,
+  itemSelector: '.grid-item',
+  masonry: {
+    columnWidth: '.grid-sizer'
+  }
+};
+
   constructor(private nav: NavbarService,
     private title: Title,
     private meta: Meta,
@@ -61,6 +70,8 @@ user: Observable<User>;
         ]);
       });
     });
+
+
   }
 
   deal($event){
