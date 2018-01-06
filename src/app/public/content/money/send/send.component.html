@@ -3,7 +3,7 @@
       <perfect-scrollbar >
       <div class="card-header">
          <div class="dicplay-2 font-weight-bold">
-            <span class="online-now primary-bg"></span> {{ user.displayName | shorten: 10: '...'}}
+            <span class="online-now primary-bg"></span> {{ user.displayName.user | shorten: 10: '...'}}
           </div>
           <button mat-icon-button class="text-right-btn" [matMenuTriggerFor]="menuSender"><mat-icon>keyboard_arrow_down</mat-icon></button>
       </div>
@@ -226,7 +226,7 @@
                 <div class="card-header">
                   <ul class="items-dealer">
                    <li class="dicplay-2 font-weight-bold">
-                     <a routerLink=""> <span class="online-now primary-bg blink"></span> {{ user.displayName | shorten: 10: '...'}}</a>
+                     <a routerLink=""> <span class="online-now primary-bg blink"></span> {{ user.displayName.username | shorten: 10: '...'}}</a>
                    </li>
                    <li class="dicplay-2 font-weight-bold">
                       <i class="fa fa-plus primary-text" aria-hidden="true"></i>3728
@@ -257,7 +257,7 @@
                     <div class="col-md-8">
                        <ul class="no-padding dealer-details">
                           <li>
-                              <a routerLink="" class="font-weight-bold"> {{ user.displayName | shorten: 20: '...'}}</a><br>
+                              <a routerLink="" class="font-weight-bold"> {{ user.displayName.username | shorten: 20: '...'}}</a><br>
                               <em class="text-muted">ID: {{user.uid}}</em>
                               <span class="badge  badge-info"><i class="fa fa-facebook-square" aria-hidden="true"></i> Verified</span>
                               <span class="badge  badge-info"><i class="fa fa-twitter-square" aria-hidden="true"></i> Verified</span>

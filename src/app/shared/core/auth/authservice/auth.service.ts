@@ -134,9 +134,12 @@ export class AuthService {
     } else {
       const data: User = {
         uid: user.uid,
-        username: user.displayName || user.email.split('@')[0],
         email: user.email,
-        displayName: user.displayName || user.email.split('@')[0],
+        displayName: {
+          fullname: user.displayName || user.email.split('@')[0],
+          editCount:0,
+          username: user.displayName || user.email.split('@')[0]
+        },
         photoURL: user.photoURL || 'https://wilde-beests.firebaseapp.com/assets/img/avatar.png',
         createdAt: this.getCurrentTime(),
         updatedAt: this.getCurrentTime(),
@@ -319,5 +322,28 @@ updateVerifiedLinks(uid, facebook, twitter, email, phone){
 
 }).unsubscribe;
 
+}
+updateUsername(uid, username, fullname, count){
+  const userRef: AngularFirestoreDocument<any> = this.afs.doc(`wi-users/${uid}`);
+  if (count > 0){
+    this.notify.update("<strong>This property can't be change anymore!</strong> Way to go.", 'error')
+    return
+  }
+  userRef.valueChanges().subscribe(res=>{
+  if(res){
+    const data = {
+      displayName: {
+        fullname: fullname,
+        editCount:1,
+        username: username
+      },
+      updatedAt: this.getCurrentTime()
+    }
+    return userRef.update(data).then(() => {
+    this.notify.update("<strong>Account Name Set!</strong> Way to go.", 'info')
+    }).catch((error) => this.handleError(error) );
+  } 
+
+}).unsubscribe;
 }
 }

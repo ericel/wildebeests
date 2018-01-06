@@ -8,9 +8,9 @@
           <img mat-card-image src="{{user$.photoURL}}" alt="Photo of a Shiba Inu">
       </div>
       <div class="text-center avatar">
-          <img mat-card-avatar src="{{user$.photoURL}}" class="img-thumbnail" alt="{{user$.displayName}}">
+          <img mat-card-avatar src="{{user$.photoURL}}" class="img-thumbnail" alt="{{user$.displayName.username}}">
       </div>
-      <mat-card-title class="text-center title">{{user$.displayName}}</mat-card-title>
+      <mat-card-title class="text-center title">{{user$.displayName.username}}</mat-card-title>
       <button mat-button class="edit-button text-muted" (click)="openHeader()"><mat-icon>mode_edit</mat-icon></button>
     </mat-card>
     <div class="row card-2">

@@ -63,10 +63,10 @@ public gridOptions: IsotopeOptions = {
            this._auth.back();
           },3000);
         } 
-        this.title.setTitle(user.displayName + ' Wildebeests profile!');
+        this.title.setTitle(user.displayName.username + ' Wildebeests profile!');
         this.meta.addTags([
-          { name: 'keywords', content: user.displayName + ' Wildebeests profile!, '+user.roles+', send money back home, dealer'},
-          { name: 'description', content: user.displayName + ' will help you send money back home to your love ones!' }
+          { name: 'keywords', content: user.displayName.username + ' Wildebeests profile!, '+user.roles+', send money back home, dealer'},
+          { name: 'description', content: user.displayName.username + ' will help you send money back home to your love ones!' }
         ]);
       });
     });

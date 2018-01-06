@@ -8,12 +8,12 @@
   <div class="container" *ngIf="user | async as user$">
     <mat-card class="card-1">
       <div class="head-0 dealer-header">
-        <img mat-card-image src="{{user$.photoURL}}" alt="Photo of a Shiba Inu">
+        <img mat-card-image src="{{user$.photoURL}}" alt="{{user$.displayName.username}}">
       </div>
       <div class="text-center avatar">
-          <img mat-card-avatar src="{{user$.photoURL}}" class="img-thumbnail" alt="{{user$.displayName}}">
+          <img mat-card-avatar src="{{user$.photoURL}}" class="img-thumbnail" alt="{{user$.displayName.username}}">
       </div>
-      <mat-card-title class="text-center title">{{user$.displayName}}</mat-card-title>
+      <mat-card-title class="text-center title">{{user$.displayName.username}}</mat-card-title>
       <div class="text-center mard-20" *ngIf="_auth.user | async as _auth$">
           <app-voting [itemId]='user$?.uid' [userId]='_auth$?.uid'></app-voting>
         <button mat-button class="edit-button text-muted"  *ngIf="user$.uid === _auth$.uid" [matMenuTriggerFor]="menuDealer"><mat-icon>filter_list</mat-icon></button>

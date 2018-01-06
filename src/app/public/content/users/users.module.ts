@@ -9,6 +9,7 @@ import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 import { DetailUserComponent } from './detail-user/detail-user.component';
 import { EditUserComponent, Dailog_Components } from './edit-user/edit-user.component';
+import { UpgradePlanComponent } from './upgrade-plan/upgrade-plan.component';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
@@ -25,7 +26,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
      UsersComponent,
      DetailDealerComponent,
      EditUserComponent,
-     ...Dailog_Components
+     ...Dailog_Components,
+     UpgradePlanComponent
     ],
 providers:  [
       {

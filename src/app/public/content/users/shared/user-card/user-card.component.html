@@ -1,7 +1,7 @@
 <div class="card-header">
     <ul class="items-dealer">
      <li class="dicplay-2 font-weight-bold">
-       <a routerLink=""> <span class="online-now primary-bg blink"></span> {{user0.displayName}}</a>
+       <a routerLink=""> <span class="online-now primary-bg blink"></span> {{user0.displayName.username}}</a>
      </li>
      <li class="dicplay-2 font-weight-bold">
         <i class="fa fa-plus primary-text" aria-hidden="true"></i> {{positiveVoteCounts}}
@@ -27,12 +27,12 @@
   <div class="card-block container">
     <div class="row mar-30">
       <div class="col-md-4">
-          <img src="{{user0.photoURL}}" class="dealer-img rounded " alt="{{user0.displayName}}">
+          <img src="{{user0.photoURL}}" class="dealer-img rounded " alt="{{user0.displayName.username}}">
       </div>
       <div class="col-md-8">
          <ul class="no-padding dealer-details">
             <li>
-                <a routerLink="" class="font-weight-bold"> {{user0.displayName}}</a><br>
+                <a routerLink="" class="font-weight-bold"> {{user0.displayName.username}}</a><br>
                 <em class="text-muted">ID: {{user0.uid}}</em><br>
                 <span class="badge" [ngClass]="user0.verified.facebook ? 'badge-info' : 'badge-danger'"><i class="fa fa-facebook-square" aria-hidden="true"></i> 
                     {{ user0.verified.facebook ? "verified" : "not verified" }}

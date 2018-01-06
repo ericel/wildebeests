@@ -28,11 +28,14 @@ export interface Local {
 
 export interface User {
     uid: string;
-    username: string;
     email: string;
     photoURL?: string;
     accountType?: string;
-    displayName?: string;
+    displayName?: {
+        username?: string;
+        editCount: number;
+        fullname?: string;
+    };
     favoriteColor?: string;
     createdAt?: any;
     updatedAt?: any;

@@ -43,10 +43,10 @@ export class DetailUserComponent implements OnInit {
           },3000);
         } 
 
-        this.title.setTitle(user.displayName + ' Wildebeests profile!');
+        this.title.setTitle(user.displayName.username + ' Wildebeests profile!');
         this.meta.addTags([
-        { name: 'keywords', content: user.displayName + ' Wildebeests profile!'},
-        { name: 'description', content: user.displayName + ' Wildebeests profile!' }
+        { name: 'keywords', content: user.displayName.username + ' Wildebeests profile!'},
+        { name: 'description', content: user.displayName.username + ' Wildebeests profile!' }
       ]);
       });
     });
