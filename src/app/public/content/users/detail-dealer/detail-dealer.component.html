@@ -8,7 +8,8 @@
   <div class="container" *ngIf="user | async as user$">
     <mat-card class="card-1">
       <div class="head-0 dealer-header">
-        <img mat-card-image src="{{user$.photoURL}}" alt="{{user$.displayName.username}}">
+          <div class="bg-im" [style.background-image]="'url(' + user$.photoURL + ')'"></div>
+      
       </div>
       <div class="text-center avatar">
           <img mat-card-avatar src="{{user$.photoURL}}" class="img-thumbnail" alt="{{user$.displayName.username}}">
@@ -40,6 +41,7 @@
                              </div>  
                            </mat-tab>
                    <mat-tab label="Reviews (83)"  class="clearfix">
+                     <app-star-review *ngIf="_auth.user | async as auth$" [userId]="user$.uid" [authId]="auth$.uid"></app-star-review>
                         <div class="row pad-10">
                                 <div class="col-md-2">
                                     <img src="./assets/img/avatar.png" class="dealer-img-1 rounded " alt="Cinque Terre">
@@ -246,44 +248,3 @@
   </div>
 </main>
 
-<!--<main class="main">
-  <div class="container">
-      <app-spinner name="dealerSpinner" [(show)]="dealerSpinner" class="text-muted"><i class="fa fa-spinner fa-spin fa-4x"></i></app-spinner>
-      <div class="row" *ngIf="!deathSpinner">
-        <div class="col-md-8 mar-30">
-            <div class="card" *ngIf="user | async as user">
-                <app-dealer-card  [dealer]="user"></app-dealer-card>
-            </div>
-        </div>
-        <div class="col-md-4">
-          <div class="deal-box mar-30">
-            <button mat-raised-button color="primary" class="w-100 padding-30 " (click)="deal($event)">
-                <app-spinner name="mySpinner" [(show)]="spinnerShowing"><i class="fa fa-spinner fa-spin"></i></app-spinner> 
-                
-              Start Deal Now</button>
-            <div class="mar-10"></div> 
-            <button mat-raised-button color="warn" class="w-100 padding-10 ">Cancel Deal Now</button>
-          </div>
-          <div class="as-1 card">
-            <div class="card-header">
-                <h4 class="card-title"> Why Trust This Deal?</h4>
-             
-            </div>
-            <div class="card-block">
-              <div class="alert alert-info card-text">
-                <p>
-                <strong class="card-text">This Dealer has  <strong class="text-danger">$1000 in verified </strong>  bond. So you have nothing to worry.</strong>
-              </p>
-                <p class="card-text">We will make sure your transaction is safe and completed in a timely manner.</p>
-                <p class="card-text">
-                  Make sure, you keep tracks of your transactions for complaint purposes. 
-                  Wildebeests team, is doing it's out most best to keep your transactions safe and secured.
-                </p>
-            </div>
-            </div>
-          </div>
-            <app-ads-right></app-ads-right>
-        </div>
-      </div>
-  </div>
-</main>-->

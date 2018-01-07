@@ -30,6 +30,8 @@ import { UploadService } from './services/upload/upload.service';
 
 import * as firebase from 'firebase';
 import { environment } from '../../environments/environment';
+import { StarReviewComponent } from './components/star-review/star-review.component';
+import { StarReviewService } from './components/star-review/star-review.service';
 
 firebase.initializeApp(environment.firebase);
 
@@ -66,7 +68,8 @@ export const SHARED_COMPONENTS = [
     UserDetailCard,
     VotingComponent,
     VotingComponent,
-    ReadMoreComponent
+    ReadMoreComponent,
+    StarReviewComponent
   ],
   exports: [
    WysiwygComponent,
@@ -87,14 +90,16 @@ export const SHARED_COMPONENTS = [
    UserDetailCard,
    VotingComponent,
    ReadMoreComponent,
-   IsotopeModule
+   IsotopeModule,
+   StarReviewComponent
 ],
 providers: [
   SpinnerService,
   LocationService,
   VotingService,
   CountryService,
-  UploadService
+  UploadService,
+  StarReviewService
   
 ],
 entryComponents: [
