@@ -2,9 +2,7 @@
     border-radius: 0px !important;
 }
 .dealer-header {
-    background: #200122;  /* fallback for old browsers */
-    background: -webkit-linear-gradient(to right, #6f0000, #200122);  /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to right, #6f0000, #200122); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  
     color: #f2f2f2;
     height: 150px;
 }
@@ -50,6 +48,11 @@
 .card-1, .card-2 {
     position: relative;
 }
+.card-1 {
+    background: #00897b;
+    color: #fff;
+}
+
 .edit-button {
     position: absolute;
     right: 10px;
@@ -73,6 +76,7 @@
 .mard-20 {
     padding-bottom: 10px;
 }
+
 @media screen and (max-width: 991px){
     .header {
         padding: 5px 10px 0 10px;
@@ -80,6 +84,7 @@
     .card-2 .edit-button {
         right: -10px;
     }
+  
 }
 
 .bioView {

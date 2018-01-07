@@ -11,7 +11,7 @@ html, body {
     height:auto;
  } 
 body {
-    background-color:#fff;
+    background-color:rgb(241, 241, 241);
     /* Margin bottom by footer height */
     font: inherit;
     vertical-align: baseline;
@@ -220,4 +220,7 @@ ul.no-padding {
 .m-menus .mat-menu-content {
     padding-top: 0px !important; 
 }
-
+.card-1  .count{
+    background: rgb(241, 241, 241) !important;
+    color: #464646 !important;
+}

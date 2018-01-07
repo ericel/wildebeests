@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NavbarService } from '../../../../shared/core/navbar/navbar.service';
 import { Title, Meta } from '@angular/platform-browser';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -7,12 +7,13 @@ import { AuthService } from '../../../../shared/core/auth/authservice/auth.servi
 import { User } from '../../../../shared/core/auth/authservice/auth.model';
 import { Observable } from 'rxjs/Observable';
 import { NotifyService } from '../../../../shared/core/notify/notify.service';
+
 @Component({
   selector: 'app-user',
   templateUrl: './detail-user.component.html',
   styleUrls: ['./detail-user.component.css']
 })
-export class DetailUserComponent implements OnInit {
+export class DetailUserComponent implements OnInit, OnDestroy {
   deathSpinner: boolean = false;
   user: Observable<User>;
   constructor(private nav: NavbarService,
@@ -50,6 +51,10 @@ export class DetailUserComponent implements OnInit {
       ]);
       });
     });
+  }
+
+  ngOnDestroy(){
+    
   }
 
 }

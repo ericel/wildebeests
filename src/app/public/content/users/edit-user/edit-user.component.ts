@@ -14,6 +14,9 @@ import { ReactiveFormsModule, FormGroup, FormBuilder, Validators  } from '@angul
 import {AbstractControl} from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 import { CountryService } from '../../../../shared/components/country-picker/country.service';
+import { Upload } from './../../../../shared/services/upload/upload.model';
+import { UploadService } from '../../../../shared/services/upload/upload.service';
+
 
 type formFields = 'facebook' | 'twitter' | 'email' | 'phone' | 'address' | 'city' | 'country' | 'fullname' | 'username';
 type FormErrors = { [u in formFields]: string };
@@ -38,7 +41,8 @@ export class EditUserComponent implements OnInit, OnDestroy {
    private notify: NotifyService,
    private _local: LocationService,
    public dialog: MatDialog,
-   private sanitizer: DomSanitizer
+   private sanitizer: DomSanitizer,
+   private _upload: UploadService
   ) { 
 
     
@@ -668,16 +672,22 @@ export class Dialog4 implements OnInit {
   <div class="block-dialog card photo-c">
   <div class="card-header">
   <div class="head-0">
-      <img mat-card-image src="{{data.photoUrl}}" alt="Photo of a Shiba Inu">
+      <img mat-card-image src="{{data.photoUrl || './assets/img/avatar.png'}}" alt="{{data.username}}">
     </div>
     <div class="text-center avatar">
-      <img mat-card-avatar src="{{data.photoUrl}}" class="img-thumbnail" alt="{{data.username}}">
+      <img mat-card-avatar src="{{data.photoUrl || './assets/img/avatar.png'}}" class="img-thumbnail" alt="{{data.username}}">
     </div>
     <div class="text-center">
     <label class="custom-file ">
-      <input type="file" id="file" class="custom-file-input">
+      <input type="file" id="file" #file class="custom-file-input" 
+      (change)="detectFiles($event)" (change)="fileChanged($event)">
       <span class="custom-file-control"></span>
     </label>
+   
+    <div *ngIf="currentUpload" class="text-center mar-30" >
+     <mat-progress-bar mode="determinate" value="{{ currentUpload?.progress }}"></mat-progress-bar>
+      <div class="alert alert-info">Progress: {{currentUpload?.name}} | {{currentUpload?.progress}}% Complete</div>
+    </div>
     </div>
    
     <mat-card-title class="text-center title">{{data.username}}</mat-card-title>
@@ -708,7 +718,7 @@ export class Dialog4 implements OnInit {
       </form>
       </div>
     </mat-expansion-panel>
-    <button mat-button class="edit-button text-muted" (click)="openHeader()"><mat-icon>mode_edit</mat-icon></button>
+
   </div>
 
   </div>
@@ -717,7 +727,10 @@ export class Dialog4 implements OnInit {
   
 })
 export class DialogHeader implements OnInit {
+  @ViewChild('file') file: ElementRef;
   dailog4Form: FormGroup;
+  selectedFiles: FileList | null;
+  currentUpload: Upload;
   formErrors: FormErrors = {
     'facebook': '',
     'twitter': '',
@@ -744,9 +757,10 @@ export class DialogHeader implements OnInit {
   };
   public countries: any[];
   constructor(@Inject(MAT_DIALOG_DATA) public data: any, 
-  private _countries: CountryService,
   public fb: FormBuilder, private auth: AuthService,
-  private spinner: SpinnerService
+  private spinner: SpinnerService,
+  private _upload: UploadService,
+  private _notify: NotifyService
   ) {
     
   }
@@ -803,6 +817,32 @@ export class DialogHeader implements OnInit {
      this.auth.updateUsername(this.data.uid, this.dailog4Form.value['username'], this.dailog4Form.value['fullname'], this.data.count);
     }
   
+
+   detectFiles($event: Event) {
+      this.selectedFiles = ($event.target as HTMLInputElement).files;
+   }
+
+  uploadSingle() {
+    const file = this.selectedFiles;
+    if (file && file.length === 1) {
+      this.currentUpload = new Upload(file.item(0));
+      this._upload.pushUpload(this.data.uid, this.currentUpload);
+    } else {
+      this._notify.update("<strong>No file found!</strong> upload again.", 'error')
+    }
+  }
+
+  getFileLater() {
+    console.log(this.file.nativeElement.files[0]);
+  }
+
+  fileChanged(event) {
+    this.file.nativeElement.disabled = true;
+    this.uploadSingle()
+    this.file.nativeElement.disabled = true;
+  }
+
+
 }
 export const Dailog_Components = [
   Dialog1,

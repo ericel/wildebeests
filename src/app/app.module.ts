@@ -24,9 +24,10 @@ import { EffectsModule } from '@ngrx/effects';
 import { PizzaModule } from './pizza/pizza.module';
 import { reducers } from './reducers';
 
-import { SharedModule, SHARED_COMPONENTS } from './shared/shared.module';
 import { AuthModule } from './shared/core/auth/auth.module';
 import { CoreModule } from './shared/core/core.module';
+import { SharedModule, SHARED_COMPONENTS } from './shared/shared.module';
+
 
 
 @NgModule({
@@ -39,8 +40,10 @@ import { CoreModule } from './shared/core/core.module';
     BrowserAnimationsModule,
     BrowserModule.withServerTransition({appId: 'wildebeests' }),
     CoreModule,
+    AuthModule,
     routing,
     HttpModule,
+    PizzaModule,
     StoreModule.forRoot(reducers),
     StoreDevtoolsModule.instrument({
       maxAge: 25
@@ -49,9 +52,8 @@ import { CoreModule } from './shared/core/core.module';
     AngularFireModule.initializeApp(environment.firebase, 'wildebeests'),
     AngularFirestoreModule, 
     AngularFireAuthModule,
-    PizzaModule,
     SharedModule,
-    AuthModule
+    
   ],
   providers: [
    

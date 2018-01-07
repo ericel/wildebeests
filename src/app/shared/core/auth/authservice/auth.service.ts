@@ -167,7 +167,7 @@ export class AuthService {
       this._Local_User(user);
       return userRef.set(data, {merge: true}).then(() =>
         this.update_localto_user(user)
-      )
+      ).catch((error) => this.handleError(error) );
 
     }
     }).unsubscribe;

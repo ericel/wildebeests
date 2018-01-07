@@ -26,7 +26,12 @@ import { VotingService } from './services/voting.service';
 import { ReadMoreComponent } from './components/read-more';
 import { IsotopeModule } from 'ngx-isotope';
 import { CountryService } from './components/country-picker/country.service';
+import { UploadService } from './services/upload/upload.service';
 
+import * as firebase from 'firebase';
+import { environment } from '../../environments/environment';
+
+firebase.initializeApp(environment.firebase);
 
 export const SHARED_COMPONENTS = [
   NavbarComponent,
@@ -88,7 +93,9 @@ providers: [
   SpinnerService,
   LocationService,
   VotingService,
-  CountryService
+  CountryService,
+  UploadService
+  
 ],
 entryComponents: [
   ...Dialog_COMPONENTS
