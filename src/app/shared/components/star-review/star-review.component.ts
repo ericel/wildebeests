@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { StarReviewService } from './star-review.service';
 import { ReactiveFormsModule, FormGroup, FormBuilder, Validators} from '@angular/forms';
+import { AuthService } from '../../core/auth/authservice/auth.service';
 
 @Component({
   selector: 'app-star-review',
@@ -16,17 +17,24 @@ export class StarReviewComponent implements OnInit {
   stars: Observable<any>;
   avgRating: Observable<any>;
   selected: string = 'Good';
-  constructor(private _star: StarReviewService,
-    public fb: FormBuilder
+  constructor(
+    private _star: StarReviewService,
+    public fb: FormBuilder,
+    public _auth: AuthService
   ) { }
 
   ngOnInit() {
     this.stars = this._star.getUserStars(this.userId)
     this.avgRating = this.stars.map(arr => {
-      const ratings = arr.map(v => v.value)
-      return ratings.length ? ratings.reduce((total, val) => total + val) / arr.length : 'not reviewed'
+      const ratings = arr.map(v => v.rating)
+      var total = 0;
+      for(var i = 0; i < ratings.length; i++) {
+          total += ratings[i];
+      }
+      let avg = total / ratings.length;
+      return avg
     })
-
+   
     this.ratingform = this.fb.group({
       'typeRate': [this.selected, [
         Validators.required
@@ -60,6 +68,6 @@ export class StarReviewComponent implements OnInit {
     } else {
       this.rating_value = this.rating.value;
     }
-    this._star.addReview(this.authId, this.userId, this.type.value, this.review.value, this.rating_value);
+    this._star.addItem(this.authId, this.userId, this.type.value, this.review.value, this.rating_value);
   }
 }
