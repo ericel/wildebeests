@@ -1,15 +1,26 @@
 <div class="formReview">
-    <form (ngSubmit)="save()" novalidate [formGroup]="ratingform">
+    <form  [formGroup]="ratingform" (ngSubmit)="save()" >
+       <mat-form-field class="w-100">
+           <mat-select placeholder="Review Type" formControlName="typeRate" required>
+              <mat-option value="Good">Good</mat-option>
+              <mat-option value="Bad">Bad</mat-option>
+           </mat-select>
+            <mat-hint align="end">Here's the dropdown arrow ^</mat-hint>
+      </mat-form-field>
       <mat-form-field class="w-100">
-          <textarea matInput placeholder="Textarea" formControlName="review"  required minlength="5"></textarea>
-          <!--show error only when field is not valid & it's dirty or form submited-->
+          <textarea matInput placeholder="Enter Your Comment!" #review formControlName="review"  required maxlength="150"></textarea>
+          <mat-hint align="end">{{review.value?.length || 0}}/150</mat-hint>
+          <div *ngIf="review.invalid && review.dirty" class="alert alert-danger">
+                Please Enter a comment between 10 to 150 characters.
+         </div>
        </mat-form-field>
+      
        <div class="row">
-           <div class="col">
+           <div class="col text-sm-center">
             <fieldset class="rating">
                 <ng-container  *ngFor="let num of [5, 4, 3, 2, 1]">
                     <!-- full star -->
-                    <input (click)="starHandler(num)" 
+                    <input 
                           formControlName="rating"
                           [id]="'star'+num"
                           [value]="num-0.5"
@@ -17,7 +28,7 @@
                           type="radio" />
                     <label class="full" [for]="'star'+num"></label>
                     <!-- half star -->
-                    <input (click)="starHandler(num-0.5)"
+                    <input 
                           formControlName="rating"
                           [value]="num-0.5"
                           [id]="'halfstar'+num" 
@@ -29,8 +40,9 @@
               {{ avgRating | async }}
           
            </div>
-           <div class="col text-right">
-                  <button mat-button color="primary" type="submit">Add Review</button>
+          
+           <div class="col text-right text-sm-center">
+                  <button mat-button color="primary" type="submit" [disabled]="!ratingform.valid">Add Review</button>
             </div>
        </div>
       </form>
