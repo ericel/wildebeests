@@ -4,8 +4,13 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
 import { Observable } from 'rxjs/Observable';
 import { merge } from 'rxjs/observable/merge';
+import 'rxjs/add/observable/combineLatest';
+import 'rxjs/add/operator/switchMap';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import * as moment from 'moment';
 import { NotifyService } from '../../core/notify/notify.service';
+import 'rxjs/add/observable/forkJoin';
+import { Actions } from '@ngrx/effects/src/actions';
 export interface Star {
   createdAt: any;
   uid: any;
@@ -16,7 +21,8 @@ export interface Star {
 }
 @Injectable()
 export class StarReviewService {
-  star: Observable<Star | null>;
+  starsRef:  BehaviorSubject<string|null>;;
+  review = {}
   constructor(
     private afs: AngularFirestore,
     private _notify: NotifyService
@@ -48,16 +54,38 @@ export class StarReviewService {
       const starsRef = this.afs.collection('wi-users-reviews', ref => ref.where('uid', '==', userId) );
       return starsRef.valueChanges();
     }
-    // Create or update star
-    /*setStar(authId, userId, value) {
-      // Star document data
-      const star: Star = { authId, userId, value };
-      // Custom doc ID for relationship
-      const starPath = `wi-users-review/${star.authId}_${star.userId}`;
-      // Set the data, return the promise
-      return this.afs.doc(starPath).set(star)
-    }
-   */
+
+    getUsersReviews(userId) {
+    let results=  [{}];
+     let reviewRef = this.afs.collection('wi-users-reviews', (ref) => ref.where('uid', '==', userId))
+    /* reviewRef.ref.get()
+      .then((docSnaps) => {
+        docSnaps.forEach((doc) => {
+          results[doc.id] = doc.data();
+          let USER_ID = doc.data().reviewer;
+          this.afs.collection('wi-users').doc(USER_ID).ref.get().then((userDoc) => {
+            results[doc.id].username = userDoc.data().displayName.username;
+          });
+        })
+      });
+     return Observable.of(results).map(() => {return results});
+*/
+  return  reviewRef.valueChanges()
+  .switchMap(reviews => {
+    let userObservables = reviews.map(status => this.afs.doc(`wi-users/${userId}`).snapshotChanges()
+    );
+    return Observable.combineLatest(...userObservables)
+      .map((...eusers) => {
+        reviews.forEach((comment, index) => {
+          this.afs.collection('wi-users').doc(comment['reviewer']).ref.get().then((userDoc) => {
+          comment['username'] = userDoc.data().displayName.username;
+          })
+        });
+        return reviews;          
+      });
+  });
+   }
+
 
   private handleError(error) {
     this._notify.update(error.message, 'error')

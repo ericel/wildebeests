@@ -47,3 +47,16 @@
        </div>
       </form>
 </div>
+<div class="row pad-10" *ngFor="let review  of reviews | async">
+      <div class="col-md-2">
+          <img src="./assets/img/avatar.png" class="dealer-img-1 rounded " alt="Cinque Terre">
+      </div>
+      <div class="col-md-10">
+         <a routerLink="">Oj Obasi</a> 
+         <i class="fa fa-minus-circle" [ngClass]="review.type === 'Bad' ? 'text-danger' : 'primary-text'" aria-hidden="true"></i>
+         <span>{{review.rating}}</span>
+         <div class="font-italic text-muted">
+            {{review.review}}
+         </div>
+      </div>
+    </div>

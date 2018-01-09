@@ -42,61 +42,7 @@
                            </mat-tab>
                    <mat-tab label="Reviews (83)"  class="clearfix">
                      <app-star-review *ngIf="_auth.user | async as auth$" [userId]="user$.uid" [authId]="auth$.uid"></app-star-review>
-                        <div class="row pad-10">
-                                <div class="col-md-2">
-                                    <img src="./assets/img/avatar.png" class="dealer-img-1 rounded " alt="Cinque Terre">
-                                </div>
-                                <div class="col-md-10">
-                                   <a routerLink="">Oj Obasi</a> 
-                                   <i class="fa fa-minus-circle text-danger" aria-hidden="true"></i>
-                                   <div class="font-italic text-muted">
-                                      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla venenatis ante augue.
-                                      Phasellus volutpat neque ac dui mattis vulputate.
-                                   </div>
-                                </div>
-                              </div>
-                
-                              <div class="row pad-10">
-                                  <div class="col-md-2">
-                                      <img src="./assets/img/avatar.png" class="dealer-img-1 rounded " alt="Cinque Terre">
-                                  </div>
-                                  <div class="col-md-10">
-                                     <a routerLink="">Oj Obasi</a> 
-                                     <i class="fa fa-check-circle primary-text" aria-hidden="true"></i>
-                                     <div class="font-italic text-muted">
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla venenatis ante augue.
-                                        Phasellus volutpat neque ac dui mattis vulputate.
-                                     </div>
-                                  </div>
-                                </div>
-                
-                                <div class="row pad-10">
-                                    <div class="col-md-2">
-                                        <img src="./assets/img/avatar.png" class="dealer-img-1 rounded " alt="Cinque Terre">
-                                    </div>
-                                    <div class="col-md-10">
-                                       <a routerLink="">Oj Obasi</a> 
-                                       <i class="fa fa-check-circle primary-text" aria-hidden="true"></i>
-                                       <div class="font-italic text-muted">
-                                          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla venenatis ante augue.
-                                          Phasellus volutpat neque ac dui mattis vulputate.
-                                       </div>
-                                    </div>
-                                  </div>
-                                
-                                  <div class="row pad-10">
-                                      <div class="col-md-2">
-                                          <img src="./assets/img/avatar.png" class="dealer-img-1 rounded " alt="Cinque Terre">
-                                      </div>
-                                      <div class="col-md-10">
-                                         <a routerLink="">Oj Obasi</a> 
-                                         <i class="fa fa-minus-circle text-danger" aria-hidden="true"></i>
-                                         <div class="font-italic text-muted">
-                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla venenatis ante augue.
-                                            Phasellus volutpat neque ac dui mattis vulputate.
-                                         </div>
-                                      </div>
-                                    </div>
+                        
                    </mat-tab>
                 </mat-tab-group>
               </mat-card-header>

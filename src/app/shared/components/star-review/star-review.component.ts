@@ -3,7 +3,7 @@ import { Observable } from 'rxjs/Observable';
 import { StarReviewService } from './star-review.service';
 import { ReactiveFormsModule, FormGroup, FormBuilder, Validators} from '@angular/forms';
 import { AuthService } from '../../core/auth/authservice/auth.service';
-
+import { User } from './../../core/auth/authservice/auth.model'
 @Component({
   selector: 'app-star-review',
   templateUrl: './star-review.component.html',
@@ -12,9 +12,11 @@ import { AuthService } from '../../core/auth/authservice/auth.service';
 export class StarReviewComponent implements OnInit {
   ratingform: FormGroup;
   rating_value: number;
+  reviews: Observable<any>;
   @Input() userId;
   @Input() authId;
   stars: Observable<any>;
+  users: Observable<User[]>;
   avgRating: Observable<any>;
   selected: string = 'Good';
   constructor(
@@ -24,6 +26,14 @@ export class StarReviewComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.users = this._auth.getSnapshot();
+    this.reviews = this._star.getUsersReviews(this.userId);
+    console.log(this.users)
+    console.log(this.reviews)
+    this.users.subscribe(value => console.log(value))
+    this.reviews.subscribe(value => {
+      console.log(value)
+    });
     this.stars = this._star.getUserStars(this.userId)
     this.avgRating = this.stars.map(arr => {
       const ratings = arr.map(v => v.rating)
