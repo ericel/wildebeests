@@ -1,7 +1,7 @@
-<div class="formReview">
+<div class="formReview" *ngIf="reviews">
     <form  [formGroup]="ratingform" (ngSubmit)="save()" >
        <mat-form-field class="w-100">
-           <mat-select placeholder="Review Type" formControlName="typeRate" required>
+           <mat-select placeholder="Review Type" formControlName="typeRate" required #typeRate>
               <mat-option value="Good">Good</mat-option>
               <mat-option value="Bad">Bad</mat-option>
            </mat-select>
@@ -14,14 +14,14 @@
                 Please Enter a comment between 10 to 150 characters.
          </div>
        </mat-form-field>
-      
        <div class="row">
            <div class="col text-sm-center">
-            <fieldset class="rating">
+            <fieldset class="rating" [ngClass]="rating.value === 'Bad' ? 'red-label' : 'no-thing'">
                 <ng-container  *ngFor="let num of [5, 4, 3, 2, 1]">
                     <!-- full star -->
                     <input 
                           formControlName="rating"
+                          #rating
                           [id]="'star'+num"
                           [value]="num-0.5"
                           name="rating" 
@@ -30,31 +30,42 @@
                     <!-- half star -->
                     <input 
                           formControlName="rating"
+                          #rating
                           [value]="num-0.5"
                           [id]="'halfstar'+num" 
                           name="rating" 
                           type="radio"  />
                     <label class="half" [for]="'halfstar'+num"></label>
                 </ng-container>
+              
               </fieldset>
-              {{ avgRating | async }}
-          
+ 
            </div>
           
            <div class="col text-right text-sm-center">
-                  <button mat-button color="primary" type="submit" [disabled]="!ratingform.valid">Add Review</button>
-            </div>
+                <div *ngIf="!ratingform.valid || !rating.value">
+                        <em>
+                              <small class="text-danger">Check stars to add review</small>
+                        </em>
+               </div>
+                  <button mat-raised-button color="primary" type="submit" [disabled]="!ratingform.valid">Add Review</button>
+              </div>
        </div>
       </form>
 </div>
 <div class="row pad-10" *ngFor="let review  of reviews | async">
       <div class="col-md-2">
-          <img src="./assets/img/avatar.png" class="dealer-img-1 rounded " alt="Cinque Terre">
+          <img src="{{review.photoURL}}" class="dealer-img-1 rounded " alt="{{review.username}}">
       </div>
-      <div class="col-md-10">
-         <a routerLink="">Oj Obasi</a> 
+      <div class="col-md-10" >
+       
+         <a *ngIf="review.admin && user.dealer"  routerLink="/users/d/1/{{review.reviewer}}">{{review.username}}</a>
+         <a *ngIf="review.dealer && !review.admin"  routerLink="/users/d/0/{{review.reviewer}}">{{review.username}}</a>
+         <a *ngIf="!review.admin && !review.dealer"  routerLink="/users/u/0/{{review.reviewer}}">{{review.username}}</a>
          <i class="fa fa-minus-circle" [ngClass]="review.type === 'Bad' ? 'text-danger' : 'primary-text'" aria-hidden="true"></i>
-         <span>{{review.rating}}</span>
+         <span class="pull-right text-muted delete" *ngIf="_auth.user | async as auth" ><i class="fa fa-trash" aria-hidden="true" *ngIf="review.reviewer === auth.uid"
+         (click)="delete(review.$key)"></i></span>
+         <div class="text-muted"><small>{{review.createdAt | amTimeAgo | shorten: 20:'...' | ucfirst}}</small></div>
          <div class="font-italic text-muted">
             {{review.review}}
          </div>

@@ -32,6 +32,7 @@ import * as firebase from 'firebase';
 import { environment } from '../../environments/environment';
 import { StarReviewComponent } from './components/star-review/star-review.component';
 import { StarReviewService } from './components/star-review/star-review.service';
+import { DealsService } from './services/deals/deals.service';
 
 firebase.initializeApp(environment.firebase);
 
@@ -99,7 +100,8 @@ providers: [
   VotingService,
   CountryService,
   UploadService,
-  StarReviewService
+  StarReviewService,
+  DealsService
   
 ],
 entryComponents: [

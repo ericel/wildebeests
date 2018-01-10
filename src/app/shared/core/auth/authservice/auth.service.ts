@@ -256,8 +256,7 @@ getCurrentTime(){
 //Update user data
 updateBio(uid, bio){
   const userRef: AngularFirestoreDocument<any> = this.afs.doc(`wi-users/${uid}`);
-  userRef.valueChanges().subscribe(res=>{
-  if(res){
+
     const data = {
       updatedAt: this.getCurrentTime(),
       bio: bio
@@ -265,15 +264,12 @@ updateBio(uid, bio){
     return userRef.update(data).then(() => {
       this.notify.update("<strong>User Saved!</strong> Way to go.", 'info')
       }).catch((error) => this.handleError(error) );
-  } 
 
- }).unsubscribe;
 }
 
 updateContactInfo(uid, address, city, country){
   const userRef: AngularFirestoreDocument<any> = this.afs.doc(`wi-users/${uid}`);
-    userRef.valueChanges().subscribe(res=>{
-    if(res){
+
       const data = {
         updatedAt: this.getCurrentTime(),
         contactInfo: {
@@ -285,10 +281,7 @@ updateContactInfo(uid, address, city, country){
       return userRef.update(data).then(() => {
       this.notify.update("<strong>User Saved!</strong> Way to go.", 'info')
       }).catch((error) => this.handleError(error) );
-    } 
 
-  }).unsubscribe;
-  
 }
 
 updateVerifiedLinks(uid, facebook, twitter, email, phone){
@@ -303,8 +296,7 @@ updateVerifiedLinks(uid, facebook, twitter, email, phone){
  } else {
   var verifyTwitter = false;
  }
-  userRef.valueChanges().subscribe(res=>{
-  if(res){
+
     const data = {
       email: email,
       updatedAt: this.getCurrentTime(),
@@ -318,9 +310,7 @@ updateVerifiedLinks(uid, facebook, twitter, email, phone){
     return userRef.update(data).then(() => {
     this.notify.update("<strong>Social Links Saved!</strong> Way to go.", 'info')
     }).catch((error) => this.handleError(error) );
-  } 
 
-}).unsubscribe;
 
 }
 updateUsername(uid, username, fullname, count){
@@ -329,8 +319,6 @@ updateUsername(uid, username, fullname, count){
     this.notify.update("<strong>This property can't be change anymore!</strong> Way to go.", 'error')
     return
   }
-  userRef.valueChanges().subscribe(res=>{
-  if(res){
     const data = {
       displayName: {
         fullname: fullname,
@@ -344,7 +332,5 @@ updateUsername(uid, username, fullname, count){
     }).catch((error) => this.handleError(error) );
   } 
 
-}).unsubscribe;
-}
 
 }

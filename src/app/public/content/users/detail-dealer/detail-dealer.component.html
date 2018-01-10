@@ -30,17 +30,17 @@
 <div class="row card-2">
             
       <div class="col-md-6">
-          <mat-card class=" flex-item-1">
+          <mat-card>
               <mat-card-header >
-                    <mat-tab-group class="tab-group-s" >
+                    <mat-tab-group class="tab-group-s w-100" >
                             <mat-tab label="About me / Terms">
                             <div class="tab-content">
                                     <mat-card-content>
-                                            <read-more #bioView class="bioView" [text]="user$.bio" [maxLength]="7000"></read-more>
+                                            <read-more #bioView class="bioView" [text]="user$.bio" [maxLength]="6000"></read-more>
                                      </mat-card-content>
                              </div>  
                            </mat-tab>
-                   <mat-tab label="Reviews (83)"  class="clearfix">
+                   <mat-tab label="Reviews ({{reviews.length}})"  class="clearfix">
                      <app-star-review *ngIf="_auth.user | async as auth$" [userId]="user$.uid" [authId]="auth$.uid"></app-star-review>
                         
                    </mat-tab>
@@ -80,14 +80,15 @@
               <mat-card-content>
                   <div class="row">
                       <div class="col-md-6">
-                          <div class="progress blue">
+                          <div class="progress primary">
                               <span class="progress-left">
                                   <span class="progress-bar"></span>
                               </span>
                               <span class="progress-right">
                                   <span class="progress-bar"></span>
                               </span>
-                              <div class="progress-value">90% <div class="text-muted">Verified</div></div>
+                              <div *ngIf="user$.verified.verified" class="progress-value"><i class="fa fa-check fa-3x" aria-hidden="true"></i><div class="primary-text verify">Verified</div></div>
+                              <div *ngIf="!user$.verified.verified" class="progress-value"><i class="fa fa-times fa-3x text-danger" aria-hidden="true"></i><div class="primary-text verify">Not Verified</div></div>
                           </div>
                       </div>
                       <div class="col-md-6 ">
@@ -98,7 +99,7 @@
                               <span class="progress-right">
                                   <span class="progress-bar"></span>
                               </span>
-                              <div class="progress-value">75%</div>
+                              <div class="progress-value">{{ avgRating | async | round: 1 }}<div class="verify">Rating</div></div>
                           </div>
                       </div>
                   </div>

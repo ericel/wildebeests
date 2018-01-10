@@ -15,13 +15,14 @@
     </mat-card>
     <div class="row card-2">
       <div class="col-md-6">
+          
           <mat-card>
               <mat-card-header >
               <mat-card-title>About me / Terms</mat-card-title>
               <mat-card-subtitle >Tell others more about you and your services!</mat-card-subtitle>
               </mat-card-header>
               <mat-card-content>
-                <read-more [text]="user$.bio" [maxLength]="7000"></read-more>
+                <read-more [text]="user$.bio" [maxLength]="4000"></read-more>
                </mat-card-content>
               <button mat-button class="edit-button text-muted" (click)="openBio()"><mat-icon>mode_edit</mat-icon></button>
          </mat-card>
@@ -29,6 +30,7 @@
        
       </div>
       <div class="col-md-6">
+          
           <mat-card>
               <mat-card-header >
                   <mat-card-title>Address / Country</mat-card-title>
@@ -52,6 +54,38 @@
                 </mat-card-content>
               <button mat-button class="edit-button text-muted" (click)="openCountry()"><mat-icon>mode_edit</mat-icon></button>
             </mat-card>
+            <mat-card *ngIf="deals | async as _dealinfo$">
+                    <mat-card-header >
+                        <mat-card-title>Transactions Details</mat-card-title>
+                        <mat-card-subtitle >How to you do transactions?</mat-card-subtitle>
+                    </mat-card-header>
+                     <mat-card-content >
+                            <div class="row">
+                                    <div class="col-md-12">
+                                            <p class="text-muted">Services</p>
+                                            <p >{{_dealinfo$.services}}</p>
+                                    </div>
+                            </div>
+                        <div class="row">
+                          <div class="col-md-6">
+                              <p class="text-muted">Pay Out Means</p>
+                              <p >{{_dealinfo$.po_means}}</p>
+                          </div>
+                          <div class="col-md-6">
+                              <p class="text-muted">Pay Out Duration</p>
+                              <p >{{_dealinfo$.po_period}}</p>
+                          </div>
+                          
+                        </div>
+                        <div class="row">
+                                <div class="col-md-12">
+                                        <p class="text-muted">Pay Out Countries</p>
+                                        <p >{{_dealinfo$.po_countries}}</p>
+                                </div>
+                        </div>
+                      </mat-card-content>
+                    <button mat-button class="edit-button text-muted" (click)="opentranc()"><mat-icon>mode_edit</mat-icon></button>
+           </mat-card>
             <mat-card class="card">
                     <mat-card-header >
                         <mat-card-title>Upgrade Account</mat-card-title>

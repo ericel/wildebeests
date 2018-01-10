@@ -10,6 +10,7 @@ import { NotifyService } from '../../../../shared/core/notify/notify.service';
 import { Local } from './../../../../shared/core/auth/authservice/auth.model';
 import { LocationService } from '../../../../shared/services/location.service';
 import { IsotopeOptions } from 'ngx-isotope';
+import { StarReviewService } from '../../../../shared/components/star-review/star-review.service';
 @Component({
   selector: 'app-detail-dealer',
   templateUrl: './detail-dealer.component.html',
@@ -28,6 +29,9 @@ public gridOptions: IsotopeOptions = {
   }
 };
 
+stars: Observable<any>;
+avgRating: Observable<any>;
+reviews;
   constructor(private nav: NavbarService,
     private title: Title,
     private meta: Meta,
@@ -36,7 +40,8 @@ public gridOptions: IsotopeOptions = {
     private route: ActivatedRoute,
     private notify: NotifyService,
     private _local: LocationService,
-    public _auth: AuthService, 
+    public _auth: AuthService,
+    private _star: StarReviewService,
   ) { this.spinner.hideAll();}
 
   ngOnInit() {
@@ -69,9 +74,29 @@ public gridOptions: IsotopeOptions = {
           { name: 'description', content: user.displayName.username + ' will help you send money back home to your love ones!' }
         ]);
       });
-    });
+    
+  
 
-
+    this.reviews = this._star.getUsersReviews(uid)
+    this._star.getUsersReviews(uid).subscribe(reviews => this.reviews = reviews)
+    this.stars = this._star.getUserStars(uid)
+  
+      this.avgRating = this.stars.map(arr => {
+        const ratings = arr.map(v => v.rating)
+        var total = 0;
+        for(var i = 0; i < ratings.length; i++) {
+            total += ratings[i];
+        }
+        let avg = total / ratings.length ;
+        if (isNaN(avg)) {
+          return '{0}';
+        }
+        
+        return avg;
+      })
+  
+  });
+   
   }
 
   deal($event){

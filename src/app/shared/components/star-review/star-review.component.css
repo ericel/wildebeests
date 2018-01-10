@@ -21,14 +21,34 @@ h1 { font-size: 1.5em; margin: 10px; }
   color: #ddd; 
  float: right; 
 }
+.rating.red-label > label { 
+  color: #ddd; 
+ float: right; 
+}
 .rating > input:checked ~ label,
 .rating:not(:checked) > label:hover, 
 .rating:not(:checked) > label:hover ~ label { color: #FFD700;  } 
+.rating.red-label:not(:checked) > label:hover ~ label { color: red !important;  } 
 .rating > input:checked + label:hover, 
 .rating > input:checked ~ label:hover,
 .rating > label:hover ~ input:checked ~ label,  selection 
 .rating > input:checked ~ label:hover ~ label { color: #FFED85;  }
+.rating.red-label > input:checked ~ label:hover ~ label { color: rgb(231, 102, 93) !important;  }
+.delete {
+  cursor: pointer;
+}
+.delete:hover {
+  color: rgb(219, 112, 112);
+}
 
-.formReview .mat-form-field {
-  
+span.stars, span.stars span {
+  display: block;
+ /* Download the star image here: http://stackoverflow.com/questions/1987524/turn-a-number-into-star-rating-display-using-jquery-and-css */
+  background: url('https://apppresser.com/wp-content/uploads/2015/11/stars.png') 0 -16px repeat-x;
+  width: 80px;
+  height: 16px;
+}
+
+span.stars span {
+  background-position: 0 0;
 }

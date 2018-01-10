@@ -16,9 +16,11 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { CountryService } from '../../../../shared/components/country-picker/country.service';
 import { Upload } from './../../../../shared/services/upload/upload.model';
 import { UploadService } from '../../../../shared/services/upload/upload.service';
+import { DealsService } from '../../../../shared/services/deals/deals.service';
 
 
-type formFields = 'facebook' | 'twitter' | 'email' | 'phone' | 'address' | 'city' | 'country' | 'fullname' | 'username';
+type formFields = 'facebook' | 'twitter' | 'email' | 'phone' | 'address' | 'city' | 'country' | 'fullname' | 'username' 
+| 'means' | 'period' | 'othertranc' | 'transcountries' | 'services';
 type FormErrors = { [u in formFields]: string };
 @Component({
   selector: 'app-edit-user',
@@ -31,6 +33,8 @@ export class EditUserComponent implements OnInit, OnDestroy {
   local: Observable<Local>;
   _auth;
   user$;
+  deals: Observable<any>;
+  dealersAddon;
   constructor(private nav: NavbarService,
    private auth: AuthService,
    private spinner: SpinnerService,
@@ -42,7 +46,8 @@ export class EditUserComponent implements OnInit, OnDestroy {
    private _local: LocationService,
    public dialog: MatDialog,
    private sanitizer: DomSanitizer,
-   private _upload: UploadService
+   private _upload: UploadService,
+   private _deals: DealsService
   ) { 
 
     
@@ -53,6 +58,8 @@ export class EditUserComponent implements OnInit, OnDestroy {
     this.nav.show();
     this.auth.user.subscribe(auth => {if(auth)
     this.local = this._local.getUserLocal(auth.uid);
+    this.deals = this._deals.getUserAddOn(auth.uid);
+    this.deals.subscribe(dealersAddon => this.dealersAddon = dealersAddon)
     this._auth = auth;
     this.route.params.subscribe(params => {
       const uid = params['id'];
@@ -133,6 +140,18 @@ export class EditUserComponent implements OnInit, OnDestroy {
         phone: this._auth.verified.links.phone,
         photoUrl: this._auth.photoURL,
         count: this._auth.displayName.editCount
+      }
+    });
+  }
+
+  opentranc() {
+    this.dialog.open(DialogTranc, {
+      data: {
+        uid: this._auth.uid,
+        services: this.dealersAddon.services,
+        means: this.dealersAddon.po_means,
+        period: this.dealersAddon.po_period,
+        tranccountries: this.dealersAddon.po_countries
       }
     });
   }
@@ -339,7 +358,12 @@ export class Dialog2 implements OnInit {
     'city': '',
     'country': '',
     'fullname': '',
-    'username': ''
+    'username': '',
+    'means': '',
+    'period': '',
+    'othertranc': '',
+    'transcountries': '',
+    'services': ''
   };
   validationMessages = {
     'address': {
@@ -460,7 +484,7 @@ export class Dialog2 implements OnInit {
 </div>
 </mat-form-field>
   <mat-form-field>
-  <input matInput placeholder="Your City" [(value)]="data.phone" formControlName="phone" required>
+  <input matInput placeholder="Your phone" [(value)]="data.phone" formControlName="phone" required>
   <div *ngIf="formErrors.phone" class="alert alert-danger">
     {{ formErrors.phone }}
   </div>
@@ -492,7 +516,12 @@ export class Dialog3 implements OnInit {
     'city': '',
     'country': '',
     'fullname': '',
-    'username': ''
+    'username': '',
+    'means': '',
+    'period': '',
+    'othertranc': '',
+    'transcountries': '',
+    'services': ''
   };
   validationMessages = {
     'facebook': {
@@ -639,7 +668,12 @@ export class Dialog4 implements OnInit {
     'city': '',
     'country': '',
     'fullname': '',
-    'username': ''
+    'username': '',
+    'means': '',
+    'period': '',
+    'othertranc': '',
+    'transcountries': '',
+    'services': ''
   };
   validationMessages = {
     'fullname': {
@@ -740,7 +774,12 @@ export class DialogHeader implements OnInit {
     'city': '',
     'country': '',
     'fullname': '',
-    'username': ''
+    'username': '',
+    'means': '',
+    'period': '',
+    'othertranc': '',
+    'transcountries': '',
+    'services': ''
   };
   validationMessages = {
     'fullname': {
@@ -844,10 +883,195 @@ export class DialogHeader implements OnInit {
 
 
 }
+@Component({
+  selector: 'dialog-tranc',
+  template:`
+  <div class="block-dialog card">
+  <div class="card-header">
+    Dealers More Account Info
+    <div class="alert alert-infor">This info helps guarantees your success here! So Please provide as more detail info as possible</div>
+  </div>
+  <div class="card-block">
+  <div class="info">
+  <form  [formGroup]="trancForm" (ngSubmit)="trancFormSubmit()" *ngIf="data.uid">
+  <mat-form-field >
+  <textarea matInput placeholder="Short Description of Your services" [(value)]="data.services" formControlName="service" required></textarea>
+  <div *ngIf="formErrors.service" class="alert alert-danger">
+      {{ formErrors.service }}
+    </div>
+  </mat-form-field>
+  <div class="row mar-30">
+  <div class="col-md-6">
+  <label>Choose Hour long it takes to finalize transaction</label>
+      <select multiple class="form-control" placeholder="Payout Duration" [(value)]="data.period" formControlName="period" required>
+          <option value="Within Ours of Deal, if daytime">Within Ours of Deal, if daytime</option>
+          <option value="Next Business Day">Next Business Day</option>
+          <option value="Within 2 days">Within 2 days</option>
+          <option value="Within 3 days">Within 3 days</option>
+      </select>
+        <div *ngIf="formErrors.period" class="alert alert-danger">
+          {{ formErrors.period }}
+        </div>
+
+   </div>
+    <div class="col-md-6">
+        <label>Choose Hour long it takes to finalize transaction</label>
+        <select multiple class="form-control" placeholder="Payout Countries" [(value)]="data.countries" formControlName="countries" required>
+            <option value="Cameroon">Cameroon</option>
+            <option value="Nigeria">Next Business Day</option>
+            <option value="Within 2 days">Within 2 days</option>
+            <option value="Within 3 days">Within 3 days</option>
+        </select>
+        <div *ngIf="formErrors.countries" class="alert alert-danger">
+          {{ formErrors.countries }}
+        </div>
+
+    </div>
+  </div>
+
+ 
+  <label>How do you pay out?</label>
+  <select multiple class="form-control" placeholder="How do you pay out?" [(value)]="data.means" formControlName="means" required>
+      <option value="Bank">Bank Wire Transfer</option>
+      <option value="Express Union">Express Union</option>
+      <option value="In Person">In Person (not recommended)</option>
+      <option value="Mobile Money">Mobile Money</option>
+  </select>
+  <div *ngIf="formErrors.means" class="alert alert-danger">
+    {{ formErrors.means }}
+  </div>
+ 
+  <button class="w-100" mat-raised-button color="primary" type="submit" [disabled]="!trancForm.valid"><app-spinner name="mySpinner3" [(show)]="spinnerShowing"><i class="fa fa-spinner fa-spin"></i></app-spinner><mat-icon>publish</mat-icon> Save Changes</button>
+ 
+  </form>
+</div>
+  </div>
+  </div>
+  `,
+  styleUrls: ['./edit-user.component.css']
+  
+})
+export class DialogTranc implements OnInit {
+  @ViewChild('file') file: ElementRef;
+  trancForm: FormGroup;
+  selectedFiles: FileList | null;
+  currentUpload: Upload;
+  formErrors: FormErrors = {
+    'facebook': '',
+    'twitter': '',
+    'email': '',
+    'phone': '',
+    'address': '',
+    'city': '',
+    'country': '',
+    'fullname': '',
+    'username': '',
+    'means': '',
+    'period': '',
+    'othertranc': '',
+    'transcountries': '',
+    'services': ''
+  };
+  validationMessages = {
+    'service': {
+      'required': 'Service is required.',
+      'minlength': 'Service must be at least 50 characters long.',
+      'maxlength': 'Service cannot be more than 200 characters long.',
+
+    },
+    'period': {
+      'required': 'Payout duration is required.',
+    },
+    'countries': {
+      'required': 'Payout country is required.',
+    },
+    'means': {
+      'required': 'Payout means is required.',
+      'minlength': 'Payout means must be at least 4 characters long.',
+      'maxlength': 'Payout means cannot be more than 100 characters long.',
+    }
+  };
+  public countries: any[];
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any, 
+  public fb: FormBuilder, private auth: AuthService,
+  private spinner: SpinnerService,
+  private _upload: UploadService,
+  private _notify: NotifyService,
+  private _deals: DealsService
+  ) {
+    
+  }
+ 
+  ngOnInit(){
+    this.trancFormBuild();
+  }
+
+  trancFormBuild(){
+    this.trancForm = this.fb.group({
+      'service': [this.data.services, [
+        Validators.required,
+        Validators.pattern,
+        Validators.minLength(50),
+        Validators.maxLength(200)
+        ]
+      ],
+      'period': [this.data.period, [
+        Validators.required
+        ]
+      ],
+      'countries': [this.data.countries, [
+        Validators.required
+        ]
+      ],
+      'means': [this.data.means, [
+        Validators.required
+        ]
+      ]
+    });
+    this.trancForm.valueChanges.subscribe((data) => this.onValueChanged(data));
+    this.onValueChanged(); // reset validation messages
+  }
+  
+    onValueChanged(data?: any) {
+      if (!this.trancForm) { return; }
+      const form = this.trancForm;
+      for (const field in this.formErrors) {
+        if (Object.prototype.hasOwnProperty.call(this.formErrors, field) && (field === 'service' 
+        || field === 'countries' || field === 'period' || field === 'means')) {
+          // clear previous error message (if any)
+          this.formErrors[field] = '';
+          const control = form.get(field);
+          if (control && control.dirty && !control.valid) {
+            const messages = this.validationMessages[field];
+            if (control.errors) {
+              for (const key in control.errors) {
+                if (Object.prototype.hasOwnProperty.call(control.errors, key) ) {
+                  this.formErrors[field] += `${(messages as {[key: string]: string})[key]} `;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+
+    trancFormSubmit(){
+      this.spinner.show('mySpinnerg4');
+      this._deals.adddealerAddOn(this.data.uid, this.trancForm.value['service'], this.trancForm.value['means'],
+      this.trancForm.value['period'], this.trancForm.value['countries']
+    )
+  
+    }
+  
+
+
+}
 export const Dailog_Components = [
   Dialog1,
   Dialog2,
   Dialog3,
   Dialog4,
-  DialogHeader
+  DialogHeader,
+  DialogTranc
+
 ]

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import * as firebase from 'firebase/app';
 import { AngularFireAuth } from 'angularfire2/auth';
-import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
+import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument, docChanges } from 'angularfire2/firestore';
 import { Observable } from 'rxjs/Observable';
 import { merge } from 'rxjs/observable/merge';
 import 'rxjs/add/observable/combineLatest';
@@ -12,6 +12,7 @@ import { NotifyService } from '../../core/notify/notify.service';
 import 'rxjs/add/observable/forkJoin';
 import { Actions } from '@ngrx/effects/src/actions';
 export interface Star {
+  $key: string;
   createdAt: any;
   uid: any;
   reviewer: any;
@@ -31,7 +32,10 @@ export class StarReviewService {
   }
 
   addItem(authId, userId, type, review, rating){
+      let key = this.afs.createId()
+      let ref = this.afs.doc(`wi-users-reviews/${key}`);
         const data: Star = {
+          $key: key,
           createdAt: this.getCurrentTime(),
           review: review,
           rating: rating,
@@ -39,7 +43,7 @@ export class StarReviewService {
           uid: userId,
           reviewer: authId
         }
-     return this.afs.collection('wi-users-reviews').add(data).then(() => {
+     return ref.set(data).then(() => {
           this._notify.update("<strong>Thanks!</strong> We Appreciate your efforts to make wildebeest better.", 'info')
      }).catch((error) => this.handleError(error) );
   }
@@ -55,30 +59,21 @@ export class StarReviewService {
       return starsRef.valueChanges();
     }
 
-    getUsersReviews(userId) {
-    let results=  [{}];
-     let reviewRef = this.afs.collection('wi-users-reviews', (ref) => ref.where('uid', '==', userId))
-    /* reviewRef.ref.get()
-      .then((docSnaps) => {
-        docSnaps.forEach((doc) => {
-          results[doc.id] = doc.data();
-          let USER_ID = doc.data().reviewer;
-          this.afs.collection('wi-users').doc(USER_ID).ref.get().then((userDoc) => {
-            results[doc.id].username = userDoc.data().displayName.username;
-          });
-        })
-      });
-     return Observable.of(results).map(() => {return results});
-*/
+  getUsersReviews(userId) {
+  let reviewRef = this.afs.collection('wi-users-reviews', (ref) => ref.orderBy('createdAt', 'desc').where('uid', '==', userId) )
   return  reviewRef.valueChanges()
   .switchMap(reviews => {
     let userObservables = reviews.map(status => this.afs.doc(`wi-users/${userId}`).snapshotChanges()
     );
     return Observable.combineLatest(...userObservables)
       .map((...eusers) => {
-        reviews.forEach((comment, index) => {
-          this.afs.collection('wi-users').doc(comment['reviewer']).ref.get().then((userDoc) => {
-          comment['username'] = userDoc.data().displayName.username;
+        reviews.forEach((review, index) => {
+          this.afs.collection('wi-users').doc(review['reviewer']).ref.get().then((userDoc) => {
+          review['username'] = userDoc.data().displayName.username;
+          review['photoURL'] = userDoc.data().photoURL;
+          review['admin'] = userDoc.data().roles.admin;
+          review['dealer'] = userDoc.data().roles.dealer;
+          review['user'] = userDoc.data().roles.user;
           })
         });
         return reviews;          
@@ -86,6 +81,13 @@ export class StarReviewService {
   });
    }
 
+   delete(review){
+     this.afs.doc(`wi-users-reviews/${review}`).delete().then(function() {
+      console.log("Document successfully deleted!");
+  }).catch(function(error) {
+      console.error("Error removing document: ", error);
+  });
+   }
 
   private handleError(error) {
     this._notify.update(error.message, 'error')

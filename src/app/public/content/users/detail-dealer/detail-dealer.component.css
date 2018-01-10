@@ -140,6 +140,9 @@ img.dealer-img-1 {
     padding: 10px;
 }
 /* END REVIEW */
+.verify {
+    margin-top: -110px;
+}
   /* 5 columns, percentage width */
   .grid-item,
   .grid-sizer {
@@ -231,10 +234,11 @@ img.dealer-img-1 {
     top: 5%;
     left: 5%;
 }
-.progress.blue .progress-bar{
-    border-color: #049dff;
+.progress.primary .progress-bar{
+    border-color: #00897b;
 }
-.progress.blue .progress-left .progress-bar{
+
+.progress.primary .progress-left .progress-bar{
     animation: loading-2 1.5s linear forwards 1.8s;
 }
 .progress.yellow .progress-bar{
