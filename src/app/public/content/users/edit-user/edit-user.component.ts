@@ -33,7 +33,7 @@ export class EditUserComponent implements OnInit, OnDestroy {
   local: Observable<Local>;
   _auth;
   user$;
-  deals: Observable<any>;
+  deals: Observable<User>;
   dealersAddon;
   constructor(private nav: NavbarService,
    private auth: AuthService,
@@ -59,7 +59,16 @@ export class EditUserComponent implements OnInit, OnDestroy {
     this.auth.user.subscribe(auth => {if(auth)
     this.local = this._local.getUserLocal(auth.uid);
     this.deals = this._deals.getUserAddOn(auth.uid);
-    this.deals.subscribe(dealersAddon => this.dealersAddon = dealersAddon)
+    this.deals.subscribe(dealersAddon => {
+      if(dealersAddon === null && auth.roles.dealer){
+        let means = ''; let period = ''; let countries = ''; let services='';
+        this._deals.adddealerAddOn(auth.uid, services,
+          means, 
+          period, 
+          countries);
+      }
+      this.dealersAddon = dealersAddon
+    })
     this._auth = auth;
     this.route.params.subscribe(params => {
       const uid = params['id'];
@@ -148,10 +157,10 @@ export class EditUserComponent implements OnInit, OnDestroy {
     this.dialog.open(DialogTranc, {
       data: {
         uid: this._auth.uid,
-        services: this.dealersAddon.services,
-        means: this.dealersAddon.po_means,
-        period: this.dealersAddon.po_period,
-        tranccountries: this.dealersAddon.po_countries
+        services: this.dealersAddon.services || 'Add services you provide',
+        means: this.dealersAddon.po_means || 'Add services you provide',
+        period: this.dealersAddon.po_period || 'Add services you provide',
+        tranccountries: this.dealersAddon.po_countries || 'Add services you provide'
       }
     });
   }

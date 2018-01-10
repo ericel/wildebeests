@@ -26,10 +26,10 @@ adddealerAddOn(uid, services, means, period, countries){
   const dealersRef: AngularFirestoreDocument<any> = this._afs.doc(`wi-dealers-addOn/${uid}`);
     const data = {
       uid: uid,
-      services: services,
-      po_means: means,
-      po_countries: countries,
-      po_period: period,
+      services: services || 'Edit Your services',
+      po_means: means || ['Edit pay out means', 'How do you provide these services'],
+      po_countries: countries || ['Edit pay out countries','In which countries can you operate'],
+      po_period: period || ['Edit pay out time', 'Wait time to finalize deal'],
       createdAt: this.getCurrentTime()
     }
   return dealersRef.set(data).then(() => {
@@ -39,8 +39,12 @@ adddealerAddOn(uid, services, means, period, countries){
   
   getUserAddOn(uid: string){
     const ref =  this._afs.doc<any>(`wi-dealers-addOn/${uid}`);
+    if(ref){
     return ref.valueChanges();
+    } else {
+      return 
   }
+}
   private handleError(error) {
     this._notify.update(error.message, 'error')
   }

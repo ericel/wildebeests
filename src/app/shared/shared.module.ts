@@ -33,7 +33,13 @@ import { environment } from '../../environments/environment';
 import { StarReviewComponent } from './components/star-review/star-review.component';
 import { StarReviewService } from './components/star-review/star-review.service';
 import { DealsService } from './services/deals/deals.service';
+import { ChartModule } from '@rijine/ngx-highcharts';
+import { HighchartsStatic } from '@rijine/ngx-highcharts/dist/services/highcharts.service';
+import * as highcharts from 'highcharts';
 
+export function highchartsFactory() {
+  return highcharts;
+}
 firebase.initializeApp(environment.firebase);
 
 export const SHARED_COMPONENTS = [
@@ -55,7 +61,7 @@ export const SHARED_COMPONENTS = [
     MomentModule,
     FlexLayoutModule,
     IsotopeModule,
-  
+    ChartModule
   ],
   declarations: [
     WysiwygComponent,
@@ -93,8 +99,8 @@ export const SHARED_COMPONENTS = [
    VotingComponent,
    ReadMoreComponent,
    IsotopeModule,
-   StarReviewComponent
-   
+   StarReviewComponent,
+   ChartModule
 ],
 providers: [
   SpinnerService,
@@ -103,8 +109,11 @@ providers: [
   CountryService,
   UploadService,
   StarReviewService,
-  DealsService
-  
+  DealsService,
+  {
+    provide: HighchartsStatic,
+    useFactory: highchartsFactory
+ }
 ],
 entryComponents: [
   ...Dialog_COMPONENTS

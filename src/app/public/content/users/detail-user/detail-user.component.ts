@@ -35,7 +35,7 @@ export class DetailUserComponent implements OnInit, OnDestroy {
         if(!user){
           this.auth.back();
         }
-        if(!user.roles.user){
+        if(!user.roles.user || user.roles.dealer || user.roles.admin){
           this.spinner.show('dealerSpinner');
           this.deathSpinner = true;
           this.notify.update('<strong>Bad Route</strong>! You\'ll be redirected!', 'error');
