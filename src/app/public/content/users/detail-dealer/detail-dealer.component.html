@@ -1,7 +1,4 @@
-<div class="w-100 primary-bg header">
-  
-
-        
+<div class="w-100 primary-bg header">      
   <!--<app-spinner name="dealerSpinner" [(show)]="dealerSpinner" class="text-muted"><i class="fa fa-spinner fa-spin fa-4x"></i></app-spinner>-->
 </div>
 <main class="main user-cards " *ngIf="!deathSpinner">
@@ -35,7 +32,33 @@
                     <mat-tab-group class="tab-group-s w-100" >
                             <mat-tab label="About me / Terms">
                             <div class="tab-content">
+                                    <mat-card-content *ngIf="dealersInfo | async as dealer">
+                                       <div>
+                                        <p class="lead services">Services:</p>
+                                          <p> {{dealer.services}}</p>
+                                       </div>
+                                       <div>
+                                            <p class="lead payout_time">Pay Out Time:</p>
+                                            <mat-chip-list>
+                                                    <mat-chip *ngFor="let time of dealer.po_period">{{time}}</mat-chip>
+                                          </mat-chip-list>
+                                         </div>
+                                         <div>
+                                                <p class="lead payout_countries">Pay Out Countries:</p>
+                                                <mat-chip-list>
+                                                        <mat-chip *ngFor="let countries of dealer.po_countries" color="primary" selected="true">{{countries}}</mat-chip>
+                                              </mat-chip-list>
+                                        </div>
+                                        <div>
+                                               <p class="lead payby">Pay Out Means:</p>
+                                                <mat-chip-list>
+                                                        <mat-chip *ngFor="let means of dealer.po_means" color="accent" selected="true">{{means}}</mat-chip>
+                                              </mat-chip-list>
+                                        </div>
+                                     
+                                     </mat-card-content>
                                     <mat-card-content>
+                                            <p class="lead payby">More About Dealer:</p>
                                             <read-more #bioView class="bioView" [text]="user$.bio" [maxLength]="6000"></read-more>
                                      </mat-card-content>
                              </div>  
@@ -47,29 +70,7 @@
                 </mat-tab-group>
               </mat-card-header>
             </mat-card>
-            <mat-card class=" flex-item-2">
-                    <mat-card-header >
-                        <mat-card-title>Address / Country</mat-card-title>
-                        <mat-card-subtitle >User address and contact! Compulsory for Dealers!</mat-card-subtitle>
-                    </mat-card-header>
-                    <mat-card-content>
-                        <div class="row">
-                          <div class="col-md-4">
-                              <p class="text-muted">Region</p>
-                              <p >{{user$.contactInfo.region}}</p>
-                          </div>
-                          <div class="col-md-4">
-                              <p class="text-muted">City</p>
-                              <p >{{user$.contactInfo.city}}</p>
-                          </div>
-                          <div class="col-md-4">
-                              <p class="text-muted">Country</p>
-                              <p >{{user$.contactInfo.country}}</p>
-                          </div>
-                        </div>
-                      </mat-card-content>
-                   
-                  </mat-card>  
+           
       </div>
       <div class="col-md-6 flex-item">
           <mat-card class=" flex-item-3">
@@ -78,6 +79,7 @@
                   <mat-card-subtitle >Profile completed and verified!</mat-card-subtitle>
               </mat-card-header>
               <mat-card-content>
+                    <chart [options]="options"></chart>
                   <div class="row">
                       <div class="col-md-6">
                           <div class="progress primary">
@@ -189,6 +191,28 @@
                     </mat-card-content>
                    
             </mat-card>
+             <mat-card>
+                    <mat-card-header >
+                        <mat-card-title>Address / Country</mat-card-title>
+                        <mat-card-subtitle >User address and contact! Compulsory for Dealers!</mat-card-subtitle>
+                    </mat-card-header>
+                    <mat-card-content>
+                        <div class="row">
+                          <div class="col-md-4">
+                              <p class="text-muted">Region</p>
+                              <p >{{user$.contactInfo.region}}</p>
+                          </div>
+                          <div class="col-md-4">
+                              <p class="text-muted">City</p>
+                              <p >{{user$.contactInfo.city}}</p>
+                          </div>
+                          <div class="col-md-4">
+                              <p class="text-muted">Country</p>
+                              <p >{{user$.contactInfo.country}}</p>
+                          </div>
+                        </div>
+                      </mat-card-content>
+              </mat-card>  
       </div>
     </div>
    

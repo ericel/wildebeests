@@ -224,3 +224,6 @@ ul.no-padding {
     background: rgb(241, 241, 241) !important;
     color: #464646 !important;
 }
+.tab-content .mat-chip-list-wrapper {
+    padding-bottom: 10px !important;
+}

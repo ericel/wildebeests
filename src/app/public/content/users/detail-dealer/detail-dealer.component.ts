@@ -11,6 +11,9 @@ import { Local } from './../../../../shared/core/auth/authservice/auth.model';
 import { LocationService } from '../../../../shared/services/location.service';
 import { IsotopeOptions } from 'ngx-isotope';
 import { StarReviewService } from '../../../../shared/components/star-review/star-review.service';
+import { DealsService } from '../../../../shared/services/deals/deals.service';
+
+import * as Highcharts from 'highcharts';
 @Component({
   selector: 'app-detail-dealer',
   templateUrl: './detail-dealer.component.html',
@@ -21,6 +24,7 @@ isValid;
 deathSpinner: boolean = false;
 local: Observable<Local>;
 user: Observable<User>;
+dealersInfo: Observable<any>;
 public gridOptions: IsotopeOptions = {
   percentPosition: true,
   itemSelector: '.grid-item',
@@ -32,6 +36,7 @@ public gridOptions: IsotopeOptions = {
 stars: Observable<any>;
 avgRating: Observable<any>;
 reviews;
+options: object;
   constructor(private nav: NavbarService,
     private title: Title,
     private meta: Meta,
@@ -42,7 +47,58 @@ reviews;
     private _local: LocationService,
     public _auth: AuthService,
     private _star: StarReviewService,
-  ) { this.spinner.hideAll();}
+    private _dealersInfo: DealsService
+  ) {
+
+        this.options = {
+          chart: {
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false,
+            type: 'pie'
+        },
+        title: {
+            text: 'Browser market shares January, 2015 to May, 2015'
+        },
+        tooltip: {
+            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+        },
+        plotOptions: {
+            pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+                dataLabels: {
+                    enabled: false
+                },
+                showInLegend: true
+            }
+        },
+          series: [{
+            data: [{
+              name: 'IE',
+              y: 56.33
+          }, {
+              name: 'Chrome',
+              y: 24.03,
+              sliced: true,
+              selected: true
+          }, {
+              name: 'Firefox',
+              y: 10.38
+          }, {
+              name: 'Safari',
+              y: 4.77
+          }, {
+              name: 'Opera',
+              y: 0.91
+          }, {
+              name: 'Other',
+              y: 0.2
+          }],
+          }]
+      };
+
+  }
 
   ngOnInit() {
     
@@ -50,6 +106,8 @@ reviews;
     this.route.params.subscribe(params => {
     const uid = params['id'];
     this.local = this._local.getUserLocal(uid);
+    this.dealersInfo = this._dealersInfo.getUserAddOn(uid)
+
     this.title.setTitle('dealer beest dealer page');
       this.meta.addTags([
         { name: 'keywords', content: 'Send money to ....., dealer beest dealer page'},

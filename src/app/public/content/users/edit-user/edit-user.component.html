@@ -54,12 +54,12 @@
                 </mat-card-content>
               <button mat-button class="edit-button text-muted" (click)="openCountry()"><mat-icon>mode_edit</mat-icon></button>
             </mat-card>
-            <mat-card *ngIf="deals | async as _dealinfo$">
+            <mat-card *ngIf="user$.roles.dealer || user$.roles.admin">
                     <mat-card-header >
                         <mat-card-title>Transactions Details</mat-card-title>
                         <mat-card-subtitle >How to you do transactions?</mat-card-subtitle>
                     </mat-card-header>
-                     <mat-card-content >
+                     <mat-card-content *ngIf="deals | async as _dealinfo$" >
                             <div class="row">
                                     <div class="col-md-12">
                                             <p class="text-muted">Services</p>

@@ -59,7 +59,7 @@
       </div>
       <div class="col-md-10" >
        
-         <a *ngIf="review.admin && user.dealer"  routerLink="/users/d/1/{{review.reviewer}}">{{review.username}}</a>
+         <a *ngIf="review.admin && review.dealer"  routerLink="/users/d/1/{{review.reviewer}}">{{review.username}}</a>
          <a *ngIf="review.dealer && !review.admin"  routerLink="/users/d/0/{{review.reviewer}}">{{review.username}}</a>
          <a *ngIf="!review.admin && !review.dealer"  routerLink="/users/u/0/{{review.reviewer}}">{{review.username}}</a>
          <i class="fa fa-minus-circle" [ngClass]="review.type === 'Bad' ? 'text-danger' : 'primary-text'" aria-hidden="true"></i>

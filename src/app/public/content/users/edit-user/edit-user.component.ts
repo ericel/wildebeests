@@ -904,7 +904,7 @@ export class DialogHeader implements OnInit {
   <div class="col-md-6">
   <label>Choose Hour long it takes to finalize transaction</label>
       <select multiple class="form-control" placeholder="Payout Duration" [(value)]="data.period" formControlName="period" required>
-          <option value="Within Ours of Deal, if daytime">Within Ours of Deal, if daytime</option>
+          <option value="Within hours of Deal, if daytime">Within Ours of Deal, if daytime</option>
           <option value="Next Business Day">Next Business Day</option>
           <option value="Within 2 days">Within 2 days</option>
           <option value="Within 3 days">Within 3 days</option>
@@ -915,12 +915,9 @@ export class DialogHeader implements OnInit {
 
    </div>
     <div class="col-md-6">
-        <label>Choose Hour long it takes to finalize transaction</label>
+        <label>In Which countries can you pay out?</label>
         <select multiple class="form-control" placeholder="Payout Countries" [(value)]="data.countries" formControlName="countries" required>
-            <option value="Cameroon">Cameroon</option>
-            <option value="Nigeria">Next Business Day</option>
-            <option value="Within 2 days">Within 2 days</option>
-            <option value="Within 3 days">Within 3 days</option>
+              <option *ngFor="let option of countries" [value]="option.countryName">{{ option.countryName }}</option>
         </select>
         <div *ngIf="formErrors.countries" class="alert alert-danger">
           {{ formErrors.countries }}
@@ -997,13 +994,15 @@ export class DialogTranc implements OnInit {
   private spinner: SpinnerService,
   private _upload: UploadService,
   private _notify: NotifyService,
-  private _deals: DealsService
+  private _deals: DealsService,
+  private _countries: CountryService
   ) {
     
   }
  
   ngOnInit(){
     this.trancFormBuild();
+    this.countries = this._countries.getCountries();
   }
 
   trancFormBuild(){

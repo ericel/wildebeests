@@ -54,7 +54,8 @@ export const SHARED_COMPONENTS = [
     NgPipesModule,
     MomentModule,
     FlexLayoutModule,
-    IsotopeModule
+    IsotopeModule,
+  
   ],
   declarations: [
     WysiwygComponent,
@@ -93,6 +94,7 @@ export const SHARED_COMPONENTS = [
    ReadMoreComponent,
    IsotopeModule,
    StarReviewComponent
+   
 ],
 providers: [
   SpinnerService,

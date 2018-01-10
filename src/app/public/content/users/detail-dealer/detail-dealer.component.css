@@ -143,6 +143,7 @@ img.dealer-img-1 {
 .verify {
     margin-top: -110px;
 }
+
   /* 5 columns, percentage width */
   .grid-item,
   .grid-sizer {
@@ -151,7 +152,6 @@ img.dealer-img-1 {
   
   .grid-item {
     float: left;
-    
     background: #0D8;
     border: 2px solid #333;
     border-color: hsla(0, 0%, 0%, 0.7);
