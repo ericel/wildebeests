@@ -227,3 +227,7 @@ ul.no-padding {
 .tab-content .mat-chip-list-wrapper {
     padding-bottom: 10px !important;
 }
+.highcharts-legend .highcharts-credits {
+    display: hidden !important;
+    content: '';
+}

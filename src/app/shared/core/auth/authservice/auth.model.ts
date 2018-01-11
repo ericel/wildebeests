@@ -39,6 +39,7 @@ export interface User {
     favoriteColor?: string;
     createdAt?: any;
     updatedAt?: any;
+    view?: number;
     catchPhrase?: string;
     status?: string;
     roles?: Roles;

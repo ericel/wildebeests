@@ -95,7 +95,7 @@ export class SignupComponent implements OnInit {
 
   // Step 2
   setCatchPhrase(user) {
-    return this.auth.updateUser(user, { catchPhrase:  this.catchPhrase.value })
+    //return this.auth.updateUser(user, { catchPhrase:  this.catchPhrase.value })
   }
 
 

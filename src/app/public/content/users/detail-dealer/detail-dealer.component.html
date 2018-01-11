@@ -79,37 +79,11 @@
                   <mat-card-subtitle >Profile completed and verified!</mat-card-subtitle>
               </mat-card-header>
               <mat-card-content>
-                    <chart [options]="options"></chart>
-                  <div class="row">
-                      <div class="col-md-6">
-                          <div class="progress primary">
-                              <span class="progress-left">
-                                  <span class="progress-bar"></span>
-                              </span>
-                              <span class="progress-right">
-                                  <span class="progress-bar"></span>
-                              </span>
-                              <div *ngIf="user$.verified.verified" class="progress-value"><i class="fa fa-check fa-3x" aria-hidden="true"></i><div class="primary-text verify">Verified</div></div>
-                              <div *ngIf="!user$.verified.verified" class="progress-value"><i class="fa fa-times fa-3x text-danger" aria-hidden="true"></i><div class="primary-text verify">Not Verified</div></div>
-                          </div>
-                      </div>
-                      <div class="col-md-6 ">
-                          <div class="progress yellow">
-                              <span class="progress-left">
-                                  <span class="progress-bar"></span>
-                              </span>
-                              <span class="progress-right">
-                                  <span class="progress-bar"></span>
-                              </span>
-                              <div class="progress-value">{{ avgRating | async | round: 1 }}<div class="verify">Rating</div></div>
-                          </div>
-                      </div>
-                  </div>
+                  <user-piechart *ngIf='_reviewGood && _reviewBad' [userId]='user$.uid'
+                   [view]="user$.view"
+                   [reviewBad]='_reviewBad' [reviewGood]='_reviewGood'></user-piechart>
                 </mat-card-content>
-               
-             
             </mat-card>
-
         <mat-card class=" flex-item-3">
             <mat-card-header >
                <mat-card-title>Start Deal / Cancel Deal</mat-card-title>

@@ -88,10 +88,7 @@ export class AuthService {
       })
       .catch((error) => this.handleError(error) );
   }
-   // Update properties on the user document
-  updateUser(user: User, data: any) { 
-    return this.afs.doc(`users/${user.uid}`).update(data)
-  }
+  
 
   //// Email/Password Auth ////
    emailSignUp(email: string, password: string) {
@@ -122,6 +119,15 @@ export class AuthService {
       .then(() => this.notify.update('Password update email sent', 'info'))
       .catch((error) => this.handleError(error));
   }
+
+  //Update page Viiew 
+  userpageView(uid, view){
+    const viewcount = view + 1;
+    const data = {
+      view: viewcount
+    }
+   return this.afs.doc(`wi-users/${uid}`).update(data);
+  }
   private updateUserData(user) {
     const userRef: AngularFirestoreDocument<any> = this.afs.doc(`wi-users/${user.uid}`);
     userRef.valueChanges().subscribe(res=>{
@@ -143,6 +149,7 @@ export class AuthService {
         photoURL: user.photoURL || 'https://wilde-beests.firebaseapp.com/assets/img/avatar.png',
         createdAt: this.getCurrentTime(),
         updatedAt: this.getCurrentTime(),
+        view: 0,
         roles: {
           user: true,
           dealer: false,

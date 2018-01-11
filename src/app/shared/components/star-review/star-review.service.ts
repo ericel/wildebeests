@@ -81,6 +81,15 @@ export class StarReviewService {
   });
    }
 
+   getBadReviewsCount(userId): Observable<any> {
+    const ref = this.afs.collection('wi-users-reviews', ref => ref.where('uid', '==', userId).where('type', '==', 'Bad') );
+    return ref.valueChanges();
+   }
+   getGoodReviewsCount(userId): Observable<any> {
+    return this.afs.collection('wi-users-reviews', ref => ref.where('uid', '==', userId).where('type', '==', 'Good') )
+    .valueChanges();
+  }
+
    delete(review){
      this.afs.doc(`wi-users-reviews/${review}`).delete().then(function() {
       console.log("Document successfully deleted!");
