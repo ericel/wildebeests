@@ -1,8 +1,8 @@
 import { Component, ViewEncapsulation, Inject, OnInit, Input, ViewContainerRef, OnDestroy, AfterViewInit, Output, EventEmitter} from '@angular/core';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import { NotifyService } from '../../core/notify/notify.service';
-import { Success } from '../../../public/content/blogs/state/blogs.actions';
-import { SpinnerService } from '../../services/spinner.service';
+import { Success } from '@modules/blogs/state/blogs.actions';
+import { SpinnerService } from '@services/spinner/spinner.service';
 @Component({
   selector: 'error',
   template: `

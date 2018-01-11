@@ -1,9 +1,9 @@
 import { Component, OnInit,  HostListener, Input } from '@angular/core';
-import { AuthService } from '../../core/auth/authservice/auth.service';
+import { AuthService } from '@shared/core/auth/authservice/auth.service';
 import {Title, Meta} from "@angular/platform-browser"; 
-import { NavbarService } from './../../core/navbar/navbar.service';
+import { NavbarService } from '@shared/core/navbar/navbar.service';
 import { ReactiveFormsModule, FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { SpinnerService } from '../../services/spinner.service';
+import { SpinnerService } from '@services/spinner/spinner.service';
 import { PasswordValidation } from './confirmpassword';
 type UserFields = 'email' | 'password';
 type FormErrors = { [u in UserFields]: string };

@@ -10,7 +10,7 @@ import { take } from 'rxjs/operators';
 import { merge } from 'rxjs/observable/merge';
 import { Location } from '@angular/common';
 import * as moment from 'moment';
-import { SpinnerService } from '../spinner.service';
+import { SpinnerService } from '@services/spinner/spinner.service';
 import { NotifyService } from '../../core/notify/notify.service';
 
 @Injectable()

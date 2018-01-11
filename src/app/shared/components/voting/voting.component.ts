@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy, Input } from '@angular/core';
-import { VotingService } from '../../services/voting.service';
+import { VotingService } from '@services/voting/voting.service';
 import { sum, values } from 'lodash';
 @Component({
   selector: 'app-voting',

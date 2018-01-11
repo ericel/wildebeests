@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Title, Meta} from "@angular/platform-browser"; 
-import { NavbarService } from './../../shared/core/navbar/navbar.service';
+import { NavbarService } from '@shared/core/navbar/navbar.service';
 @Component({
   selector: 'app-about',
   templateUrl: './about.component.html',

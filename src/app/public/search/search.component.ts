@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, NavigationEnd, NavigationStart} from '@angular/router';
 import { Location } from '@angular/common';
-import { NavbarService } from '../../shared/core/navbar/navbar.service';
+import { NavbarService } from '@shared/core/navbar/navbar.service';
 
 @Component({
   selector: 'app-search',

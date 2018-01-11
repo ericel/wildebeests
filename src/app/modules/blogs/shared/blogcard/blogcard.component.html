@@ -1,0 +1,38 @@
+
+    <!-- /.card-columns -->
+    <div class="card mat-elevation-z1">
+      <div class="card-header clearfix">
+         <a routerLink="{{blog.section}}"> {{blog.section}} </a>
+        <button class="pos-menu" mat-icon-button [matMenuTriggerFor]="menu">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+      </div>
+      <img class="card-img-top img-fluid" src="{{blog.blogImg}}" alt="Card image cap">
+      <div class="card-block clearfix">
+        <h4 class="card-title clearfix h4"><a routerLink="{{blog.section | slugify }}/{{blog.title | slugify}}-{{blog.id}}">{{blog.title | shorten: 92: '...'}}</a></h4>
+      </div>
+      <div class="text-center clearfix">
+      <app-share></app-share>
+    </div>
+      <div class="card-footer">
+          <small class="text-muted">Last updated {{blog.updatedAt | amTimeAgo}}</small>
+        </div>
+    </div>
+    <mat-menu #menu="matMenu" xPosition="before">
+      <button mat-menu-item>
+        <mat-icon>save</mat-icon>
+        <span>Save</span>
+      </button>
+      <button mat-menu-item disabled>
+        <mat-icon>report</mat-icon>
+        <span>Report post</span>
+      </button>
+      <button mat-menu-item>
+        <mat-icon>edit</mat-icon>
+        <button mat-button color="warn" class="button is-danger" (click)="deleteBlog(blog.id)">Edit</button>
+      </button>
+      <button mat-menu-item>
+        <mat-icon>delete_forever</mat-icon>
+        <button mat-button color="warn" class="button is-danger" (click)="deleteBlog(blog.id)">DELETE</button>
+      </button>
+    </mat-menu>

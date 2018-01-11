@@ -10,10 +10,10 @@ import { User, Local } from './auth.model';
 import { map } from 'rxjs/operators';
 import { take } from 'rxjs/operators';
 import { merge } from 'rxjs/observable/merge';
-import { SpinnerService } from '../../../services/spinner.service';
+import { SpinnerService } from '@services/spinner/spinner.service';
 import { Location } from '@angular/common';
 import * as moment from 'moment';
-import { LocationService } from '../../../services/location.service';
+import { LocationService } from '@services/location/location.service';
 @Injectable()
 export class AuthService {
   user: Observable<User | null>;
