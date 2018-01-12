@@ -90,6 +90,11 @@
 .home-1, .home-2 {
     padding: 40px 0;
 }
+.home-1 h2 {
+    margin-bottom: 30px;
+    border-bottom: 2px dashed #b4b4b4;
+    line-height: 60px;
+}
 .home-2 {
     background: #e8e9e9;
     padding: 45px 0;
@@ -128,12 +133,12 @@
 }
 .home-02 {
     
-    background:url('./../../../../assets/img/business-lising.jpg') no-repeat;
+    background:url('./../../../../assets/assets/banner.jpg') no-repeat;
     background-size: cover;
      background-attachment:fixed;
 }
 .cover-home-02 {
-    background: #00897b;
+    background: rgba(3, 165, 157, 0.199) ;
     padding: 50px;
     color: #fff;
     font-size: 2em;

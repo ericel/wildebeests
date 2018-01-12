@@ -10,7 +10,7 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import * as moment from 'moment';
 import { NotifyService } from '../../core/notify/notify.service';
 import 'rxjs/add/observable/forkJoin';
-import { Actions } from '@ngrx/effects/src/actions';
+
 export interface Star {
   $key: string;
   createdAt: any;

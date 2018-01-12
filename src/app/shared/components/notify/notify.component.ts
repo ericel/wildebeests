@@ -3,6 +3,9 @@ import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import { NotifyService } from '../../core/notify/notify.service';
 import { Success } from '@modules/blogs/state/blogs.actions';
 import { SpinnerService } from '@services/spinner/spinner.service';
+import 'rxjs/add/operator/takeUntil';
+import 'rxjs/add/observable/timer'; 
+import { Observable } from 'rxjs/Observable';
 @Component({
   selector: 'error',
   template: `
@@ -68,13 +71,8 @@ message: string;
   constructor(public notify: NotifyService, public dialog: MatDialog,  public viewContainerRef: ViewContainerRef)  {
    }
   ngOnInit(){
-   
-    /*this.notify.msg.subscribe(data => {
-      if(data){
-        this.message = data.content;
-        this.open(data.style);
-      }
-     });*/
+
+    this.notify.msg.takeUntil(Observable.timer(100));
   }
   
   /*open(key) {

@@ -37,7 +37,7 @@ export class AuthService {
           }
         })
       
-     this.usersCollection = this.afs.collection('wi-users', (ref) => ref.orderBy('updatedAt', 'desc').limit(5));
+     this.usersCollection = this.afs.collection('wi-users', (ref) => ref.orderBy('updatedAt', 'desc'));
     
   }
 
