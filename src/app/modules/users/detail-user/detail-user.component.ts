@@ -1,7 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NavbarService } from '@shared/core/navbar/navbar.service';
 import { Title, Meta } from '@angular/platform-browser';
-import { Router, ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
+import 'rxjs/add/observable/combineLatest';
 import { SpinnerService } from '@shared/services/spinner/spinner.service';
 import { AuthService } from '@shared/core/auth/authservice/auth.service';
 import { User } from '@shared/core/auth/authservice/auth.model';

@@ -9,6 +9,7 @@ import { NotifyService } from './../../notify/notify.service';
 import { User, Local } from './auth.model';
 import { map } from 'rxjs/operators';
 import { take } from 'rxjs/operators';
+import { Subscription } from 'rxjs/Subscription';
 import { merge } from 'rxjs/observable/merge';
 import { SpinnerService } from '@services/spinner/spinner.service';
 import { Location } from '@angular/common';
@@ -19,6 +20,9 @@ export class AuthService {
   user: Observable<User | null>;
   usersCollection: AngularFirestoreCollection<User>;
   userId: string; // current user uid
+  private sub: Subscription;
+  public users$: Observable<any[]> ;
+  public users: any[]  ;
   constructor(private afAuth: AngularFireAuth,
               private afs: AngularFirestore,
               private router: Router,
@@ -38,14 +42,14 @@ export class AuthService {
         })
       
      this.usersCollection = this.afs.collection('wi-users', (ref) => ref.orderBy('updatedAt', 'desc'));
-    
-  }
 
+  
+  }
     // Return a single observable User
-    getUser(id: string) {
+  getUser(id: string) {
       const ref =  this.afs.doc<User>(`wi-users/${id}`);
       return ref.valueChanges();
-    }
+  }
 
   getSnapshot(): Observable<User[]> {
     // ['added', 'modified', 'removed']
@@ -220,11 +224,7 @@ export class AuthService {
     });
   }
 
-    // If error, console log and notify user
-  private handleError(error) {
-      this.notify.update(error.message, 'error')
- }
-
+  
 
   ///// Role-based Authorization //////
   canRead(user: User): boolean {
@@ -250,15 +250,7 @@ export class AuthService {
     return false
   }
 
-back() {
-      if(this.router.url == '/')
-        this.router.navigate(['/']);
-      else
-        this.location.back();
-}
-getCurrentTime(){
-  return moment().format("YYYY-MM-DD HH:mm:ss"); 
-}
+
 
 //Update user data
 updateBio(uid, bio){
@@ -338,6 +330,19 @@ updateUsername(uid, username, fullname, count){
     this.notify.update("<strong>Account Name Set!</strong> Way to go.", 'info')
     }).catch((error) => this.handleError(error) );
   } 
-
+  
+back() {
+    if(this.router.url == '/')
+      this.router.navigate(['/']);
+    else
+      this.location.back();
+}
+getCurrentTime(){
+return moment().format("YYYY-MM-DD HH:mm:ss"); 
+}
+  // If error, console log and notify user
+  private handleError(error) {
+    this.notify.update(error.message, 'error')
+}
 
 }
