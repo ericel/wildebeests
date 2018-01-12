@@ -73,6 +73,20 @@
            
       </div>
       <div class="col-md-6 flex-item">
+            <mat-card class=" flex-item-3">
+                    <mat-card-header >
+                       <mat-card-title>Start Deal / Cancel Deal</mat-card-title>
+                         <mat-card-subtitle >Click to chat with dealer! Make sure you understood the terms above.</mat-card-subtitle>
+                            </mat-card-header>
+                              <mat-card-content>
+                                <button mat-raised-button color="primary" class="w-100 padding-30 " (click)="deal($event)">
+                                    <app-spinner name="mySpinner" [(show)]="spinnerShowing"><i class="fa fa-spinner fa-spin"></i></app-spinner> 
+                                    
+                                  Start Deal Now</button>
+                                  <div class="mar-10"></div> 
+                                  <button mat-raised-button color="warn" class="w-100 padding-10 ">Cancel Deal Now</button>
+                             </mat-card-content>    
+                    </mat-card>
           <mat-card class=" flex-item-3">
               <mat-card-header >
                   <mat-card-title>Verified / Profile</mat-card-title>
@@ -84,22 +98,7 @@
                    [reviewBad]='_reviewBad' [reviewGood]='_reviewGood'></user-piechart>
                 </mat-card-content>
             </mat-card>
-        <mat-card class=" flex-item-3">
-            <mat-card-header >
-               <mat-card-title>Start Deal / Cancel Deal</mat-card-title>
-                 <mat-card-subtitle >Click to chat with dealer! Make sure you understood the terms above.</mat-card-subtitle>
-                    </mat-card-header>
-                      <mat-card-content>
-                        <button mat-raised-button color="primary" class="w-100 padding-30 " (click)="deal($event)">
-                            <app-spinner name="mySpinner" [(show)]="spinnerShowing"><i class="fa fa-spinner fa-spin"></i></app-spinner> 
-                            
-                          Start Deal Now</button>
-                          <div class="mar-10"></div> 
-                          <button mat-raised-button color="warn" class="w-100 padding-10 ">Cancel Deal Now</button>
-                     </mat-card-content>    
-            </mat-card>
-
-            
+   
                   <mat-card class=" flex-item-4">
                         <mat-card-header >
                             <mat-card-title>Social Links</mat-card-title>

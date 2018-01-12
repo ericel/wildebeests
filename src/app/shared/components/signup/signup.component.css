@@ -5,12 +5,32 @@
     padding: 40px 0;
     margin-top: 60px;
     width: 100%;
-    background: rgba(7, 7, 7, 0.788) !important;
+    background: #00897b;
+    background: url('./../../../../assets/assets/trans-banner.png');
+    background-blend-mode: color;
+    background-size: cover;
     color: #fff;
 }
 .header-2-hd {
     border-bottom: solid 5px #00897b;
-    box-shadow: 0 0 0 4px rgba(45, 153, 97, 0), 0 4px 8px #07210d4f;
+    /*box-shadow:
+    inset 0 7em 10em -5em rgba(255,255,255,0.6),
+    0 0.3em 0.5em -0.2em rgba(100,100,100,1),
+    0 1em 2em -0.75em rgba(100,100,100,0.75),
+    0 1em 3em -0.5em rgba(100,100,100,0.5),
+    0 3em 3em -0.25em rgba(100,100,100,0.2);*/
+   
+
+}
+.left-into {
+    
+    width: 100%;
+    height: 360px;
+    margin-left: -1px;
+    margin-top: 10px;
+    padding:20px;
+        background-size: 100% 100%;
+
 }
 @media screen and (max-width: 991px){
     .header-2 {
@@ -68,7 +88,7 @@
 /* CSS FOR MAININTRO COMPONENT */
 
 .home-1, .home-2 {
-    padding: 20px 0;
+    padding: 40px 0;
 }
 .home-2 {
     background: #e8e9e9;
@@ -97,7 +117,7 @@
 }
 .number-count {
     font-size: 2em;
-    color: #00897b;
+    color: #50021c;
     line-height: 30px;
     font-family: 'Lora', serif;
     line-height: 1.5;
@@ -113,7 +133,7 @@
      background-attachment:fixed;
 }
 .cover-home-02 {
-    background: rgba(10, 10, 10, 0.73);
+    background: #00897b;
     padding: 50px;
     color: #fff;
     font-size: 2em;
@@ -130,4 +150,10 @@
 .y-ul-1 li {
     font-size: 1.5em;
     padding: 5px 0;
+}
+.acpt-1 {
+    height: 100px;
+    background: #00897b;
+    text-align: center;
+    line-height: 100px;
 }

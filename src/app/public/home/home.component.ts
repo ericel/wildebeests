@@ -13,7 +13,7 @@ export class HomeComponent implements OnInit {
   color = 'primary';
   mode = 'determinate';
   value = 50;
-  heading = 'Join llll greatest only \n powerful social network.';
+  heading = '<h1>Send Money To Your Love Ones! With Litle Or No Charges.</h1><h3>No Hidden Fees!</h3>';
   constructor(private title: Title, private meta: Meta,  public nav: NavbarService,
      public auth: AuthService,
      private spinner: SpinnerService)

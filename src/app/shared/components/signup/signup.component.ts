@@ -178,7 +178,7 @@ export class SignupComponent implements OnInit {
 })
 
 export class LoginComponent {
-  heading = "Log in to account";
+  heading = '<h1 class="text-danger">Log in to account</h1>';
   constructor(private title: Title, private meta: Meta, public nav: NavbarService) {
 
   }

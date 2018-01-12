@@ -1,13 +1,21 @@
+
 <ng-container *ngIf="(auth.user | async) || {} as user">
 <header class="header-01">
     <div class="header-2" [ngClass]="{'header-2-hd': changeHeader }">
         <div class="container">
             <div class="row text-smo-center intro">
-                <div class="col-md-7">
-                    <h1 class="title">{{heading}}</h1>
-                    <p>Building bridges, unifying the one people motherland. People, places, business networks all in shakedown.</p>
+                <div class="col-md-7 ">
+
+                     <div [innerHTML]="heading"></div>
+                     <p class="mar-30"><span class="app-title">Oten</span> Allows you to send money back quickly and in a timely manner. From the comfort of your home, No more bank visits, no more huge bank fees. With just a few clicks, your money is deliverd back home.</p> 
+                     <button mat-raised-button color="accent" class=""> Send money now</button> 
+
                 </div>
                 <div class="col-md-5 text-center">
+                        <div *ngIf="auth.user | async; then authenticated else guest">
+                                <!-- template will replace this div -->
+                        </div>
+                  <ng-template #guest>     
                   <div class="container signup">
                       <mat-tab-group class="tab-group">
                           <mat-tab label="Log In">
@@ -120,7 +128,23 @@
                         </div>
                       </div>
                   </div>
-                 
+                </ng-template>
+
+                <ng-template #authenticated >
+                    <!--<app-spinner name="mySpinner" [(show)]="spinnerShowing" loadingImage="./assets/img/loader.gif"><h3>Loading...</h3></app-spinner> 
+                    <app-spinner name="mySpinner" [show]="spinnerShowing" (showChange)="spinnerShowing=$event" loadingImage="./assets/img/loader.gif"><h1>ddddd</h1></app-spinner>--> 
+                    <div fxLayout="column">
+                            <div class="header" fxLayout="row" fxLayoutAlign="space-between center">
+                                <h3>
+                                 sssss
+                                </h3>
+                            </div>
+                            <div fxLayout="row">
+                                <div class="left" fxFlex="20"> LEFT: 20% wide </div>
+                                <div class="right" fxFlex> RIGHT: 80% wide </div>
+                            </div>
+                          </div>
+                </ng-template>
                 </div>
             </div>
         </div>

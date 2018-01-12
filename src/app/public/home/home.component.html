@@ -1,26 +1,5 @@
+<app-signup [heading]="heading"></app-signup>
 
-<div *ngIf="auth.user | async; then authenticated else guest">
-        <!-- template will replace this div -->
- </div>
- <ng-template #guest>
-        <app-signup [heading]="heading"></app-signup>
- </ng-template>
- 
- <ng-template #authenticated >
-        <!--<app-spinner name="mySpinner" [(show)]="spinnerShowing" loadingImage="./assets/img/loader.gif"><h3>Loading...</h3></app-spinner> 
-        <app-spinner name="mySpinner" [show]="spinnerShowing" (showChange)="spinnerShowing=$event" loadingImage="./assets/img/loader.gif"><h1>ddddd</h1></app-spinner>--> 
-        <div fxLayout="column">
-                <div class="header" fxLayout="row" fxLayoutAlign="space-between center">
-                    <h3>
-                     sssss
-                    </h3>
-                </div>
-                <div fxLayout="row">
-                    <div class="left" fxFlex="20"> LEFT: 20% wide </div>
-                    <div class="right" fxFlex> RIGHT: 80% wide </div>
-                </div>
-              </div>
- </ng-template>
  
 <!--<app-auth></app-auth>-->
 <app-intro class="mar-30"></app-intro>
