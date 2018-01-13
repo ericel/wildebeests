@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, NavigationEnd, RoutesRecognized } from '@angular/router';
 import * as firebase from 'firebase/app';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/switchMap'
+import 'rxjs/add/operator/switchMap';
+import 'rxjs/add/operator/pairwise';
 import { NotifyService } from './../../notify/notify.service';
 import { User, Local } from './auth.model';
 import { map } from 'rxjs/operators';
@@ -18,11 +19,11 @@ import { LocationService } from '@services/location/location.service';
 @Injectable()
 export class AuthService {
   user: Observable<User | null>;
-  usersCollection: AngularFirestoreCollection<User>;
+  getAuthId;
+  users: AngularFirestoreCollection<User>;
   userId: string; // current user uid
   private sub: Subscription;
-  public users$: Observable<any[]> ;
-  public users: any[]  ;
+  userRef: AngularFirestoreDocument<User>;
   constructor(private afAuth: AngularFireAuth,
               private afs: AngularFirestore,
               private router: Router,
@@ -31,29 +32,27 @@ export class AuthService {
               private location: Location,
               private _locationService: LocationService
             ) {
-      //// Get auth data, then get firestore user document || null
-      this.user = this.afAuth.authState
+//// Get auth data, then get firestore user document || null
+  this.user = this.afAuth.authState
         .switchMap(user => {
           if (user) {
+            this.userRef = this.afs.doc(`wi-users/${user.uid}`)
+            this.userId = user.uid
             return this.afs.doc<User>(`wi-users/${user.uid}`).valueChanges()
           } else {
             return Observable.of(null)
           }
         })
-      
-     this.usersCollection = this.afs.collection('wi-users', (ref) => ref.orderBy('updatedAt', 'desc'));
-
-  
+     this.users = this.afs.collection('wi-users', (ref) => ref.orderBy('updatedAt', 'desc'));
   }
-    // Return a single observable User
+
   getUser(id: string) {
       const ref =  this.afs.doc<User>(`wi-users/${id}`);
       return ref.valueChanges();
   }
-
+  
   getSnapshot(): Observable<User[]> {
-    // ['added', 'modified', 'removed']
-    return this.usersCollection.snapshotChanges().map(actions => {
+    return this.users.snapshotChanges().map(actions => {
       return actions.map(a => {
         const data = a.payload.doc.data() as User;
         const id = a.payload.doc.id;
@@ -61,8 +60,7 @@ export class AuthService {
       });
     });
   }
- /* check User Status */
-  /// Helper to perform the update in Firebase
+
   private updateStatus(status: string) {
     if (!this.userId) {
     const userRef: AngularFirestoreDocument<any> = this.afs.doc(`wi-users/${this.userId}`);
@@ -71,69 +69,19 @@ export class AuthService {
     }
     return userRef.update(data)
   }
-  }
+}
 
-  googleLogin() {
-    this.spinner.show('mySpinnerg');
-    const provider = new firebase.auth.GoogleAuthProvider()
-    return this.oAuthLogin(provider);
-  }
-
-  facebookLogin() {
-    this.spinner.show('mySpinnerf');
-    const provider = new firebase.auth.FacebookAuthProvider()
-    return this.oAuthLogin(provider);
-  }
-  private oAuthLogin(provider) {
-    return this.afAuth.auth.signInWithPopup(provider)
-      .then((credential) => {
-        this.notify.update('Welcome to wildebeests!!!', 'success');
-        this.updateUserData(credential.user)
-      })
-      .catch((error) => this.handleError(error) );
-  }
-  
-
-  //// Email/Password Auth ////
-   emailSignUp(email: string, password: string) {
-    this.spinner.show('mySpinners');
-    return this.afAuth.auth.createUserWithEmailAndPassword(email, password)
-      .then((user) => {
-        this.notify.update('Welcome to Firestarter!!!', 'success');
-        return this.updateUserData(user); // if using firestore
-      })
-      .catch((error) => this.handleError(error) );
-  }
-
-  emailLogin(email: string, password: string) {
-    this.spinner.show('mySpinnerl');
-    return this.afAuth.auth.signInWithEmailAndPassword(email, password)
-      .then((user) => {
-        this.notify.update('Welcome to Firestarter!!!', 'success')
-        return this.updateUserData(user); // if using firestore
-      })
-      .catch((error) => this.handleError(error) );
-  }
-
-  // Sends email allowing user to reset password
-  resetPassword(email: string) {
-    const fbAuth = firebase.auth();
-
-    return fbAuth.sendPasswordResetEmail(email)
-      .then(() => this.notify.update('Password update email sent', 'info'))
-      .catch((error) => this.handleError(error));
-  }
-
-  //Update page Viiew 
-  userpageView(uid, view){
+//Update page View TODO: STILL TO TODO
+userpageView(uid, view){
     const viewcount = view + 1;
     const data = {
       view: viewcount
     }
    return this.afs.doc(`wi-users/${uid}`).update(data);
-  }
-  private updateUserData(user) {
-    const userRef: AngularFirestoreDocument<any> = this.afs.doc(`wi-users/${user.uid}`);
+}
+
+private updateUserData(user) {
+  const userRef: AngularFirestoreDocument<any> = this.afs.doc(`wi-users/${user.uid}`);
     userRef.valueChanges().subscribe(res=>{
     if(res){
       const data = {
@@ -154,17 +102,9 @@ export class AuthService {
         createdAt: this.getCurrentTime(),
         updatedAt: this.getCurrentTime(),
         view: 0,
-        roles: {
-          user: true,
-          dealer: false,
-          admin: false,
-        },
+        roles: {user: true,dealer: false,admin: false},
         verified: {
-          links:{
-            facebook: 'Enter your facebook profile url',
-            twitter: 'Enter your twitter profile url',
-            email: user.email || 'Enter your email address',
-            phone: 'Enter your phone number'
+          links:{facebook: 'Enter your facebook profile url',twitter: 'Enter your twitter profile url',email: user.email || 'Enter your email address', phone: 'Enter your phone number'
           },
           facebook: false,
           twitter: false,
@@ -172,8 +112,7 @@ export class AuthService {
           phone: false
         },
         status: 'online',
-        bio: 'I\'m a wildebeests! More about me to be added. <p class="text-danger">Incomplete profile! Profile needs more information.</p>',
-        
+        bio: '<strong>PROFILE NEEDS EDITING!<strong><br>I\'m an Otenn Robot! More about me to be added. <p class="text-danger">Incomplete profile! Profile needs more information.</p>I\'m an Otenn Robot! More about me to be added. <p class="text-danger">Incomplete profile! Profile needs more information.</p>',  
       }
       this._Local_User(user);
       return userRef.set(data, {merge: true}).then(() =>
@@ -181,11 +120,12 @@ export class AuthService {
       ).catch((error) => this.handleError(error) );
 
     }
-    }).unsubscribe;
+  }).unsubscribe;
    this.spinner.hideAll();
    this.back();
-  }
-  private update_localto_user(user){
+ }
+
+private update_localto_user(user){
     const userRef: AngularFirestoreDocument<any> = this.afs.doc(`wi-users/${user.uid}`);
     const local = this._locationService.getCurrentIpLocation().subscribe(local => {
       const data = {
@@ -200,8 +140,9 @@ export class AuthService {
     return userRef.update(data).then(() => {
       }).catch((error) => this.handleError(error) );
   }).unsubscribe;
-  }
-  private _Local_User(user){
+}
+
+private _Local_User(user){
     const userRef: AngularFirestoreDocument<any> = this.afs.doc(`wi-users-local/${user.uid}`);
     const local = this._locationService.getCurrentIpLocation().subscribe(local => {
       const data: Local = {
@@ -217,30 +158,82 @@ export class AuthService {
       
       }).catch((error) => this.handleError(error) );
   }).unsubscribe;
-  }
-  signOut() {
+}
+
+
+/******************* AUTHENTICATION METHODS *****************
+ * *****************TODO: TWITTER AUTH **********************
+*/
+googleLogin() {
+  this.spinner.show('mySpinnerg');
+  const provider = new firebase.auth.GoogleAuthProvider()
+  return this.oAuthLogin(provider);
+}
+
+facebookLogin() {
+  this.spinner.show('mySpinnerf');
+  const provider = new firebase.auth.FacebookAuthProvider()
+  return this.oAuthLogin(provider);
+}
+
+emailSignUp(email: string, password: string) {
+  this.spinner.show('mySpinners');
+  return this.afAuth.auth.createUserWithEmailAndPassword(email, password)
+    .then((user) => {
+      this.notify.update('Welcome to Firestarter!!!', 'success');
+      return this.updateUserData(user); // if using firestore
+    })
+    .catch((error) => this.handleError(error) );
+}
+
+emailLogin(email: string, password: string) {
+  this.spinner.show('mySpinnerl');
+  return this.afAuth.auth.signInWithEmailAndPassword(email, password)
+    .then((user) => {
+      this.notify.update('Welcome to Firestarter!!!', 'success')
+      return this.updateUserData(user); // if using firestore
+    })
+    .catch((error) => this.handleError(error) );
+}
+
+
+resetPassword(email: string) {
+  const fbAuth = firebase.auth();
+
+  return fbAuth.sendPasswordResetEmail(email)
+    .then(() => this.notify.update('Password update email sent', 'info'))
+    .catch((error) => this.handleError(error));
+}
+
+/*******************END AUTHENTICATION METHODS *****************
+* *****************TODO: TWITTER AUTH **********************
+*/
+
+
+signOut() {
     this.afAuth.auth.signOut().then(() => {
       this.back();
     });
-  }
+}
 
-  
+///// Role-based Authorization //////
+canRead(user: User): boolean {
+    const allowed = ['admin', 'dealer', 'user']
+    return this.checkAuthorization(user, allowed)
+}
 
-  ///// Role-based Authorization //////
-  canRead(user: User): boolean {
-    const allowed = ['admin', 'editor', 'subscriber']
+canEdit(user: User): boolean {
+    const allowed = ['admin', 'dealer']
     return this.checkAuthorization(user, allowed)
-  }
-  canEdit(user: User): boolean {
-    const allowed = ['admin', 'editor']
-    return this.checkAuthorization(user, allowed)
-  }
-  canDelete(user: User): boolean {
+}
+
+canDelete(user: User): boolean {
     const allowed = ['admin']
     return this.checkAuthorization(user, allowed)
-  }
-  // determines if user has matching role
-  private checkAuthorization(user: User, allowedRoles: string[]): boolean {
+}
+
+
+private checkAuthorization(user: User, allowedRoles: string[]): boolean {
     if (!user) return false
     for (const role of allowedRoles) {
       if ( user.roles[role] ) {
@@ -248,27 +241,23 @@ export class AuthService {
       }
     }
     return false
-  }
+}
 
 
 
 //Update user data
-updateBio(uid, bio){
-  const userRef: AngularFirestoreDocument<any> = this.afs.doc(`wi-users/${uid}`);
-
+updateBio(bio){
     const data = {
       updatedAt: this.getCurrentTime(),
       bio: bio
     }
-    return userRef.update(data).then(() => {
+  return this.userRef.update(data).then(() => {
       this.notify.update("<strong>User Saved!</strong> Way to go.", 'info')
-      }).catch((error) => this.handleError(error) );
+  }).catch((error) => this.handleError(error) );
 
 }
 
 updateContactInfo(uid, address, city, country){
-  const userRef: AngularFirestoreDocument<any> = this.afs.doc(`wi-users/${uid}`);
-
       const data = {
         updatedAt: this.getCurrentTime(),
         contactInfo: {
@@ -277,14 +266,12 @@ updateContactInfo(uid, address, city, country){
           country: country
         }
       }
-      return userRef.update(data).then(() => {
+      return this.userRef.update(data).then(() => {
       this.notify.update("<strong>User Saved!</strong> Way to go.", 'info')
-      }).catch((error) => this.handleError(error) );
-
+    }).catch((error) => this.handleError(error) );
 }
 
 updateVerifiedLinks(uid, facebook, twitter, email, phone){
-  const userRef: AngularFirestoreDocument<any> = this.afs.doc(`wi-users/${uid}`);
   if (/^(https?:\/\/)?((w{3}\.)?)facebook.com\/.*/i.test(facebook)){
      var verifyFacebook = true;
   } else {
@@ -295,7 +282,6 @@ updateVerifiedLinks(uid, facebook, twitter, email, phone){
  } else {
   var verifyTwitter = false;
  }
-
     const data = {
       email: email,
       updatedAt: this.getCurrentTime(),
@@ -306,16 +292,14 @@ updateVerifiedLinks(uid, facebook, twitter, email, phone){
       "verified.facebook": verifyFacebook,
       "verified.twitter": verifyTwitter
     }
-    return userRef.update(data).then(() => {
+    return this.userRef.update(data).then(() => {
     this.notify.update("<strong>Social Links Saved!</strong> Way to go.", 'info')
     }).catch((error) => this.handleError(error) );
-
-
 }
+
 updateUsername(uid, username, fullname, count){
-  const userRef: AngularFirestoreDocument<any> = this.afs.doc(`wi-users/${uid}`);
   if (count > 0){
-    this.notify.update("<strong>This property can't be change anymore!</strong> Way to go.", 'error')
+    this.notify.update("<strong>This property can't be change anymore!</strong> Sorry.", 'error')
     return
   }
     const data = {
@@ -326,22 +310,31 @@ updateUsername(uid, username, fullname, count){
       },
       updatedAt: this.getCurrentTime()
     }
-    return userRef.update(data).then(() => {
+    return this.userRef.update(data).then(() => {
     this.notify.update("<strong>Account Name Set!</strong> Way to go.", 'info')
     }).catch((error) => this.handleError(error) );
-  } 
-  
+} 
+
+private oAuthLogin(provider) {
+    return this.afAuth.auth.signInWithPopup(provider)
+      .then((credential) => {
+        this.notify.update('Welcome to Otenn!!!', 'success');
+        this.updateUserData(credential.user)
+      })
+      .catch((error) => this.handleError(error) );
+}
+
 back() {
-    if(this.router.url == '/')
-      this.router.navigate(['/']);
-    else
-      this.location.back();
+ if (window.history.length > 2) {
+        this.location.back();
+    } else {
+        this.router.navigate(['/']);
+  }
 }
 getCurrentTime(){
-return moment().format("YYYY-MM-DD HH:mm:ss"); 
+  return moment().format("YYYY-MM-DD HH:mm:ss"); 
 }
-  // If error, console log and notify user
-  private handleError(error) {
+private handleError(error) {
     this.notify.update(error.message, 'error')
 }
 

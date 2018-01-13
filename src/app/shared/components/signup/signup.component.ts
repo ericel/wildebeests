@@ -5,6 +5,12 @@ import { NavbarService } from '@shared/core/navbar/navbar.service';
 import { ReactiveFormsModule, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { SpinnerService } from '@services/spinner/spinner.service';
 import { PasswordValidation } from './confirmpassword';
+import { Subscription } from 'rxjs/Subscription';
+import { Observable } from 'rxjs/Observable';
+import { StarReviewService } from '@shared/components/star-review/star-review.service';
+import { AuthGuard } from '@shared/core/auth/authguard/auth.guard';
+import { NotifyService } from '@shared/core/notify/notify.service';
+import { Router } from '@angular/router';
 type UserFields = 'email' | 'password';
 type FormErrors = { [u in UserFields]: string };
 
@@ -21,6 +27,11 @@ export class SignupComponent implements OnInit {
   detailForm: FormGroup;
   passReset = false; // set to true when password reset is triggered
   userState;
+  stars: Observable<any>;
+  avgRating: Observable<any>;
+  _reviewBad;
+  _reviewGood;
+  _sub: Subscription
 
   formErrors: FormErrors = {
     'email': '',
@@ -38,7 +49,9 @@ export class SignupComponent implements OnInit {
       'maxlength': 'Password cannot be more than 40 characters long.',
     },
   };
-  constructor(public auth: AuthService, public fb: FormBuilder, private spinner: SpinnerService) { }
+  constructor(public auth: AuthService, public fb: FormBuilder, private spinner: SpinnerService,
+    private _star: StarReviewService,
+  ) { }
 
   ngOnInit() {
     this.userState = this.auth.user.map(user => {
@@ -76,6 +89,28 @@ export class SignupComponent implements OnInit {
 
     
   this.buildLoginForm();
+
+  this.auth.user.subscribe(user =>  {
+    if (user){
+    this._reviewGoodCount(user.uid);
+    this._reviewBadCount(user.uid);
+    this.stars = this._star.getUserStars(user.uid)
+    this.avgRating = this.stars.map(arr => {
+      const ratings = arr.map(v => v.rating)
+      var total = 0;
+      for(var i = 0; i < ratings.length; i++) {
+          total += ratings[i];
+      }
+      let avg = total / ratings.length ;
+      if (isNaN(avg)) {
+        return '{0}';
+      }
+      
+    return avg;
+  })
+}
+})
+ 
   }
 
 
@@ -148,6 +183,27 @@ export class SignupComponent implements OnInit {
     this.auth.resetPassword(this.loginForm.value['email'])
       .then(() => this.passReset = true);
   }
+
+
+
+  _reviewBadCount(uid: string){ 
+    this._sub = this._star.getBadReviewsCount(uid)
+    .subscribe(count => {this._reviewBad = count.length
+      if(this._reviewBad < 1){
+        this._reviewBad = 0.5;
+      }
+    })
+   }
+  private  _reviewGoodCount(uid: string){ 
+    this._sub = this._star.getGoodReviewsCount(uid)
+    .subscribe(count => {this._reviewGood = count.length
+      if(this._reviewGood < 1){
+        this._reviewGood = 1;
+      }
+    })
+   }
+
+  
 }
 
 @Component({
@@ -179,18 +235,27 @@ export class SignupComponent implements OnInit {
 
 export class LoginComponent {
   heading = '<h1 class="text-danger">Log in to account</h1>';
-  constructor(private title: Title, private meta: Meta, public nav: NavbarService) {
+  constructor(private title: Title, private meta: Meta, public nav: NavbarService, private _auth: AuthService,
+  private _notify: NotifyService, private router: Router) {
 
   }
   
   ngOnInit() {
     this.nav.show();
+    this._auth.user.subscribe((user) =>
+    {
+      if(user !== null){
+        this.router.navigate(['/']);
+      }
+    }
+  )
     this.title.setTitle('Login');
     this.meta.addTags([
       { name: 'keywords', content: 'Login to your wildebeests account.'},
       { name: 'description', content: 'Wildebeests accounts are free. Get started now by registering for a free account' }
     ]);
   }
+
 }
  
 @Component({

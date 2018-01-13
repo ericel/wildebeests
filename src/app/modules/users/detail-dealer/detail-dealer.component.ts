@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NavbarService } from '@shared/core/navbar/navbar.service';
 import { Title, Meta } from '@angular/platform-browser';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -14,6 +14,7 @@ import { StarReviewService } from '@shared/components/star-review/star-review.se
 import { DealsService } from '@shared/services/deals/deals.service';
 import {UcFirstPipe} from 'ngx-pipes';
 import { auth } from 'firebase';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-detail-dealer',
@@ -21,7 +22,7 @@ import { auth } from 'firebase';
   styleUrls: ['./detail-dealer.component.css'],
   providers: [UcFirstPipe]
 })
-export class DetailDealerComponent implements OnInit {
+export class DetailDealerComponent implements OnInit, OnDestroy {
 isValid;
 deathSpinner: boolean = false;
 local: Observable<Local>;
@@ -32,8 +33,7 @@ avgRating: Observable<any>;
 reviews;
 _reviewBad;
 _reviewGood;
-
-//chartData: Observable<any>
+_sub: Subscription
   constructor(private nav: NavbarService,
     private title: Title,
     private meta: Meta,
@@ -51,42 +51,40 @@ _reviewGood;
   }
 
   ngOnInit() {
-    
     this.nav.show();
     this.route.params.subscribe(params => {
     const uid = params['id'];
     this.local = this._local.getUserLocal(uid);
     this.dealersInfo = this._dealersInfo.getUserAddOn(uid)
-   
       this.user = this._auth.getUser(uid);
-      this.user.subscribe(user =>{
-        if(!user){
-          this._auth.back();
-        }
-        if(!user.roles.dealer || !user.roles.dealer){
-          this.spinner.show('dealerSpinner');
-          this.deathSpinner = true;
-          this.notify.update('<strong>Bad Route</strong>! You\'ll be redirected!', 'error');
-          setTimeout(()=>{  
-           this._auth.back();
-          },3000);
-        }
-        this._auth.user.subscribe(auth => {
+        this._sub = this.user.subscribe(user =>{
+          if(!user){
+            this._auth.back();
+          }
+          if(!user.roles.dealer || !user.roles.dealer){
+            this.spinner.show('dealerSpinner');
+            this.deathSpinner = true;
+            this.notify.update('<strong>Bad Route</strong>! You\'ll be redirected!', 'error');
+            setTimeout(()=>{  
+            this._auth.back();
+            },3000);
+          }
+        /*this._auth.user.subscribe(auth => {
           if(uid !== auth.uid){
           // this._auth.userpageView(uid, user.view);
          }
-        })
+        })*/
         
         this.title.setTitle(this.cFirstPipe.transform(user.displayName.username) + ' dealer page!');
-        this.meta.addTags([
-          { name: 'keywords', content: this.cFirstPipe.transform(user.displayName.username) + ' Wildebeests profile!, '+user.roles+', send money back home, dealer'},
-          { name: 'description', content: this.cFirstPipe.transform(user.displayName.username) + ' will help you send money back home to your love ones!' }
-        ]);
+          this.meta.addTags([
+            { name: 'keywords', content: this.cFirstPipe.transform(user.displayName.username) + ' Wildebeests profile!, '+user.roles+', send money back home, dealer'},
+            { name: 'description', content: this.cFirstPipe.transform(user.displayName.username) + ' will help you send money back home to your love ones!' }
+          ]);
       });
     
 
     this.reviews = this._star.getUsersReviews(uid)
-    this._star.getUsersReviews(uid).subscribe(reviews => this.reviews = reviews)
+    this._sub = this._star.getUsersReviews(uid).subscribe(reviews => this.reviews = reviews)
     this.stars = this._star.getUserStars(uid)
   
       this.avgRating = this.stars.map(arr => {
@@ -110,7 +108,7 @@ _reviewGood;
   }
 
    _reviewBadCount(uid: string){ 
-    this._star.getBadReviewsCount(uid)
+    this._sub = this._star.getBadReviewsCount(uid)
     .subscribe(count => {this._reviewBad = count.length
       if(this._reviewBad < 1){
         this._reviewBad = 0.5;
@@ -118,7 +116,7 @@ _reviewGood;
     })
    }
   private  _reviewGoodCount(uid: string){ 
-  this._star.getGoodReviewsCount(uid)
+    this._sub = this._star.getGoodReviewsCount(uid)
     .subscribe(count => {this._reviewGood = count.length
       if(this._reviewGood < 1){
         this._reviewGood = 1;
@@ -129,5 +127,9 @@ _reviewGood;
   deal($event){
     this.spinner.show('mySpinner');
     //this.router.navigate(['money/send/FhBtM70QZKM']);
+  }
+
+  ngOnDestroy(){
+    this._sub.unsubscribe();
   }
 }

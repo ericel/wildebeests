@@ -5,9 +5,7 @@ import { Observable } from 'rxjs/Observable';
 
 @Component({
     selector:'user-piechart',
-    template:`<chart [options]="options"></chart>
-     {{view}}
-    `
+    template:`<chart [options]="options"></chart>`
 })
 export class UserPieChart implements OnInit{
     @Input() userId;
@@ -60,6 +58,7 @@ export class UserPieChart implements OnInit{
         plotShadow: false,
         height: (9 / 16 * 100) + '%', // 16:9 ratio,
         marginTop: 30,
+        //backgroundColor: 'rgba(255, 255, 255, 0.0)',
         type: 'pie'
             },title: {
                 text: null
@@ -76,7 +75,7 @@ export class UserPieChart implements OnInit{
                     dataLabels: {
                         enabled: true
                     },
-                    showInLegend: false
+                    showInLegend: false,
                 }
             },series: [{
                 data: this.chartData,

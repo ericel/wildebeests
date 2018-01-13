@@ -220,38 +220,29 @@ export class Dialog1 implements OnInit {
   }
 
   ngOnInit(){
-    this.buildBioForm();
     this.iFrameOn();
     this.richtextarea.nativeElement.contentDocument.body.innerHTML = this.data.bio;
   }
 
-  buildBioForm(){
-    this.bioForm = this.fb.group({
-      'password': ['', [
-        Validators.required,
-        Validators.email
-        ]
-      ]
-    });
-  }
+ 
 
   updateBio(){
     if(this.textarea.length > 70){
       if(this.data.uid){
-        this.auth.updateBio(this.data.uid, this.textarea);
+        this.auth.updateBio(this.textarea);
       };
-     
   } else {
     this.notify.update("<strong>More Bio info required!</strong> Way to go.", 'error')
   }
   }
+
   get textarea() { 
     var Body = this.richtextarea.nativeElement.contentDocument.body;
     Body = Body.innerHTML
     return Body;
   }
-   //The editor wysiwyg
-   iFrameOn(){
+
+  iFrameOn(){
     this.richtextarea.nativeElement.contentDocument.designMode = "On";
   }
 
@@ -332,7 +323,7 @@ export class Dialog1 implements OnInit {
   </div>
   </mat-form-field>
   <mat-form-field>
-   <mat-select *ngIf="selected" [(value)]="selected" formControlName="country" required>
+   <mat-select *ngIf="data.country" [(value)]="selected" formControlName="country" required>
    
       <mat-option *ngFor="let option of countries" [value]="option.countryName">{{ option.countryName }}</mat-option>
    </mat-select>
@@ -340,11 +331,7 @@ export class Dialog1 implements OnInit {
      {{ formErrors.country }}
    </div>
   </mat-form-field>
-
-
-    <span>{{notifytext}}</span>
-  <button class="w-100" mat-raised-button color="primary" type="submit" [disabled]="!dailog2Form.valid"><app-spinner name="mySpinner1" [(show)]="spinnerShowing1"><i class="fa fa-spinner fa-spin"></i></app-spinner><mat-icon>publish</mat-icon> Save Changes</button>
- 
+  <button class="w-100" mat-raised-button color="primary" type="submit" [disabled]="!dailog2Form.valid"><app-spinner name="mySpinner1" [(show)]="spinnerShowing"><i class="fa fa-spinner fa-spin"></i></app-spinner><mat-icon>publish</mat-icon> Save Changes</button>
   </form>
 </div>
   </div>
@@ -356,8 +343,6 @@ export class Dialog1 implements OnInit {
 
 export class Dialog2 implements OnInit {
   dailog2Form: FormGroup;
-  selected: string;
-  notifytext: string ='';
   formErrors: FormErrors = {
     'facebook': '',
     'twitter': '',
@@ -402,8 +387,6 @@ export class Dialog2 implements OnInit {
  
   ngOnInit(){
     this.countries = this._countries.getCountries();
-   // this._countries.getCountries().subscribe(countries => { console.log(countries)});
-    this.selected = 'Goldfish';
     this.builddailog2Form();
   }
 
@@ -429,7 +412,7 @@ export class Dialog2 implements OnInit {
       ]
     });
     this.dailog2Form.valueChanges.subscribe((data) => this.onValueChanged(data));
-    this.onValueChanged(); // reset validation messages
+    this.onValueChanged(); 
   }
   
     onValueChanged(data?: any) {
@@ -498,10 +481,7 @@ export class Dialog2 implements OnInit {
     {{ formErrors.phone }}
   </div>
   </mat-form-field>
-
-    <span>{{notifytext}}</span>
   <button class="w-100" mat-raised-button color="primary" type="submit" [disabled]="!dailog3Form.valid"><app-spinner name="mySpinner3" [(show)]="spinnerShowing"><i class="fa fa-spinner fa-spin"></i></app-spinner><mat-icon>publish</mat-icon> Save Changes</button>
- 
   </form>
 </div>
   </div>
@@ -512,8 +492,6 @@ export class Dialog2 implements OnInit {
 })
 export class Dialog3 implements OnInit {
   dailog3Form: FormGroup;
-  selected: string;
-  notifytext: string ='';
   emailFail: boolean;
   email: string;
   formErrors: FormErrors = {
@@ -564,8 +542,6 @@ export class Dialog3 implements OnInit {
  
   ngOnInit(){
     this.countries = this._countries.getCountries();
-   // this._countries.getCountries().subscribe(countries => { console.log(countries)});
-    this.selected = this.data.country;
     this.builddailog3Form();
     this.checkValidEmail();
   }
@@ -624,7 +600,7 @@ export class Dialog3 implements OnInit {
         }
       }
     }
-   checkValidEmail(){
+ checkValidEmail(){
     let EMAIL_REGEXP = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     if(EMAIL_REGEXP.test(this.data.email)){
       this.emailFail = false;
@@ -632,7 +608,7 @@ export class Dialog3 implements OnInit {
     } else {
       this.emailFail = true;
     }
-   }
+}
 
    get getemail(){
     return this.dailog3Form.value['email']
@@ -656,8 +632,6 @@ export class Dialog3 implements OnInit {
   <div class="card-block">
    <div class="info-upgrade">
       <div class="card-title h3"> <strong>{{data.username}}!</strong> We are humble to know you are thinking <br>of upgrading your account.</div> 
-
-
       <a class="w-100" mat-raised-button color="accent" routerLink="users/upgrade-plan">Click here to upgrade your account!</a>
    </div>
   </div>
@@ -705,9 +679,6 @@ export class Dialog4 implements OnInit {
   ngOnInit(){
  
   }
-
- 
-  
 }
 @Component({
   selector: 'dialog-header',
@@ -835,7 +806,7 @@ export class DialogHeader implements OnInit {
       ]
     });
     this.dailog4Form.valueChanges.subscribe((data) => this.onValueChanged(data));
-    this.onValueChanged(); // reset validation messages
+    this.onValueChanged(); 
   }
   
     onValueChanged(data?: any) {
@@ -880,9 +851,6 @@ export class DialogHeader implements OnInit {
     }
   }
 
-  getFileLater() {
-    console.log(this.file.nativeElement.files[0]);
-  }
 
   fileChanged(event) {
     this.file.nativeElement.disabled = true;
@@ -958,10 +926,7 @@ export class DialogHeader implements OnInit {
   
 })
 export class DialogTranc implements OnInit {
-  @ViewChild('file') file: ElementRef;
   trancForm: FormGroup;
-  selectedFiles: FileList | null;
-  currentUpload: Upload;
   formErrors: FormErrors = {
     'facebook': '',
     'twitter': '',
@@ -1068,11 +1033,7 @@ export class DialogTranc implements OnInit {
       this._deals.adddealerAddOn(this.data.uid, this.trancForm.value['service'], this.trancForm.value['means'],
       this.trancForm.value['period'], this.trancForm.value['countries']
     )
-  
-    }
-  
-
-
+  }
 }
 export const Dailog_Components = [
   Dialog1,

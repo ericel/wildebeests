@@ -2,7 +2,7 @@ import { ModuleWithProviders }  from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import {  HomeComponent } from './public/home/home.component';
 import { AboutComponent } from './public/about/about.component';
-import { AuthGuard } from './shared/core/auth/authguard/auth.guard';
+import { AuthGuard} from './shared/core/auth/authguard/auth.guard';
 import { LoginComponent } from './shared/components/signup/signup.component';
 import { SearchComponent, SearchMobileComponent } from './public/search/search.component'
 export const routes: Routes = [
@@ -27,7 +27,6 @@ export const routes: Routes = [
    path: 'search/mobile',
    component: SearchMobileComponent,
    pathMatch: 'full'
-   
   },
   {
    path: 'login',

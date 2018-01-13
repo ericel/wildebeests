@@ -131,19 +131,10 @@
                 </ng-template>
 
                 <ng-template #authenticated >
-                    <!--<app-spinner name="mySpinner" [(show)]="spinnerShowing" loadingImage="./assets/img/loader.gif"><h3>Loading...</h3></app-spinner> 
-                    <app-spinner name="mySpinner" [show]="spinnerShowing" (showChange)="spinnerShowing=$event" loadingImage="./assets/img/loader.gif"><h1>ddddd</h1></app-spinner>--> 
-                    <div fxLayout="column">
-                            <div class="header" fxLayout="row" fxLayoutAlign="space-between center">
-                                <h3>
-                                 sssss
-                                </h3>
-                            </div>
-                            <div fxLayout="row">
-                                <div class="left" fxFlex="20"> LEFT: 20% wide </div>
-                                <div class="right" fxFlex> RIGHT: 80% wide </div>
-                            </div>
-                          </div>
+                    <h2>{{user.displayName.username | ucfirst | shorten: 8: '..'}} Site Statistics</h2>
+                    <user-piechart *ngIf='_reviewGood && _reviewBad' [userId]='user.uid'
+                    [view]="user.view"
+                    [reviewBad]='_reviewBad' [reviewGood]='_reviewGood'></user-piechart>
                 </ng-template>
                 </div>
             </div>

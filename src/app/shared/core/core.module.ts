@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SkinModule } from './skin/skin.module';
 import { AuthService } from './auth/authservice/auth.service';
-import { AuthGuard } from './auth/authguard/auth.guard';
+import { AuthGuard} from './auth/authguard/auth.guard';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { NotifyService } from './notify/notify.service';

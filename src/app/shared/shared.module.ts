@@ -36,6 +36,7 @@ import { DealsService } from './services/deals/deals.service';
 import { ChartModule } from '@rijine/ngx-highcharts';
 import { HighchartsStatic } from '@rijine/ngx-highcharts/dist/services/highcharts.service';
 import * as highcharts from 'highcharts';
+import { UserPieChart } from '@modules/users/shared/user-piechart';
 
 export function highchartsFactory() {
   return highcharts;
@@ -77,7 +78,8 @@ export const SHARED_COMPONENTS = [
     VotingComponent,
     VotingComponent,
     ReadMoreComponent,
-    StarReviewComponent
+    StarReviewComponent,
+    UserPieChart
   ],
   exports: [
    WysiwygComponent,
@@ -100,7 +102,8 @@ export const SHARED_COMPONENTS = [
    ReadMoreComponent,
    IsotopeModule,
    StarReviewComponent,
-   ChartModule
+   ChartModule,
+   UserPieChart
 ],
 providers: [
   SpinnerService,

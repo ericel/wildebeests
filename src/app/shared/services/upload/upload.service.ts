@@ -36,7 +36,6 @@ export class UploadService {
 
 
   pushUpload(uid, upload: Upload) {
-    console.log(upload);
     const uploadTask = this.storageRef.child(`${this.basePath}/${uid}/user-avatar`).put(upload.file);
 
     uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED,
@@ -52,7 +51,6 @@ export class UploadService {
       () => {
         // upload success
         if (uploadTask.snapshot.downloadURL && uploadTask.snapshot.state==='success') {
-          console.log(uploadTask.snapshot)
           upload.url = uploadTask.snapshot.downloadURL;
           upload.name = upload.file.name;
            this.updateUserAvatar(uid, upload);
