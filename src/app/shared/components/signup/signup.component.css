@@ -1,6 +1,4 @@
-.header-01 {
-    background:url('./../../../../assets/img/business-lising.jpg') repeat; background-attachment:fixed;
-}
+
 .header-2 {
     padding: 40px 0;
     margin-top: 60px;
@@ -155,10 +153,4 @@
 .y-ul-1 li {
     font-size: 1.5em;
     padding: 5px 0;
-}
-.acpt-1 {
-    height: 100px;
-    background: #00897b;
-    text-align: center;
-    line-height: 100px;
 }

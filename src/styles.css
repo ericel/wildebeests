@@ -231,3 +231,9 @@ ul.no-padding {
     display: hidden !important;
     content: '';
 }
+.acpt-1 {
+    height: 100px;
+    background: #00897b;
+    text-align: center;
+    line-height: 100px;
+}

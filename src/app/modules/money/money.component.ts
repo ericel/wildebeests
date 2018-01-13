@@ -16,7 +16,7 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
         animate(1000, style({ height: 0, opacity: 0 }))
       ]),
       transition('void => *', [
-        style({ height: 0, opacity: 0 }),
+        style({ height: 0, opacity: 0.6 }),
         animate(1000, style({ height: '*', opacity: 1 }))
       ])
     ])

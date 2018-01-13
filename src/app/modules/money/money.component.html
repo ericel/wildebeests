@@ -1,100 +1,118 @@
 <ng-container>
   <main class="main">
-    <div class="header-1 primary-bg" @shrinkOut>
-      <div class="header-1-0">
+      <div class="header-1-0" @shrinkOut>
         <div class="container">
-         
-        <div class="alert alert-warning alert-dismissible fade show mar-30" role="alert">
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-            <strong>Holy guacamole!</strong> Are you sending today from <strong class="primary-text">Australia</strong>
-          </div>
-          <div class="alert alert-info">
-          <form>
-            <div class="row mar-30">
-              <div class="col-md-3">
-                <mat-card>
-                    <div class="form-group">
-                        <label for="exampleSelect1">Sender Country</label>
-                        <select class="form-control form-control-lg" id="exampleSelect1">
-                          <option>1</option>
-                          <option>2</option>
-                          <option>3</option>
-                          <option>4</option>
-                          <option>5</option>
-                        </select>
+          <div class="row">
+            <div class="col-md-6">
+                <h1 class="title h2">
+                    Send money to your love ones back home. No more Huge bank charges.<br>
+                    Deal directly with the your own people, the people you trusth.<br> #TODO : Table with dollar sells in countries.
+                </h1>
+            </div>
+            <div class="col-md-6"><!-- hshs -->
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                    <strong>Holy guacamole!</strong> Are you sending today from <strong class="primary-text">Australia</strong>
+                  </div>
+                  <div class="alert alert-info">
+                  <form>
+                      <mat-card>
+                          <div class="form-group">
+                              <label for="exampleSelect1">Sender Country</label>
+                              <select class="form-control form-control-lg" id="exampleSelect1">
+                                <option>1</option>
+                                <option>2</option>
+                                <option>3</option>
+                                <option>4</option>
+                                <option>5</option>
+                              </select>
+                            </div>
+                      </mat-card>
+                    <!--<div class="row mar-30">
+                      <div class="col-md-3">
+                        <mat-card>
+                            <div class="form-group">
+                                <label for="exampleSelect1">Sender Country</label>
+                                <select class="form-control form-control-lg" id="exampleSelect1">
+                                  <option>1</option>
+                                  <option>2</option>
+                                  <option>3</option>
+                                  <option>4</option>
+                                  <option>5</option>
+                                </select>
+                              </div>
+                        </mat-card>
                       </div>
-                </mat-card>
-              </div>
-              <div class="col-md-3">
-                <mat-card>
-                    <div class="form-group">
-                        <label for="exampleInputEmail1">Amount to send</label>
-                    
-                    <div class="input-group">
-                        <span class="input-group-addon">$</span>
-                        <input type="text" class="form-control form-control-lg" aria-label="Amount (to the nearest dollar)" value="10">
-                        <span class="input-group-addon">.00</span>
+                      <div class="col-md-3">
+                        <mat-card>
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Amount to send</label>
+                            
+                            <div class="input-group">
+                                <span class="input-group-addon">$</span>
+                                <input type="text" class="form-control form-control-lg" aria-label="Amount (to the nearest dollar)" value="10">
+                                <span class="input-group-addon">.00</span>
+                              </div>
+                            </div>
+                        </mat-card>
+                      </div>
+                      <div class="col-md-3">
+                        <mat-card>
+                            <div class="form-group">
+                                <label for="exampleSelect1">Receiver Country</label>
+                                <select class="form-control form-control-lg" id="exampleSelect1">
+                                  <option>1</option>
+                                  <option>2</option>
+                                  <option>3</option>
+                                  <option>4</option>
+                                  <option>5</option>
+                                </select>
+                              </div>
+                        </mat-card>
+                        </div>
+                      
+                      <div class="col-md-3">
+                        <mat-card>
+                            <div class="form-group">
+                                <label for="exampleSelect1">Receiver currency</label>
+                                <select class="form-control form-control-lg" id="exampleSelect1">
+                                  <option>1</option>
+                                  <option>2</option>
+                                  <option>3</option>
+                                  <option>4</option>
+                                  <option>5</option>
+                                </select>
+                              </div>
+                        </mat-card>
                       </div>
                     </div>
-                </mat-card>
-              </div>
-              <div class="col-md-3">
-                <mat-card>
-                    <div class="form-group">
-                        <label for="exampleSelect1">Receiver Country</label>
-                        <select class="form-control form-control-lg" id="exampleSelect1">
-                          <option>1</option>
-                          <option>2</option>
-                          <option>3</option>
-                          <option>4</option>
-                          <option>5</option>
-                        </select>
+                    <div class="row">
+                      <div class="col-md-12">
+                          <div class="alert alert-success" role="alert">
+                              <p>
+                                  <strong class="alert-heading">Sender!</strong>
+                                As of today <strong>$10</strong> sells for <strong>3849 frs </strong> in Cameroon.
+                              </p>
+                              <p class="mb-0">Find the dealers with the best terms. Dealers decide what percentage they take.</p>
+                           </div>
                       </div>
-                </mat-card>
-                </div>
-              
-              <div class="col-md-3">
-                <mat-card>
-                    <div class="form-group">
-                        <label for="exampleSelect1">Receiver currency</label>
-                        <select class="form-control form-control-lg" id="exampleSelect1">
-                          <option>1</option>
-                          <option>2</option>
-                          <option>3</option>
-                          <option>4</option>
-                          <option>5</option>
-                        </select>
+                      <div class="col-md-12">
+                          <button mat-raised-button color="primary" class="btn-100 padding-30"><mat-icon>search</mat-icon> Find Dealers</button>
                       </div>
-                </mat-card>
-              </div>
+                    </div>-->
+              </form>
             </div>
-            <div class="row">
-              <div class="col-md-6">
-                  <div class="alert alert-success" role="alert">
-                      <p>
-                          <strong class="alert-heading">Sender!</strong>
-                        As of today <strong>$10</strong> sells for <strong>3849 frs </strong> in Cameroon.
-                      </p>
-                      <p class="mb-0">Find the dealers with the best terms. Dealers decide what percentage they take.</p>
-                   </div>
-              </div>
-              <div class="col-md-6">
-                  <button mat-raised-button color="primary" class="btn-100 padding-30"><mat-icon>search</mat-icon> Find Dealers</button>
-              </div>
+              </div><!-- hshs -->
             </div>
-      </form>
-    </div>
+          </div>
+       </div>
+      <div class="w-100 acpt-1">
+        <div class="container">
+            <img src="./assets/assets/payment.png" alt="Sending methods">
         </div>
-      </div>
-    </div>
-    <div class="container">
-      <h2>
-        Send money to your love ones back home. No more Huge bank charges.<br>
-        Deal directly with the your own people, the people you trusth.<br> #TODO : Table with dollar sells in countries.
-    </h2>
-    </div>
+     </div>
 
     <div class="container">
        <div class="row mar-30">

@@ -1,10 +1,11 @@
-.header-1 {
-    /*background:url('./../../../../assets/img/business-lising.jpg') repeat; background-attachment:fixed;*/
-}
+
 .header-1-0{
     padding: 40px 0;
     width: 100%;
-    /*background: rgba(7, 7, 7, 0.788) !important;*/
+    background: #00897b;
+    background: url('./../../../assets/assets/trans-banner.png');
+    background-blend-mode: color;
+    background-size: cover;
     color: #fff;
   
 }
